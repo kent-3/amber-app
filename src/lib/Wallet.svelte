@@ -2,9 +2,11 @@
 	import { onMount } from 'svelte'
 	import { fade } from 'svelte/transition'
 	import { setupKeplr, getKeplrViewingKey, disconnectKeplr } from '$lib/keplr'
+	import { disconnectMetamask, setupMetamask } from '$lib/metamask'
+	import { connectLedger, getLedgerAddress } from '$lib/ledger'
 	import { chains } from '$lib/config'
     import { AMBER } from '$lib/contracts'
-	import { type Token, tokenList } from '$lib/tokens'
+	import { type Token, tokenList, type SecretAddress } from '$lib/tokens'
 	import { compactAddress } from '$lib/utils'
 	import {
 		resetStores,
@@ -12,12 +14,38 @@
 		scrtBalance,
 		isAccountAvailable,
 		keplrKey,
+		secretAddress,
 		secretClient,
 		viewingKeys,
 	} from '$lib/stores'
 	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
-	import amber_nugget from '$lib/images/stickers/ambernugget-half.webp'
+	import amber_nugget from '$lib/images/stickers/ambernugget-half.webp';
+	import amber_pope from '$lib/images/stickers/amber-pope.webp'
+	import createLogo from '@metamask/logo'
+
+	// To render with fixed dimensions:
+	const viewer = createLogo({
+		// Dictates whether width & height are px or multiplied
+		pxNotRatio: true,
+		width: 50,
+		height: 50,
+		// pxNotRatio: false,
+		// width: 0.1,
+		// height: 0.1,
+
+		// To make the face follow the mouse.
+		followMouse: true,
+
+		// head should slowly drift (overrides lookAt)
+		slowDrift: false,
+	});
+
+	const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/.test(navigator.userAgent)
+
+	// if (mobile) {
+	// 	viewer.setFollowMouse(false);
+	// }
 
 	let popupSettings: PopupSettings = {
 		// Set the event as: click | hover | hover-click
@@ -28,14 +56,24 @@
 		closeQuery: '.btn',
 	};
 
+	let metamaskSettings: PopupSettings = {
+		// Set the event as: click | hover | hover-click
+		event: 'click',
+		placement: 'bottom-end',
+		// Provide a matching 'data-popup' value.
+		target: 'walletMenu-MM',
+		closeQuery: '.btn',
+	};
+
 	const alert: ModalSettings = {
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		image: amber_nugget,
+		image: amber_pope,
 		buttonTextCancel: 'OK'
 	};
 
+	// TODO combine these two triggers
 	function triggerConfirm(): void {
 		const confirm: ModalSettings = {
 			type: 'confirm',
@@ -44,6 +82,20 @@
 			modalClasses: 'variant-ghost-primary',
 			// TRUE if confirm pressed, FALSE if cancel pressed
 			response: (r: boolean) => {if (r) {disconnectKeplr()}},
+			// Optionally override the button text
+			buttonTextCancel: 'Cancel',
+			buttonTextConfirm: 'Disconnect',
+		};
+		modalStore.trigger(confirm);
+	}
+	function triggerConfirmMetamask(): void {
+		const confirm: ModalSettings = {
+			type: 'confirm',
+			title: 'Please Confirm',
+			body: 'Are you sure you wish to proceed?',
+			modalClasses: 'variant-ghost-primary',
+			// TRUE if confirm pressed, FALSE if cancel pressed
+			response: (r: boolean) => {if (r) {disconnectMetamask()}},
 			// Optionally override the button text
 			buttonTextCancel: 'Cancel',
 			buttonTextConfirm: 'Disconnect',
@@ -67,6 +119,12 @@
 			await resetStores()
 			await connect()
 		})
+		// add viewer to DOM
+		if (!mobile) {
+			const container = document.getElementById('logo-container')!;
+			container.appendChild(viewer.container);
+		}
+
 		// TODO check if account is already available to update the button state
 	})
 
@@ -75,6 +133,27 @@
 		await setupKeplr()
 		await getViewingKeys(tokenList)
 		await getBalances()
+	}
+
+	async function connectMetamask() {
+		// resetStores()
+		await setupMetamask()
+		// await getViewingKeys(tokenList)
+		await getBalances()
+	}
+
+	async function setupLedger() {
+		try {
+			await connectLedger()
+		} catch (error) {
+			console.log(error)
+		}
+		try {
+			const address = await getLedgerAddress('usb')
+			console.log(address)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	async function getViewingKeys(tokens:Token[]) {
@@ -89,7 +168,7 @@
 	async function getBalances() {
 		try {
 			const response = await $secretClient.query.bank.balance({
-				address: $secretClient.address,
+				address: $secretAddress,
 				denom: 'uscrt'
 			})
 			$scrtBalance = Number((response.balance?.amount as any) / 1e6).toString()
@@ -103,7 +182,7 @@
 					address: AMBER.address,
 					code_hash: AMBER.code_hash
 				},
-				address: $secretClient.address,
+				address: $secretAddress,
 				auth: {
 					key: $viewingKeys.get(AMBER.address)
 				}
@@ -156,6 +235,29 @@
 	<!-- <div class="arrow bg-surface-800" /> -->
 </div>
 
+<div
+	class="card p-4 w-64 shadow-2xl rounded-2xl"
+	data-popup="walletMenu-MM"
+>
+	<div class="text-center space-y-4">
+		<p class="text-center font-extrabold drop-shadow-md">
+			[ metamask ]
+		</p>
+		<hr class="!border-t-2" />
+		<p class="font-bold font-mono text-primary-500">{$scrtBalance} SCRT<br/>{$amberBalance} AMBER</p>
+		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
+		<button
+			on:click={()=>triggerConfirmMetamask()}
+			on:keypress={()=>triggerConfirmMetamask()}
+			class="btn btn-sm px-8 variant-ghost-primary"
+		>
+			Disconnect
+		</button>
+	</div>
+	<!-- Append the arrow element -->
+	<!-- <div class="arrow bg-surface-800" /> -->
+</div>
+
 <div class="flex flex-row-reverse flex-nowrap md:gap-4 items-center">
 	<!-- Alternate method for different button states -->
 	<!-- <button 
@@ -169,7 +271,7 @@
 			class="btn variant-ghost-secondary"
 			use:popup={popupSettings}
 		>
-			{compactAddress($keplrKey.bech32Address)}
+			{compactAddress($secretAddress)}
 		</button>
 	{:else}
 		<button 
@@ -185,4 +287,17 @@
 			[ {$keplrKey.name} ]
 		</div>
 	{/if}
+	<div 
+		id="logo-container" class="btn p-0"
+		use:popup={metamaskSettings} 
+		on:click={() => connectMetamask()}
+		on:keypress={() => connectMetamask()}
+	/>
+	<!-- <div
+		id="ledger-container" class="btn p-0"
+		on:click={() => setupLedger()}
+		on:keypress={() => setupLedger()}
+	>
+		[ LEDGER ]
+	</div> -->
 </div>

@@ -21,14 +21,14 @@
 	let commission: string
 
 	onMount( async ()=> {
-		const scrtPrice = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=secret&vs_currencies=usd')
 		const validatorResponse = await secretjs.query.staking.validator({validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6'})
-		const validatorDelegationsResponse = await secretjs.query.staking.validatorDelegations({validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6', pagination: {limit:'1', count_total: true}})
-		const scrt = Math.round(parseInt(validatorResponse.validator?.tokens ?? "0") / 1000000 )
-		stakeValue = formatter.format(scrt * scrtPrice.data.secret.usd),
-		votingPower = Math.round(parseInt(validatorResponse.validator?.tokens ?? "0") / 1000000).toLocaleString(),
-		delegators = parseInt(validatorDelegationsResponse.pagination?.total ?? "0").toLocaleString(),
 		commission = (parseFloat(validatorResponse.validator?.commission?.commission_rates?.rate ?? "0.03")	 * 100).toString() + "%"
+		const scrt = Math.round(parseInt(validatorResponse.validator?.tokens ?? "500000") / 1000000 )
+		votingPower = scrt.toLocaleString()
+		const scrtPrice = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=secret&vs_currencies=usd')
+		stakeValue = formatter.format(scrt * scrtPrice.data.secret.usd)
+		const validatorDelegationsResponse = await secretjs.query.staking.validatorDelegations({validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6', pagination: {limit:'1', count_total: true}})
+		delegators = parseInt(validatorDelegationsResponse.pagination?.total ?? "1925").toLocaleString()
 	})
     // export let data: PageData;
 </script>

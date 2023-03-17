@@ -41,7 +41,17 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@cosmjs/crypto": "^0.30.0",
+		"@cosmjs/encoding": "^0.30.0",
+		"@cosmjs/ledger-amino": "^0.30.0",
 		"@floating-ui/dom": "^1.2.3",
-		"highlight.js": "^11.7.0"
+		"@ledgerhq/hw-transport-web-ble": "^6.27.12",
+		"@ledgerhq/hw-transport-webusb": "^6.27.12",
+		"@metamask/logo": "^3.1.1",
+		"@tharsis/address-converter": "^0.1.8",
+		"highlight.js": "^11.7.0",
+		"ledger-cosmos-js": "^2.1.8",
+		"ripemd160": "^2.0.2",
+		"vite-plugin-node-polyfills": "^0.7.0"
 	}
 }

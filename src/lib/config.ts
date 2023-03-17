@@ -35,6 +35,7 @@ export const chains: { [chain_name: string]: Chain } = {
 		chain_id: 'secret-4',
 		bech32_prefix: 'secret',
 		lcd: 'https://lcd.secret.express',
+		// lcd: 'https://lcd.mainnet.secretsaturn.net',
 		rpc: 'https://rpc.secret.express', // gRPC-web
 		chain_image: '/scrt.svg',
 		explorer_account: 'https://www.mintscan.io/secret/account/'

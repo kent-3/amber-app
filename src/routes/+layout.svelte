@@ -1,31 +1,45 @@
 <script lang="ts">
+
+	import { base } from '$app/paths'
+	import Wallet from '$lib/Wallet.svelte';
+	import { writable, type Writable } from 'svelte/store';
+
 	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-	import '../theme.postcss'
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	import '../theme.postcss'
 	import { AppShell, AppBar, AppRail, AppRailTile, Modal } from '@skeletonlabs/skeleton';
+
+	// imports for code block highlighting
+	import { storeHighlightJs } from '@skeletonlabs/skeleton';
 	import hljs from 'highlight.js';
-	// import 'highlight.js/styles/github-dark.css';
 	import 'highlight.js/styles/nord.css';
+	// import 'highlight.js/styles/github-dark.css';
 	// import 'highlight.js/styles/atom-one-dark.css';
 	// import 'highlight.js/styles/vs2015.css';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
-	import { base } from '$app/paths'
-	import logo from '$lib/images/amber-logo.png'
-	import scrt from '$lib/images/scrt.svg'
-	import Wallet from '$lib/Wallet.svelte';
-	import { amberBalance, scrtBalance, isAccountAvailable } from '$lib/stores'
-	import { writable, type Writable } from 'svelte/store';
-	import { chains } from '$lib/config';
+
+	// imports for popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	
+	// image assets
+	import logo from '$lib/images/amber-logo.png'
+	// import scrt from '$lib/images/scrt.svg'
+	import amber_pope from '$lib/images/stickers/amber-pope.webp'
+	import { isAccountAvailable, secretAddress, secretClient, scrtBalance, amberBalance } from '$lib/stores'
+	import { chains } from '$lib/config';
 	import { popup, storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
 	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
-	import amber_nugget from '$lib/images/stickers/ambernugget-half.webp'
+	// TODO idea - have a way to see dismissed toasts (keep a log of ~12 toasts)
+	import { Toast, toastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
 
+	// testing
+	// import { testBatchQuery } from '$lib/tests-secret';
+	
 	storeHighlightJs.set(hljs);
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
+	
 	let popupSettings: PopupSettings = {
 		// Set the event as: click | hover | hover-click
 		event: 'hover',
@@ -45,19 +59,29 @@
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		image: amber_nugget,
+		image: amber_pope,
 		buttonTextCancel: 'OK'
 	};
+
+	const alert_toast: ToastSettings = {
+		message: 'Transaction Error: ',
+		background: 'variant-filled-warning',
+		autohide: false
+	}
 	
 	const storeValue: Writable<number> = writable(1);
+	// uncomment for testing
+	// $: poor = false
 	$: poor = !(Number($amberBalance as any) > 1)
 
 	function debug() {
-		
+		// testBatchQuery()
 	}
 
 </script>
 
+<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon variant-glass-surface" buttonAction="btn btm-sm variant-filled"/>
+<Modal width="" />
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <Drawer>
@@ -103,16 +127,16 @@
 				</a>
 				<a href="{base}/" class="btn">
 					<div class="flex items-center space-x-4">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
-						<path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
-						<path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
-					</svg>
-					<h2 class="font-bold">Stake</h2>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+							<path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
+							<path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
+						</svg>
+						<h2 class="font-bold">Stake</h2>
 				</div>
 				</a>
 				<a href="{base}/secret" class="btn">
 					<div class="flex items-center space-x-4">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+						<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
 						</svg>
 						<h2 class="font-bold">Query</h2>
@@ -150,7 +174,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img class="h-12 hidden sm:block" src={logo} alt="AmberDAO" />
+					<img class="h-10 hidden sm:block" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
 					<strong class="text-xl uppercase">AmberDAO</strong>
@@ -280,5 +304,4 @@
 			</code>
 		</div>
 	</svelte:fragment>
-	<Modal width=""/>
 </AppShell>

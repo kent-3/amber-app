@@ -1,13 +1,13 @@
 <script lang="ts">
     import { clipboard, popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
-	import type { Token } from '$lib/tokens'
+	import type { Token, SecretAddress } from '$lib/tokens'
     import { setKeplrViewingKey } from '$lib/keplr'
-	import { tokenStore, viewingKeys } from '$lib/stores'
+	import { setMetamaskViewingKey } from '$lib/metamask';
+	import { tokenStore, viewingKeys, secretClient, secretAddress } from '$lib/stores'
     
-    export let data: PageData;
-
-	console.log(data.test)
+    // export let data: PageData;
+	// console.log(data.test)
 
 	let popupSettings: PopupSettings = {
 		// Set the event as: click | hover | hover-click
@@ -17,6 +17,7 @@
 		target: 'examplePopup'
 	};
 
+	let metamask = true
 
     let tokens: Token[]
 	tokenStore.subscribe((value) => {
@@ -57,11 +58,22 @@
                         </button>
                     </p>
 				{:else}
+					<!-- TODO work out better solution for this since metamask doesn't truly disconnect -->
+					{#if metamask}
+					<p>
+                        {token.symbol}: 
+                        <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setMetamaskViewingKey(token.address)}>
+							Create Viewing Key
+						</button>
+					</p>
+					{:else}
                     <p>
                         {token.symbol}: 
                         <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setKeplrViewingKey(token.address)}>
-                        Create Viewing Key
-                    </button>
+							Create Viewing Key
+						</button>
+					</p>
+					{/if}
 				{/if}
 			{/each}
 		{/key}
