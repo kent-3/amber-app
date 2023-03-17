@@ -59,21 +59,21 @@
                     </p>
 				{:else}
 					<!-- TODO work out better solution for this since metamask doesn't truly disconnect -->
-					{#if metamask}
+					<!-- {#if metamask}
 					<p>
                         {token.symbol}: 
                         <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setMetamaskViewingKey(token.address)}>
 							Create Viewing Key
 						</button>
-					</p>
-					{:else}
+					</p> -->
+					<!-- {:else} -->
                     <p>
                         {token.symbol}: 
                         <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setKeplrViewingKey(token.address)}>
 							Create Viewing Key
 						</button>
 					</p>
-					{/if}
+					<!-- {/if} -->
 				{/if}
 			{/each}
 		{/key}
