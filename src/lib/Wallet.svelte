@@ -20,32 +20,27 @@
 	} from '$lib/stores'
 	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
-	import amber_nugget from '$lib/images/stickers/ambernugget-half.webp';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import amber_pope from '$lib/images/stickers/amber-pope.webp'
 	import createLogo from '@metamask/logo'
 
-	// To render with fixed dimensions:
+	// TODO implement a modal that displays details of the message before requesting signature
+
 	const viewer = createLogo({
-		// Dictates whether width & height are px or multiplied
 		pxNotRatio: true,
 		width: 50,
 		height: 50,
-		// pxNotRatio: false,
-		// width: 0.1,
-		// height: 0.1,
-
-		// To make the face follow the mouse.
-		followMouse: true,
-
-		// head should slowly drift (overrides lookAt)
+		followMouse: false,
 		slowDrift: false,
 	});
 
+	// TODO control implement wallet choice modal on click connect button
+	// TODO display metamask logo based on screen size not this weird userAgent thing
 	const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/.test(navigator.userAgent)
 
-	// if (mobile) {
-	// 	viewer.setFollowMouse(false);
-	// }
+	if (mobile) {
+		viewer.setFollowMouse(false);
+	}
 
 	let popupSettings: PopupSettings = {
 		// Set the event as: click | hover | hover-click
@@ -79,7 +74,7 @@
 			type: 'confirm',
 			title: 'Please Confirm',
 			body: 'Are you sure you wish to proceed?',
-			modalClasses: 'variant-ghost-primary',
+			modalClasses: 'ring-secondary-500 ring-1',
 			// TRUE if confirm pressed, FALSE if cancel pressed
 			response: (r: boolean) => {if (r) {disconnectKeplr()}},
 			// Optionally override the button text
@@ -189,7 +184,7 @@
 			})
 			$amberBalance = Number((snip20Response.balance.amount as any) / 1e6).toString()
 		} catch (error) {
-			console.log(`No viewing key for AMBER`)
+			// console.log(`No viewing key for AMBER`)
 		}
 		// save this problem for later...
 		// for (const token of tokenList) {
@@ -221,12 +216,12 @@
 			[ {$keplrKey.name} ]
 		</p>
 		<hr class="!border-t-2" />
-		<p class="font-bold font-mono text-primary-500">{$scrtBalance} SCRT<br/>{$amberBalance} AMBER</p>
+		<p class="font-bold font-mono text-secondary-600 dark:text-primary-500">{$scrtBalance} SCRT<br/>{$amberBalance} AMBER</p>
 		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
 		<button
 			on:click={()=>triggerConfirm()}
 			on:keypress={()=>triggerConfirm()}
-			class="btn btn-sm px-8 variant-ghost-primary"
+			class="btn btn-sm px-8 variant-ghost-secondary"
 		>
 			Disconnect
 		</button>
@@ -244,12 +239,12 @@
 			[ metamask ]
 		</p>
 		<hr class="!border-t-2" />
-		<p class="font-bold font-mono text-primary-500">{$scrtBalance} SCRT<br/>{$amberBalance} AMBER</p>
+		<p class="font-bold font-mono text-secondary-600 dark:text-primary-500">{$scrtBalance} SCRT<br/>{$amberBalance} AMBER</p>
 		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
 		<button
 			on:click={()=>triggerConfirmMetamask()}
 			on:keypress={()=>triggerConfirmMetamask()}
-			class="btn btn-sm px-8 variant-ghost-primary"
+			class="btn btn-sm px-8 variant-ghost-secondary"
 		>
 			Disconnect
 		</button>
@@ -283,7 +278,7 @@
 		</button>
 	{/if}
 	{#if $keplrKey.name != ""}
-		<div in:fade class="hidden lg:block text-secondary-400 font-bold ease-in duration-500">
+		<div in:fade class="hidden lg:block text-secondary-500-400-token font-bold ease-in duration-300">
 			[ {$keplrKey.name} ]
 		</div>
 	{/if}

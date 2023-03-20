@@ -1,7 +1,10 @@
 <script lang="ts">
     import { CodeBlock } from '@skeletonlabs/skeleton';
     import { AMBER } from '$lib/contracts'
-    import { secretClient } from '$lib/stores'
+    import { apiUrl, secretClient } from '$lib/stores'
+	import { onMount } from 'svelte';
+	import { SecretNetworkClient } from 'secretjs';
+	import type { ConfigResponse } from 'secretjs/dist/grpc_gateway/cosmos/base/node/v1beta1/query.pb';
 
     let response: string
 
@@ -45,10 +48,76 @@
             }) as TokenConfigResponse
         response = JSON.stringify(r1, null, 2) + ",\n" + JSON.stringify(r2, null, 2) + ",\n" + JSON.stringify(r3, null, 2)
     }
+
+    const balanceFormat = new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 6,
+    }).format;
+
+    const refreshNodeStatus = async (
+            querySecretjs: SecretNetworkClient,
+            showLoading: boolean
+        ) => {
+            try {
+                const { block } = await querySecretjs.query.tendermint.getLatestBlock({});
+                let minimum_gas_price: string | undefined;
+                try {
+                    ({ minimum_gas_price } = await querySecretjs.query.node.config({}));
+                } catch (error) {
+                    // Bug on most chains - this endpoint isn't connected
+                }
+
+                // const { params } = await querySecretjs.query.staking.params({});
+                // setDenom(params!.bond_denom!);
+
+                const chainId = block?.header?.chain_id!;
+                // setChainId(chainId);
+
+                const blockHeight = balanceFormat(Number(block?.header?.height));
+                console.log(blockHeight)
+
+                let gasPrice: string | undefined;
+                if (minimum_gas_price) {
+                    gasPrice = minimum_gas_price.replace(/0*([a-z]+)$/, "$1");
+                }
+
+                const blockTimeAgo = Math.floor(
+                    (Date.now() - Date.parse(block?.header?.time as string)) / 1000
+                );
+                let blockTimeAgoString = `${blockTimeAgo}s ago`;
+                if (blockTimeAgo <= 0) {
+                    blockTimeAgoString = "now";
+                }
+
+            } catch (error) {
+                let errorMessage: string;
+                if (error instanceof Error) {
+                    errorMessage = error.message;
+                } else {
+                    errorMessage = JSON.stringify(error);
+                }
+            }
+        };
+
+	onMount(()=> {
+		const interval = setInterval(() => {
+
+        const secretjs = new SecretNetworkClient({
+            url: $apiUrl,
+            chainId: ""
+        })
+        
+        refreshNodeStatus(secretjs, false);
+
+		}, 10000);
+
+		// Clean up the interval when the component unmounts
+		return () => clearInterval(interval);
+	})
 </script>
 
 <div class="container h-full flex flex-col sm:flex-row gap-4 p-4 sm:items-start">
-    <div class="card variant-ghost-surface flex flex-col p-4 space-y-2 text-left">
+    <div class="card variant-glass-surface flex flex-col p-4 space-y-2 text-left">
         <button 
             class="btn variant-filled-secondary"
             on:click={()=>getLatestBlock()}

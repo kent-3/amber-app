@@ -1938,8 +1938,14 @@ a.card:hover {
 .bottom-0 {
   bottom: 0px;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
 .left-0 {
   left: 0px;
+}
+.left-4 {
+  left: 1rem;
 }
 .right-0 {
   right: 0px;
@@ -2059,6 +2065,9 @@ a.card:hover {
 .max-h-\[200px\] {
   max-height: 200px;
 }
+.max-h-\[400px\] {
+  max-height: 400px;
+}
 .w-0 {
   width: 0px;
 }
@@ -2076,6 +2085,9 @@ a.card:hover {
 }
 .w-3 {
   width: 0.75rem;
+}
+.w-40 {
+  width: 10rem;
 }
 .w-5 {
   width: 1.25rem;
@@ -2181,17 +2193,26 @@ a.card:hover {
 .cursor-pointer {
   cursor: pointer;
 }
+.\!scroll-m-1 {
+  scroll-margin: 0.25rem !important;
+}
 .list-none {
   list-style-type: none;
 }
 .grid-cols-\[5rem_minmax\(0\2c _2fr\)\] {
   grid-template-columns: 5rem minmax(0, 2fr);
 }
+.grid-cols-\[6rem_minmax\(0\2c _2fr\)\] {
+  grid-template-columns: 6rem minmax(0, 2fr);
+}
 .grid-cols-\[auto_1fr_auto\] {
   grid-template-columns: auto 1fr auto;
 }
 .grid-rows-\[auto_1fr_auto\] {
   grid-template-rows: auto 1fr auto;
+}
+.flex-row {
+  flex-direction: row;
 }
 .flex-row-reverse {
   flex-direction: row-reverse;
@@ -2301,6 +2322,9 @@ a.card:hover {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.\!whitespace-pre {
+  white-space: pre !important;
+}
 .whitespace-pre-wrap {
   white-space: pre-wrap;
 }
@@ -2366,9 +2390,8 @@ a.card:hover {
 .bg-neutral-900\/90 {
   background-color: rgb(23 23 23 / 0.9);
 }
-.bg-secondary-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--color-secondary-800) / var(--tw-bg-opacity));
+.bg-secondary-500\/30 {
+  background-color: rgb(var(--color-secondary-500) / 0.3);
 }
 .bg-surface-400 {
   --tw-bg-opacity: 1;
@@ -2396,14 +2419,14 @@ a.card:hover {
 .bg-white\/75 {
   background-color: rgb(255 255 255 / 0.75);
 }
+.\!bg-opacity-40 {
+  --tw-bg-opacity: 0.4 !important;
+}
 .\!bg-opacity-50 {
   --tw-bg-opacity: 0.5 !important;
 }
-.bg-opacity-75 {
-  --tw-bg-opacity: 0.75;
-}
-.bg-secret-swirl {
-  background-image: url('/secret-swirl.png');
+.bg-secret-swirl-light {
+  background-image: url('/secret-swirl-light.png');
 }
 .bg-cover {
   background-size: cover;
@@ -2462,6 +2485,10 @@ a.card:hover {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -2503,6 +2530,10 @@ a.card:hover {
 }
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.\!text-xs {
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -2547,6 +2578,10 @@ a.card:hover {
 .tracking-widest {
   letter-spacing: 0.1em;
 }
+.\!text-primary-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(var(--color-primary-500) / var(--tw-text-opacity)) !important;
+}
 .\!text-white {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
@@ -2554,10 +2589,6 @@ a.card:hover {
 .text-error-500 {
   --tw-text-opacity: 1;
   color: rgb(var(--color-error-500) / var(--tw-text-opacity));
-}
-.text-neutral-400 {
-  --tw-text-opacity: 1;
-  color: rgb(163 163 163 / var(--tw-text-opacity));
 }
 .text-primary-500 {
   --tw-text-opacity: 1;
@@ -2571,13 +2602,25 @@ a.card:hover {
   --tw-text-opacity: 1;
   color: rgb(var(--color-secondary-400) / var(--tw-text-opacity));
 }
+.text-secondary-600 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-secondary-600) / var(--tw-text-opacity));
+}
+.text-secondary-700 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));
+}
+.text-secondary-800 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-secondary-800) / var(--tw-text-opacity));
+}
 .text-surface-50 {
   --tw-text-opacity: 1;
   color: rgb(var(--color-surface-50) / var(--tw-text-opacity));
 }
-.text-tertiary-500 {
+.text-tertiary-600 {
   --tw-text-opacity: 1;
-  color: rgb(var(--color-tertiary-500) / var(--tw-text-opacity));
+  color: rgb(var(--color-tertiary-600) / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -2585,6 +2628,9 @@ a.card:hover {
 }
 .text-white\/50 {
   color: rgb(255 255 255 / 0.5);
+}
+.underline {
+  text-decoration-line: underline;
 }
 .accent-secondary-500 {
   accent-color: rgb(var(--color-secondary-500) / 1);
@@ -2675,6 +2721,10 @@ a.card:hover {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(var(--color-success-800) / var(--tw-ring-opacity));
 }
+.ring-surface-500 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(var(--color-surface-500) / var(--tw-ring-opacity));
+}
 .ring-surface-500\/30 {
   --tw-ring-color: rgb(var(--color-surface-500) / 0.3);
 }
@@ -2729,9 +2779,6 @@ a.card:hover {
 .duration-300 {
   transition-duration: 300ms;
 }
-.duration-500 {
-  transition-duration: 500ms;
-}
 .duration-\[200ms\] {
   transition-duration: 200ms;
 }
@@ -2781,6 +2828,11 @@ a.card:hover {
 }
 .dark .bg-secondary-backdrop-token {
   background-color: rgb(var(--color-secondary-900) / 0.7);
+}
+.bg-secondary-active-token {
+  background-color: rgb(var(--color-secondary-500)) !important;
+  color: rgb(var(--on-secondary));
+  fill: rgb(var(--on-secondary));
 }
 .dark .bg-secondary-50-900-token {
   background-color: rgb(var(--color-secondary-900));
@@ -2949,6 +3001,9 @@ a.card:hover {
 }
 .dark .bg-surface-backdrop-token {
   background-color: rgb(var(--color-surface-900) / 0.7);
+}
+.bg-surface-50-900-token {
+  background-color: rgb(var(--color-surface-50));
 }
 .dark .bg-surface-50-900-token {
   background-color: rgb(var(--color-surface-900));
@@ -3297,6 +3352,9 @@ a.card:hover {
 }
 .dark .text-secondary-600-300-token {
   color: rgb(var(--color-secondary-300));
+}
+.text-secondary-500-400-token {
+  color: rgb(var(--color-secondary-500));
 }
 .dark .text-secondary-500-400-token {
   color: rgb(var(--color-secondary-400));
@@ -3682,16 +3740,9 @@ a.card:hover {
   color: rgb(var(--color-surface-200));
   background-color: rgb(var(--color-surface-500) / 0.2);
 }
-.hover\:bg-error-900:hover {
+.hover\:bg-error-400:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(var(--color-error-900) / var(--tw-bg-opacity));
-}
-.hover\:bg-secondary-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--color-secondary-700) / var(--tw-bg-opacity));
-}
-.hover\:bg-opacity-75:hover {
-  --tw-bg-opacity: 0.75;
+  background-color: rgb(var(--color-error-400) / var(--tw-bg-opacity));
 }
 .hover\:brightness-\[105\%\]:hover {
   --tw-brightness: brightness(105%);
@@ -3700,8 +3751,14 @@ a.card:hover {
 .hover\:bg-primary-hover-token:hover:hover {
   background-color: rgb(var(--color-primary-500) / 0.1);
 }
+.hover\:bg-secondary-hover-token:hover:hover {
+  background-color: rgb(var(--color-secondary-500) / 0.1);
+}
 .disabled\:\!opacity-0:disabled {
   opacity: 0 !important;
+}
+.dark .dark\:bg-primary-500\/30 {
+  background-color: rgb(var(--color-primary-500) / 0.3);
 }
 .dark .dark\:bg-surface-300 {
   --tw-bg-opacity: 1;
@@ -3711,8 +3768,31 @@ a.card:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-surface-700) / var(--tw-bg-opacity));
 }
+.dark .dark\:bg-secret-swirl {
+  background-image: url('/secret-swirl.png');
+}
 .dark .dark\:stroke-surface-50 {
   stroke: rgb(var(--color-surface-50) / 1);
+}
+.dark .dark\:text-neutral-500 {
+  --tw-text-opacity: 1;
+  color: rgb(115 115 115 / var(--tw-text-opacity));
+}
+.dark .dark\:text-primary-400 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-primary-400) / var(--tw-text-opacity));
+}
+.dark .dark\:text-primary-500 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-primary-500) / var(--tw-text-opacity));
+}
+.dark .dark\:text-primary-600 {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-primary-600) / var(--tw-text-opacity));
+}
+.dark .dark\:hover\:bg-error-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--color-error-900) / var(--tw-bg-opacity));
 }
 .dark .dark\:hover\:brightness-110:hover {
   --tw-brightness: brightness(1.1);
@@ -3850,16 +3930,15 @@ a.card:hover {
 html, body {
     height: 100%;
     overflow: hidden
-}
-:root {
+}:root {
 	/* =~= Theme Properties =~= */
 	--theme-font-family-base: system-ui;
 	--theme-font-family-heading: system-ui;
 	--theme-font-color-base: 0 0 0;
 	--theme-font-color-dark: 255 255 255;
 	--theme-rounded-base: 12px;
-	--theme-rounded-container: 8px;
-	--theme-border-base: 1px;
+	--theme-rounded-container: 12px;
+	--theme-border-base: 2px;
 	/* =~= Theme On-X Colors =~= */
 	--on-primary: 0 0 0;
 	--on-secondary: 0 0 0;

@@ -69,7 +69,7 @@
 					<!-- {:else} -->
                     <p>
                         {token.symbol}: 
-                        <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setKeplrViewingKey(token.address)}>
+                        <button class="btn p-0 px-2 variant-filled-secondary rounded-full" on:click={() => setKeplrViewingKey(token.address)}>
 							Create Viewing Key
 						</button>
 					</p>

@@ -33,11 +33,11 @@
 <div class="container h-full mx-auto sm:mx-0 flex flex-col gap-4 p-4 items-start">
     <div class="card variant-glass-surface p-4 space-y-2 text-left w-full sm:w-72">
 		<h2 class="font-bold">Balances</h2>
-		<p class="font-bold font-mono text-primary-600">{$scrtBalance} SCRT</p>
-		<p class="font-bold font-mono text-primary-600">{$amberBalance} AMBER</p>
+		<p class="font-bold font-mono text-secondary-800 dark:text-primary-600">{$scrtBalance} SCRT</p>
+		<p class="font-bold font-mono text-secondary-800 dark:text-primary-600">{$amberBalance} AMBER</p>
 	</div>
     <div class="card variant-glass-surface p-4 space-y-2 text-left w-full sm:w-72">
 		<h2 class="font-bold">Delegations</h2>
-        <p class="font-bold font-mono text-primary-600">TODO</p>
+        <p class="font-bold font-mono text-secondary-800 dark:text-primary-600">TODO</p>
 	</div>
 </div>

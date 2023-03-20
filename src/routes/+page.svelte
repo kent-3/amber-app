@@ -44,25 +44,25 @@
 		</div>
 	{/if} -->
 	<div id="node-digest" class="flex flex-col w-full sm:w-auto md:flex-row justify-start space-x-8 space-y-4 md:space-y-0">
-		<div id="node-digest-container" class="card variant-glass-surface p-4">
+		<div id="node-digest-container" class="card variant-glass !bg-opacity-40 shadow-xl p-4">
 		  <h2><strong>AmberDAO Node Digest</strong></h2>
 		  <div class="node-digest-item">
-			<div class="node-digest-key">Current Stake Value</div>
-			<div class="node-digest-value text-base">{stakeValue ?? "loading..."} <span class="text-primary-500">USD</span></div>
+			<div class="dark:text-neutral-500 w-40 h-5">Current Stake Value</div>
+			<div class="node-digest-value text-base">{stakeValue ?? "loading..."} <span class="text-secondary-700 dark:text-primary-500">USD</span></div>
 		  </div>
   
 		  <div class="node-digest-item">
-			<div class="node-digest-key">Voting Power</div>
-			<div class="node-digest-value">{votingPower ?? "loading..."} <span class="text-primary-500">SCRT</span></div>
+			<div class="dark:text-neutral-500 w-40 h-5">Voting Power</div>
+			<div class="node-digest-value">{votingPower ?? "loading..."} <span class="text-secondary-700 dark:text-primary-500">SCRT</span></div>
 		  </div>
   
 		  <div class="node-digest-item">
-			<div class="node-digest-key">Delegators</div>
+			<div class="dark:text-neutral-500 w-40 h-5">Delegators</div>
 			<div class="node-digest-value">{delegators ?? "loading..."}</div>
 		  </div>
   
 		  <div class="node-digest-item">
-			<div class="node-digest-key">Commission</div>
+			<div class="dark:text-neutral-500 w-40 h-5">Commission</div>
 			<div class="node-digest-value">{commission ?? "loading..."}</div>
 		  </div>
 		</div>
@@ -82,27 +82,11 @@
 	height: 294px;
 	}
 	.node-digest-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	/* gap: 88px; */
-	@apply space-x-8
+		@apply space-x-8 flex flex-row items-center justify-center
 	}
-	.node-digest-key {
-		@apply text-neutral-400 font-normal;
-	width: 160px;
-	height: 20px;
-	/* color: rgba(255, 255, 255, 0.54); */
-	/* font-family: Montserrat, Helvetica, Arial, sans-serif; */
-	/* font-size: 16px; */
-	line-height: 20px;
-	}
+	
 	.node-digest-value {
-	text-align:center;
-	color: #FEFFFF;
-	font-weight: 600;
-	font-size: 18px;
+		@apply text-center font-semibold text-lg
 	}
 
 </style>

@@ -151,7 +151,7 @@ export async function setMetamaskViewingKey(token: SecretAddress) {
 						<dt class="opacity-50">Gas Used:</dt>
 						<dd>${tx.gasUsed.toLocaleString()}</dd>
 					</dl>
-					</details>
+				</details>
 				`,
 				background: 'variant-glass-surface !bg-success-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-success-800',
 				autohide: false,

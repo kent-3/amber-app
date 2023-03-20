@@ -1,1 +1,0 @@
-import{w as s}from"./index.b3b988f7.js";const d=s(void 0),a={address:"secret1s09x2xvfd2lp2skgzm29w2xtena7s8fq98v852",code_hash:"5a085bd8ed89de92b35134ddd12505a602c7759ea25fb5c089ba03c8535b3042"};export{a as A,d as s};

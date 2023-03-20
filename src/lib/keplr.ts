@@ -92,30 +92,72 @@ export async function setKeplrViewingKey(token: SecretAddress) {
 	// } catch (error) {
 	// 	console.log(error)
 	// }
-	const action = "Create Viewing Key"
+
+	// TODO move all this to a different function in the +page.svelte file 
+	// TODO make this set of variables into a properties object
+	const action = "Set Viewing Key"
 	const buf = new Uint8Array(32);
 	const key = toHexString(window.crypto.getRandomValues(buf))
+	const padding = "one amber club"
 
+	const sender = secretjs.address
+	const contract_address = token
+	const msg = {
+		set_viewing_key: {
+			key,
+			padding,
+		}
+	}
+	const gasLimit = 40_000
 	const gasPriceInFeeDenom = 0.0125
+	const feeDenom = "uscrt"
 	
+	// TODO add code highlighting
+	const confirm: ModalSettings = {
+		type: 'confirm',
+		title: 'Review Message Details',
+		body: `
+			<dl class="font-mono grid grid-cols-[6rem_minmax(0,_2fr)]">
+				<dt class="opacity-50">Sender:</dt>
+				<dd class="overflow-x-auto">${sender}</dd>
+				<dt class="opacity-50">Contract:</dt>
+				<dd class="overflow-x-auto">${contract_address}</dd>
+				<dt class="opacity-50">Message:</dt>
+				<dd><pre class="!text-xs !text-primary-500 !whitespace-pre !scroll-m-1">${JSON.stringify(msg,null,2)}</pre></dd>
+				<dt class="opacity-50">Gas Limit:</dt>
+				<dd>${gasLimit.toLocaleString()}</dd>
+				<dt class="opacity-50">Gas Fee:</dt>
+				<dd>
+					<span class="text-tertiary-600">${gasLimit * 0.0125}</span> /
+					<span class="text-secondary-400">${gasLimit * 0.1}</span> /
+					<span class="text-primary-500">${gasLimit * 0.25}</span> uscrt
+				</dd>
+			</dl>
+		`,
+		modalClasses: 'ring-2 ring-surface-500 w-modal',
+		// TRUE if confirm pressed, FALSE if cancel pressed
+		// TODO have this call the actual message signing function, passing a properties object
+		response: (r: boolean) => {if (!r) {return}},
+		// Optionally override the button text
+		buttonTextCancel: 'Cancel',
+		buttonTextConfirm: 'Confirm',
+	};
+	modalStore.trigger(confirm);
+	// TODO move all this to a different function in the +page.svelte file 
+
+
 	try {
-		const padding = "one amber club"
 		const tx = await secretjs.tx.snip20.setViewingKey(
 			{
-				sender: secretjs.address,
-				contract_address: token,
+				sender,
+				contract_address,
 				// code_hash: "",
-				msg: {
-					set_viewing_key: {
-						key,
-						padding,
-					}
-				}
+				msg,
 			},
 			{
-				gasLimit: 40_000,
+				gasLimit,
 				gasPriceInFeeDenom,
-				feeDenom: "uscrt"
+				feeDenom,
 			}
 		)
 		// TODO show details of the transaction while waiting for it to be sent

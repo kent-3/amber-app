@@ -4,11 +4,11 @@
 	import Wallet from '$lib/Wallet.svelte';
 	import { writable, type Writable } from 'svelte/store';
 
-	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import '../theme.postcss'
 	import { AppShell, AppBar, AppRail, AppRailTile, Modal } from '@skeletonlabs/skeleton';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 
 	// imports for code block highlighting
 	import { storeHighlightJs } from '@skeletonlabs/skeleton';
@@ -29,10 +29,12 @@
 	import { chains } from '$lib/config';
 	import { popup, storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
-	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	// TODO idea - have a way to see dismissed toasts (keep a log of ~12 toasts)
 	import { Toast, toastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
+    import { CodeBlock } from '@skeletonlabs/skeleton';
+	import { testToasts } from '$lib/tests-ui';
 
 	// testing
 	// import { testBatchQuery } from '$lib/tests-secret';
@@ -60,7 +62,8 @@
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
 		image: amber_pope,
-		buttonTextCancel: 'OK'
+		buttonTextCancel: 'OK',
+		modalClasses: 'w-modal-slim'
 	};
 
 	const alert_toast: ToastSettings = {
@@ -76,27 +79,50 @@
 
 	function debug() {
 		// testBatchQuery()
+		// testToasts()
+
+// 		const modalComponent: ModalComponent = {
+// 			// Pass a reference to your custom component
+// 			ref: CodeBlock,
+// 			// Add the component properties as key/value pairs
+// 			props: { language: "json", code: `{
+// 	"set_viewing_key": {
+// 		"key": "c5ff0bf7eaba3a6060a3beddbd0b0f45ecbd2d4e6c81979aecb4d9c51bde4761",
+// 		"padding": "one amber club"
+// 	}
+// }` },
+// 			// Provide a template literal for the default component slot
+// 			slot: '<p>Skeleton</p>'
+// 		};
+// 		const d: ModalSettings = {
+// 			type: 'component',
+// 			// Pass the component directly:
+// 			component: modalComponent,
+// 		};
+// 		modalStore.trigger(d);
 	}
 
 </script>
 
-<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon variant-glass-surface" buttonAction="btn btm-sm variant-filled"/>
-<Modal width="" />
-
+<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon variant-glass-surface" buttonAction="btn btm-sm variant-filled" max=6 />
+<Modal width="" regionBody="max-h-[400px]"/>
+<div class="absolute bottom-4 left-4">
+	<LightSwitch height="h-6" />
+</div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <Drawer>
 	{#if $drawerStore.id === 'side-menu'}
 		<!-- TODO reduce code duplication of these images -->
 		<!-- Close menu button -->
-		<div on:click={()=>drawerStore.close()} class="absolute btn z-[999]">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-primary-500">
+		<div on:click={()=>drawerStore.close()} class="absolute btn pt-4 z-[999]">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-primary-600 dark:text-primary-500">
 				<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
 			</svg>
 		</div>
 		<!-- Menu -->
 		<div on:click={()=>drawerStore.close()} class:pointer-events-none={poor} class="card h-full mx-auto flex flex-col justify-center items-center">
 			{#if poor}
-			<strong class="-translate-y-10 text-center text-lg text-tertiary-500">Connect wallet with 1 AMBER</strong>
+			<strong class="-translate-y-10 text-center text-lg text-tertiary-600">Connect wallet with 1 AMBER</strong>
 			{/if}
 			<!-- Menu Items -->
 			<div class:opacity-25={poor} class="flex op flex-col space-y-4 justify-center items-center">
@@ -156,15 +182,15 @@
 
 <!-- App Shell -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<AppShell regionPage="bg-secret-swirl bg-cover bg-center">
+<AppShell regionPage="bg-surface-50-900-token bg-secret-swirl-light dark:bg-secret-swirl bg-cover bg-center">
+<!-- <AppShell regionPage=""> -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar slotTrail="!space-x-0 md:!space-x-4">
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 					<div class="sm:hidden btn btn-sm" on:click={()=>drawerStore.open(drawerSettings)}>
-					<!-- TODO - import svg instead of raw -->
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 sm:hidden text-primary-500">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 sm:hidden text-primary-600 dark:text-primary-500">
 							<path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
 						</svg>
 					</div>
@@ -222,9 +248,9 @@
 		<!-- Hidden below Tailwind's large breakpoint -->
 		<div id="sidebar-left" class="hidden sm:block" >
 			{#if poor}
-				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-20 h-[100%] bg-surface-900 bg-opacity-75 hover:bg-error-900 hover:bg-opacity-75"></div>
+				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-20 h-[100%] bg-surface-50-900-token opacity-75 hover:bg-error-400 dark:hover:bg-error-900 !hover:bg-opacity-75"></div>
 			{/if}
-			<AppRail selected={storeValue} active="bg-secondary-800" hover="hover:bg-secondary-700">
+			<AppRail selected={storeValue} active="bg-secondary-active-token" hover="hover:bg-secondary-hover-token">
 				<svelte:fragment slot="lead">
 					<AppRailTile tag="a" href="{base}/" label="Home" title="Home" value={1}>
 						<!-- 🏠 -->
@@ -295,11 +321,14 @@
 	<slot />
 	<svelte:fragment slot="pageFooter">
 		<div class="container ml-auto p-1 flex justify-end items-center">
-			<code> connected to <a 
+			<code class="unstyled py-0.5 px-1 rounded text-xs font-mono whitespace-nowrap bg-secondary-500/30 text-secondary-800 dark:bg-primary-500/30 dark:text-primary-400"> connected to 
+				<a 
 					href="https://secret.express"
 					target="_blank"
 					rel="noopener noreferrer"
-					>{chains['Secret Network'].lcd}
+					class="unstyled text-secondary-700 dark:text-primary-500 underline"
+				>
+					{chains['Secret Network'].lcd}
 				</a>
 			</code>
 		</div>

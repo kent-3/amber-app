@@ -53,3 +53,5 @@ export const amberBalance: Writable<string> = writable('🤫')
 export const tokenStore: Writable<Map<SecretAddress, Token>> = writable(new Map<SecretAddress, Token>)
 export const viewingKeys: Writable<Map<SecretAddress, string>> = writable(new Map<SecretAddress, string>)
 export const balances: Writable<Map<SecretAddress, number>> = writable(new Map<SecretAddress, number>)
+
+export const apiUrl: Writable<string> = writable(SECRET_LCD)
