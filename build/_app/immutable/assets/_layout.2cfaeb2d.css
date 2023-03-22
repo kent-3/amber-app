@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 
 /* https://fonts.google.com/specimen/Fira+Sans */
-/* https://fonts.google.com/specimen/Fira+Code */
+/* https://fonts.google.com/specimen/Open+Sans */
 :root {
 	/* =~= Theme Properties =~= */
-	--theme-font-family-base: 'Fira-Sans', system-ui;
-	--theme-font-family-heading: 'Fira-Sans', system-ui;
+	--theme-font-family-base: 'Open Sans', system-ui;
+	--theme-font-family-heading: 'Fira Sans', system-ui;
 	--theme-font-color-base: var(--color-surface-600);
 	--theme-font-color-dark: var(--color-surface-200);
 	--theme-rounded-base: 9999px;
@@ -204,7 +204,7 @@ html {
   -moz-tab-size: 4; /* 3 */
   -o-tab-size: 4;
      tab-size: 4; /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-family: Open Sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
   font-feature-settings: normal; /* 5 */
 }
 /*
@@ -799,7 +799,7 @@ blockquote:not(.unstyled):is(:not(.prose *)) {
 }
 /* Keyboard */
 kbd:not(.unstyled):is(:not(.prose *)) {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Open Sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
@@ -2705,6 +2705,9 @@ a.card:hover {
 }
 .text-center {
   text-align: center;
+}
+.font-\[\'Fira_Sans\'\] {
+  font-family: 'Fira Sans';
 }
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;

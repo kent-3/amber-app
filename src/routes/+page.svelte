@@ -49,12 +49,12 @@
 		  <h2><strong>AmberDAO Node Digest</strong></h2>
 		  <div class="node-digest-item">
 			<div class="dark:text-neutral-400 w-40 h-5">Current Stake Value</div>
-			<div class="node-digest-value text-base">{stakeValue ?? "loading..."} <span class="text-secondary-700 dark:text-primary-500">USD</span></div>
+			<div class="node-digest-value text-base">{stakeValue ?? "loading..."} <span class="font-bold text-secondary-700 dark:text-primary-500">USD</span></div>
 		  </div>
   
 		  <div class="node-digest-item">
 			<div class="dark:text-neutral-400 w-40 h-5">Voting Power</div>
-			<div class="node-digest-value">{votingPower ?? "loading..."} <span class="text-secondary-700 dark:text-primary-500">SCRT</span></div>
+			<div class="node-digest-value">{votingPower ?? "loading..."} <span class="font-bold text-secondary-700 dark:text-primary-500">SCRT</span></div>
 		  </div>
   
 		  <div class="node-digest-item">

@@ -210,7 +210,7 @@
 					<img class="h-10 hidden sm:block" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
-					<strong class="text-xl uppercase text-surface-900-50-token">AmberDAO</strong>
+					<strong class="text-xl font-['Fira_Sans'] uppercase text-surface-900-50-token">AmberDAO</strong>
 				</button>
 
 			</svelte:fragment>
@@ -271,15 +271,12 @@
 				</svelte:fragment>
 				<AppRailTile tag="a" href={poor ? "" : base+"/wallet"} label="Wallet" title="Wallet" value={2}>
 					<!-- 📁 -->
-					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 						<path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
-					</svg> -->
+					</svg>
 					<!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
 					</svg> -->
-					<span class="material-symbols-rounded">
-						account_balance_wallet
-					</span>
 				</AppRailTile>
 				<AppRailTile tag="a" href={poor ? "" : base+"/keys"} label="Keys" title="Viewing Keys" value={3}>
 					<!-- 🔑 -->
@@ -315,7 +312,7 @@
 						<path
 							in:draw={{ duration: 1000 }}
 							d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
-							stroke-width="3"
+							stroke-width="4"
 						/>
 						<path
 							d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
@@ -323,12 +320,12 @@
 						<path
 							in:draw={{ duration: 1000 }}
 							d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
-							stroke-width="3"
+							stroke-width="4"
 						/>
 						<path
 							in:draw={{ duration: 1000 }}
 							d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
-							stroke-width="3"
+							stroke-width="4"
 						/>
 					</svg>
 				</AppRailTile>
