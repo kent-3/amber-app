@@ -32,9 +32,9 @@ export function testToasts() {
             </dl>
             </details>
         `,
-        background: 'variant-glass-surface !bg-success-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-success-800',
+        classes: '-translate-y-4 font-semibold variant-glass-success',
+        // background: 'variant-glass-surface !bg-success-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-success-800',
         autohide: false,
-        classes: '-translate-y-4 font-semibold'
     };
     toastStore.trigger(t)
 
@@ -51,7 +51,7 @@ export function testToasts() {
                 </dl>
             </details>
         `,
-        background: 'variant-glass-surface !bg-primary-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-primary-800',
+        background: 'variant-glass',
         autohide: false,
         classes: '-translate-y-4 font-semibold'
     };
@@ -68,7 +68,7 @@ export function testToasts() {
                 </dl>
             </details>
             `,
-        background: 'variant-glass-surface !bg-error-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-error-800',
+        background: 'variant-glass-error',
         autohide: false,
         classes: '-translate-y-4 font-semibold'
     };

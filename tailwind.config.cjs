@@ -6,7 +6,8 @@ module.exports = {
 		extend: {
 			backgroundImage: {
 				'secret-swirl':"url('/secret-swirl.png')",
-				'secret-swirl-light':"url('/secret-swirl-light.png')"
+				'secret-swirl-light':"url('/secret-swirl-light.png')",
+				'secret-swirl-amber':"url('/secret-swirl-amber.png')"
 			  },
 			boxShadow: {
 				'neumorphic': '5px 5px 20px #131313, -5px -5px 20px #4b4b4b'

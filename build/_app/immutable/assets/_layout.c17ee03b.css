@@ -1,4 +1,124 @@
-/* Stylesheet: all.css */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+
+/* https://fonts.google.com/specimen/Fira+Sans */
+/* https://fonts.google.com/specimen/Fira+Code */
+:root {
+	/* =~= Theme Properties =~= */
+	--theme-font-family-base: 'Fira-Sans', system-ui;
+	--theme-font-family-heading: 'Fira-Sans', system-ui;
+	--theme-font-color-base: var(--color-secondary-900);
+	--theme-font-color-dark: var(--color-surface-200);
+	--theme-rounded-base: 9999px;
+	--theme-rounded-container: 24px;
+	--theme-border-base: 3px;
+	/* =~= Theme On-X Colors =~= */
+	--on-primary: 0 0 0;
+	--on-secondary: 0 0 0;
+	--on-tertiary: 0 0 0;
+	--on-success: 0 0 0;
+	--on-warning: 0 0 0;
+	--on-error: 0 0 0;
+	--on-surface: 255 255 255;
+	/* =~= Theme Colors  =~= */
+	/* primary | #f2b046 */
+	--color-primary-50: 253 243 227; /* ⬅ #fdf3e3 */
+	--color-primary-100: 252 239 218; /* ⬅ #fcefda */
+	--color-primary-200: 252 235 209; /* ⬅ #fcebd1 */
+	--color-primary-300: 250 223 181; /* ⬅ #fadfb5 */
+	--color-primary-400: 246 200 126; /* ⬅ #f6c87e */
+	--color-primary-500: 242 176 70; /* ⬅ #f2b046 */
+	--color-primary-600: 218 158 63; /* ⬅ #da9e3f */
+	--color-primary-700: 182 132 53; /* ⬅ #b68435 */
+	--color-primary-800: 145 106 42; /* ⬅ #916a2a */
+	--color-primary-900: 119 86 34; /* ⬅ #775622 */
+	/* secondary | #798498 */
+	--color-secondary-50: 235 237 240; /* ⬅ #ebedf0 */
+	--color-secondary-100: 228 230 234; /* ⬅ #e4e6ea */
+	--color-secondary-200: 222 224 229; /* ⬅ #dee0e5 */
+	--color-secondary-300: 201 206 214; /* ⬅ #c9ced6 */
+	--color-secondary-400: 161 169 183; /* ⬅ #a1a9b7 */
+	--color-secondary-500: 121 132 152; /* ⬅ #798498 */
+	--color-secondary-600: 109 119 137; /* ⬅ #6d7789 */
+	--color-secondary-700: 91 99 114; /* ⬅ #5b6372 */
+	--color-secondary-800: 73 79 91; /* ⬅ #494f5b */
+	--color-secondary-900: 59 65 74; /* ⬅ #3b414a */
+	/* tertiary | #60BFCF */
+	--color-tertiary-50: 231 245 248; /* ⬅ #e7f5f8 */
+	--color-tertiary-100: 223 242 245; /* ⬅ #dff2f5 */
+	--color-tertiary-200: 215 239 243; /* ⬅ #d7eff3 */
+	--color-tertiary-300: 191 229 236; /* ⬅ #bfe5ec */
+	--color-tertiary-400: 144 210 221; /* ⬅ #90d2dd */
+	--color-tertiary-500: 96 191 207; /* ⬅ #60BFCF */
+	--color-tertiary-600: 86 172 186; /* ⬅ #56acba */
+	--color-tertiary-700: 72 143 155; /* ⬅ #488f9b */
+	--color-tertiary-800: 58 115 124; /* ⬅ #3a737c */
+	--color-tertiary-900: 47 94 101; /* ⬅ #2f5e65 */
+	/* success | #91cf60 */
+	--color-success-50: 239 248 231; /* ⬅ #eff8e7 */
+	--color-success-100: 233 245 223; /* ⬅ #e9f5df */
+	--color-success-200: 228 243 215; /* ⬅ #e4f3d7 */
+	--color-success-300: 211 236 191; /* ⬅ #d3ecbf */
+	--color-success-400: 178 221 144; /* ⬅ #b2dd90 */
+	--color-success-500: 145 207 96; /* ⬅ #91cf60 */
+	--color-success-600: 131 186 86; /* ⬅ #83ba56 */
+	--color-success-700: 109 155 72; /* ⬅ #6d9b48 */
+	--color-success-800: 87 124 58; /* ⬅ #577c3a */
+	--color-success-900: 71 101 47; /* ⬅ #47652f */
+	/* warning | #EAB308 */
+	--color-warning-50: 252 244 218; /* ⬅ #fcf4da */
+	--color-warning-100: 251 240 206; /* ⬅ #fbf0ce */
+	--color-warning-200: 250 236 193; /* ⬅ #faecc1 */
+	--color-warning-300: 247 225 156; /* ⬅ #f7e19c */
+	--color-warning-400: 240 202 82; /* ⬅ #f0ca52 */
+	--color-warning-500: 234 179 8; /* ⬅ #EAB308 */
+	--color-warning-600: 211 161 7; /* ⬅ #d3a107 */
+	--color-warning-700: 176 134 6; /* ⬅ #b08606 */
+	--color-warning-800: 140 107 5; /* ⬅ #8c6b05 */
+	--color-warning-900: 115 88 4; /* ⬅ #735804 */
+	/* error | #cf5e60 */
+	--color-error-50: 248 231 231; /* ⬅ #f8e7e7 */
+	--color-error-100: 245 223 223; /* ⬅ #f5dfdf */
+	--color-error-200: 243 215 215; /* ⬅ #f3d7d7 */
+	--color-error-300: 236 191 191; /* ⬅ #ecbfbf */
+	--color-error-400: 221 142 144; /* ⬅ #dd8e90 */
+	--color-error-500: 207 94 96; /* ⬅ #cf5e60 */
+	--color-error-600: 186 85 86; /* ⬅ #ba5556 */
+	--color-error-700: 155 71 72; /* ⬅ #9b4748 */
+	--color-error-800: 124 56 58; /* ⬅ #7c383a */
+	--color-error-900: 101 46 47; /* ⬅ #652e2f */
+	/* surface | #4e4e4e */
+	--color-surface-50: 228 228 228; /* ⬅ #e4e4e4 */
+	--color-surface-100: 220 220 220; /* ⬅ #dcdcdc */
+	--color-surface-200: 211 211 211; /* ⬅ #d3d3d3 */
+	--color-surface-300: 184 184 184; /* ⬅ #b8b8b8 */
+	--color-surface-400: 131 131 131; /* ⬅ #838383 */
+	--color-surface-500: 78 78 78; /* ⬅ #4e4e4e */
+	--color-surface-600: 70 70 70; /* ⬅ #464646 */
+	--color-surface-700: 59 59 59; /* ⬅ #3b3b3b */
+	--color-surface-800: 47 47 47; /* ⬅ #2f2f2f */
+	--color-surface-900: 38 38 38; /* ⬅ #262626 */
+	
+}
+/* Applied to body with `<body data-theme="rocket">` */
+/* Generated via: https://heropatterns.com/ */
+/* [data-theme='rocket'] {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%23d3d3d3' fill-opacity='0.3' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1zm6.2-114a5 5 0 1 1 0 2h-86.2a5 5 0 1 1 0-2h86.2zm-256-48a5 5 0 1 1 0 2H0v-2h12.1zm185.8 34a5 5 0 1 1 0-2h86.2a5 5 0 1 1 0 2h-86.2zM258 12.1a5 5 0 1 1-2 0V0h2v12.1zm-64 208a5 5 0 1 1-2 0v-54.2a5 5 0 1 1 2 0v54.2zm48-198.2V80h62v2h-64V21.9a5 5 0 1 1 2 0zm16 16V64h46v2h-48V37.9a5 5 0 1 1 2 0zm-128 96V208h16v12.1a5 5 0 1 1-2 0V210h-16v-76.1a5 5 0 1 1 2 0zm-5.9-21.9a5 5 0 1 1 0 2H114v48H85.9a5 5 0 1 1 0-2H112v-48h12.1zm-6.2 130a5 5 0 1 1 0-2H176v-74.1a5 5 0 1 1 2 0V242h-60.1zm-16-64a5 5 0 1 1 0-2H114v48h10.1a5 5 0 1 1 0 2H112v-48h-10.1zM66 284.1a5 5 0 1 1-2 0V274H50v30h-2v-32h18v12.1zM236.1 176a5 5 0 1 1 0 2H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30a5 5 0 1 1 0-2H274v44.1a5 5 0 1 1-2 0V146h-10.1zm-64 96a5 5 0 1 1 0-2H208v-80h16v-14h-42.1a5 5 0 1 1 0-2H226v18h-16v80h-12.1zm86.2-210a5 5 0 1 1 0 2H272V0h2v32h10.1zM98 101.9V146H53.9a5 5 0 1 1 0-2H96v-42.1a5 5 0 1 1 2 0zM53.9 34a5 5 0 1 1 0-2H80V0h2v34H53.9zm60.1 3.9V66H82v64H69.9a5 5 0 1 1 0-2H80V64h32V37.9a5 5 0 1 1 2 0zM101.9 82a5 5 0 1 1 0-2H128V37.9a5 5 0 1 1 2 0V82h-28.1zm16-64a5 5 0 1 1 0-2H146v44.1a5 5 0 1 1-2 0V18h-26.1zm102.2 270a5 5 0 1 1 0 2H98v14h-2v-16h124.1zM242 149.9V160h16v34h-16v62h48v48h-2v-46h-48v-66h16v-30h-16v-12.1a5 5 0 1 1 2 0zM53.9 18a5 5 0 1 1 0-2H64V2H48V0h18v18H53.9zm112 32a5 5 0 1 1 0-2H192V0h50v2h-48v48h-28.1zm-48-48a5 5 0 0 1-9.8-2h2.07a3 3 0 1 0 5.66 0H178v34h-18V21.9a5 5 0 1 1 2 0V32h14V2h-58.1zm0 96a5 5 0 1 1 0-2H137l32-32h39V21.9a5 5 0 1 1 2 0V66h-40.17l-32 32H117.9zm28.1 90.1a5 5 0 1 1-2 0v-76.51L175.59 80H224V21.9a5 5 0 1 1 2 0V82h-49.59L146 112.41v75.69zm16 32a5 5 0 1 1-2 0v-99.51L184.59 96H300.1a5 5 0 0 1 3.9-3.9v2.07a3 3 0 0 0 0 5.66v2.07a5 5 0 0 1-3.9-3.9H185.41L162 121.41v98.69zm-144-64a5 5 0 1 1-2 0v-3.51l48-48V48h32V0h2v50H66v55.41l-48 48v2.69zM50 53.9v43.51l-48 48V208h26.1a5 5 0 1 1 0 2H0v-65.41l48-48V53.9a5 5 0 1 1 2 0zm-16 16V89.41l-34 34v-2.82l32-32V69.9a5 5 0 1 1 2 0zM12.1 32a5 5 0 1 1 0 2H9.41L0 43.41V40.6L8.59 32h3.51zm265.8 18a5 5 0 1 1 0-2h18.69l7.41-7.41v2.82L297.41 50H277.9zm-16 160a5 5 0 1 1 0-2H288v-71.41l16-16v2.82l-14 14V210h-28.1zm-208 32a5 5 0 1 1 0-2H64v-22.59L40.59 194H21.9a5 5 0 1 1 0-2H41.41L66 216.59V242H53.9zm150.2 14a5 5 0 1 1 0 2H96v-56.6L56.6 162H37.9a5 5 0 1 1 0-2h19.5L98 200.6V256h106.1zm-150.2 2a5 5 0 1 1 0-2H80v-46.59L48.59 178H21.9a5 5 0 1 1 0-2H49.41L82 208.59V258H53.9zM34 39.8v1.61L9.41 66H0v-2h8.59L32 40.59V0h2v39.8zM2 300.1a5 5 0 0 1 3.9 3.9H3.83A3 3 0 0 0 0 302.17V256h18v48h-2v-46H2v42.1zM34 241v63h-2v-62H0v-2h34v1zM17 18H0v-2h16V0h2v18h-1zm273-2h14v2h-16V0h2v16zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1A5.02 5.02 0 0 1 6 97a5 5 0 0 1-6 4.9v-2.07a3 3 0 1 0 0-5.66V92.1zM80 272h2v32h-2v-32zm37.9 32h-2.07a3 3 0 0 0-5.66 0h-2.07a5 5 0 0 1 9.8 0zM5.9 0A5.02 5.02 0 0 1 0 5.9V3.83A3 3 0 0 0 3.83 0H5.9zm294.2 0h2.07A3 3 0 0 0 304 3.83V5.9a5 5 0 0 1-3.9-5.9zm3.9 300.1v2.07a3 3 0 0 0-1.83 1.83h-2.07a5 5 0 0 1 3.9-3.9zM97 100a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-48 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 96a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-144a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM49 36a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM33 68a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 240a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm80-176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm112 176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 180a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 84a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E");
+}
+.dark [data-theme='rocket'] {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%232f2f2f' fill-opacity='0.2' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1zm6.2-114a5 5 0 1 1 0 2h-86.2a5 5 0 1 1 0-2h86.2zm-256-48a5 5 0 1 1 0 2H0v-2h12.1zm185.8 34a5 5 0 1 1 0-2h86.2a5 5 0 1 1 0 2h-86.2zM258 12.1a5 5 0 1 1-2 0V0h2v12.1zm-64 208a5 5 0 1 1-2 0v-54.2a5 5 0 1 1 2 0v54.2zm48-198.2V80h62v2h-64V21.9a5 5 0 1 1 2 0zm16 16V64h46v2h-48V37.9a5 5 0 1 1 2 0zm-128 96V208h16v12.1a5 5 0 1 1-2 0V210h-16v-76.1a5 5 0 1 1 2 0zm-5.9-21.9a5 5 0 1 1 0 2H114v48H85.9a5 5 0 1 1 0-2H112v-48h12.1zm-6.2 130a5 5 0 1 1 0-2H176v-74.1a5 5 0 1 1 2 0V242h-60.1zm-16-64a5 5 0 1 1 0-2H114v48h10.1a5 5 0 1 1 0 2H112v-48h-10.1zM66 284.1a5 5 0 1 1-2 0V274H50v30h-2v-32h18v12.1zM236.1 176a5 5 0 1 1 0 2H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30a5 5 0 1 1 0-2H274v44.1a5 5 0 1 1-2 0V146h-10.1zm-64 96a5 5 0 1 1 0-2H208v-80h16v-14h-42.1a5 5 0 1 1 0-2H226v18h-16v80h-12.1zm86.2-210a5 5 0 1 1 0 2H272V0h2v32h10.1zM98 101.9V146H53.9a5 5 0 1 1 0-2H96v-42.1a5 5 0 1 1 2 0zM53.9 34a5 5 0 1 1 0-2H80V0h2v34H53.9zm60.1 3.9V66H82v64H69.9a5 5 0 1 1 0-2H80V64h32V37.9a5 5 0 1 1 2 0zM101.9 82a5 5 0 1 1 0-2H128V37.9a5 5 0 1 1 2 0V82h-28.1zm16-64a5 5 0 1 1 0-2H146v44.1a5 5 0 1 1-2 0V18h-26.1zm102.2 270a5 5 0 1 1 0 2H98v14h-2v-16h124.1zM242 149.9V160h16v34h-16v62h48v48h-2v-46h-48v-66h16v-30h-16v-12.1a5 5 0 1 1 2 0zM53.9 18a5 5 0 1 1 0-2H64V2H48V0h18v18H53.9zm112 32a5 5 0 1 1 0-2H192V0h50v2h-48v48h-28.1zm-48-48a5 5 0 0 1-9.8-2h2.07a3 3 0 1 0 5.66 0H178v34h-18V21.9a5 5 0 1 1 2 0V32h14V2h-58.1zm0 96a5 5 0 1 1 0-2H137l32-32h39V21.9a5 5 0 1 1 2 0V66h-40.17l-32 32H117.9zm28.1 90.1a5 5 0 1 1-2 0v-76.51L175.59 80H224V21.9a5 5 0 1 1 2 0V82h-49.59L146 112.41v75.69zm16 32a5 5 0 1 1-2 0v-99.51L184.59 96H300.1a5 5 0 0 1 3.9-3.9v2.07a3 3 0 0 0 0 5.66v2.07a5 5 0 0 1-3.9-3.9H185.41L162 121.41v98.69zm-144-64a5 5 0 1 1-2 0v-3.51l48-48V48h32V0h2v50H66v55.41l-48 48v2.69zM50 53.9v43.51l-48 48V208h26.1a5 5 0 1 1 0 2H0v-65.41l48-48V53.9a5 5 0 1 1 2 0zm-16 16V89.41l-34 34v-2.82l32-32V69.9a5 5 0 1 1 2 0zM12.1 32a5 5 0 1 1 0 2H9.41L0 43.41V40.6L8.59 32h3.51zm265.8 18a5 5 0 1 1 0-2h18.69l7.41-7.41v2.82L297.41 50H277.9zm-16 160a5 5 0 1 1 0-2H288v-71.41l16-16v2.82l-14 14V210h-28.1zm-208 32a5 5 0 1 1 0-2H64v-22.59L40.59 194H21.9a5 5 0 1 1 0-2H41.41L66 216.59V242H53.9zm150.2 14a5 5 0 1 1 0 2H96v-56.6L56.6 162H37.9a5 5 0 1 1 0-2h19.5L98 200.6V256h106.1zm-150.2 2a5 5 0 1 1 0-2H80v-46.59L48.59 178H21.9a5 5 0 1 1 0-2H49.41L82 208.59V258H53.9zM34 39.8v1.61L9.41 66H0v-2h8.59L32 40.59V0h2v39.8zM2 300.1a5 5 0 0 1 3.9 3.9H3.83A3 3 0 0 0 0 302.17V256h18v48h-2v-46H2v42.1zM34 241v63h-2v-62H0v-2h34v1zM17 18H0v-2h16V0h2v18h-1zm273-2h14v2h-16V0h2v16zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1A5.02 5.02 0 0 1 6 97a5 5 0 0 1-6 4.9v-2.07a3 3 0 1 0 0-5.66V92.1zM80 272h2v32h-2v-32zm37.9 32h-2.07a3 3 0 0 0-5.66 0h-2.07a5 5 0 0 1 9.8 0zM5.9 0A5.02 5.02 0 0 1 0 5.9V3.83A3 3 0 0 0 3.83 0H5.9zm294.2 0h2.07A3 3 0 0 0 304 3.83V5.9a5 5 0 0 1-3.9-5.9zm3.9 300.1v2.07a3 3 0 0 0-1.83 1.83h-2.07a5 5 0 0 1 3.9-3.9zM97 100a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-48 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 96a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-144a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM49 36a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM33 68a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 240a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm80-176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm112 176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 180a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 84a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E");
+} */
+/* Applied to body with `<body data-theme="secret">` */
+[data-theme='secret'] {
+	background-image: url('/secret-swirl-light.png');
+	background-size: cover;
+	background-position: center;
+}
+.dark [data-theme='secret'] {
+	background-image: url('/secret-swirl.png');
+	background-size: cover;
+	background-position: center;
+}/* Stylesheet: all.css */
 /* Import AFTER your theme, but BEFORE your global stylesheet. */
 /* NOTE: The order shown below is required */
 /* Tailwind Directives */
@@ -1897,6 +2017,24 @@ a.card:hover {
 .dark .variant-glass-secondary {
   background-color: rgb(var(--color-secondary-500) / 0.2);
 }
+.variant-glass-success {
+  background-color: rgb(var(--color-success-500) / 0.2);
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.dark .variant-glass-success {
+  background-color: rgb(var(--color-success-500) / 0.2);
+}
+.variant-glass-error {
+  background-color: rgb(var(--color-error-500) / 0.2);
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.dark .variant-glass-error {
+  background-color: rgb(var(--color-error-500) / 0.2);
+}
 .variant-glass,
 	.variant-glass-surface {
   background-color: rgb(var(--color-surface-500) / 0.2);
@@ -1964,6 +2102,9 @@ a.card:hover {
 }
 .z-40 {
   z-index: 40;
+}
+.z-\[-1\] {
+  z-index: -1;
 }
 .z-\[1\] {
   z-index: 1;
@@ -2050,8 +2191,8 @@ a.card:hover {
 .h-8 {
   height: 2rem;
 }
-.h-\[100\%\] {
-  height: 100%;
+.h-\[482px\] {
+  height: 482px;
 }
 .h-\[50\%\] {
   height: 50%;
@@ -2157,6 +2298,10 @@ a.card:hover {
 }
 .translate-x-full {
   --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-y-20 {
+  --tw-translate-y: 5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-y-8 {
@@ -2334,18 +2479,11 @@ a.card:hover {
 .rounded {
   border-radius: 0.25rem;
 }
-.rounded-2xl {
-  border-radius: 1rem;
-}
 .rounded-full {
   border-radius: 9999px;
 }
 .rounded-md {
   border-radius: 0.375rem;
-}
-.rounded-r-xl {
-  border-top-right-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
 }
 .border {
   border-width: 1px;
@@ -2371,14 +2509,6 @@ a.card:hover {
 .border-dashed {
   border-style: dashed;
 }
-.\!bg-error-900 {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(var(--color-error-900) / var(--tw-bg-opacity)) !important;
-}
-.\!bg-primary-900 {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(var(--color-primary-900) / var(--tw-bg-opacity)) !important;
-}
 .\!bg-success-900 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(var(--color-success-900) / var(--tw-bg-opacity)) !important;
@@ -2401,6 +2531,9 @@ a.card:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-surface-50) / var(--tw-bg-opacity));
 }
+.bg-surface-500\/20 {
+  background-color: rgb(var(--color-surface-500) / 0.2);
+}
 .bg-surface-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-surface-800) / var(--tw-bg-opacity));
@@ -2419,9 +2552,6 @@ a.card:hover {
 .bg-white\/75 {
   background-color: rgb(255 255 255 / 0.75);
 }
-.\!bg-opacity-40 {
-  --tw-bg-opacity: 0.4 !important;
-}
 .\!bg-opacity-50 {
   --tw-bg-opacity: 0.5 !important;
 }
@@ -2431,8 +2561,8 @@ a.card:hover {
 .bg-cover {
   background-size: cover;
 }
-.bg-center {
-  background-position: center;
+.bg-top {
+  background-position: top;
 }
 .fill-surface-50 {
   fill: rgb(var(--color-surface-50) / 1);
@@ -2586,6 +2716,10 @@ a.card:hover {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
 .text-error-500 {
   --tw-text-opacity: 1;
   color: rgb(var(--color-error-500) / var(--tw-text-opacity));
@@ -2705,17 +2839,16 @@ a.card:hover {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(var(--color-error-500) / var(--tw-ring-opacity));
 }
-.ring-error-800 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(var(--color-error-800) / var(--tw-ring-opacity));
-}
-.ring-primary-800 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(var(--color-primary-800) / var(--tw-ring-opacity));
-}
 .ring-secondary-500 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(var(--color-secondary-500) / var(--tw-ring-opacity));
+}
+.ring-secondary-500\/5 {
+  --tw-ring-color: rgb(var(--color-secondary-500) / 0.05);
+}
+.ring-secondary-600 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(var(--color-secondary-600) / var(--tw-ring-opacity));
 }
 .ring-success-800 {
   --tw-ring-opacity: 1;
@@ -2727,6 +2860,9 @@ a.card:hover {
 }
 .ring-surface-500\/30 {
   --tw-ring-color: rgb(var(--color-surface-500) / 0.3);
+}
+.ring-zinc-50\/5 {
+  --tw-ring-color: rgb(250 250 250 / 0.05);
 }
 .blur {
   --tw-blur: blur(8px);
@@ -2742,6 +2878,16 @@ a.card:hover {
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
@@ -2828,11 +2974,6 @@ a.card:hover {
 }
 .dark .bg-secondary-backdrop-token {
   background-color: rgb(var(--color-secondary-900) / 0.7);
-}
-.bg-secondary-active-token {
-  background-color: rgb(var(--color-secondary-500)) !important;
-  color: rgb(var(--on-secondary));
-  fill: rgb(var(--on-secondary));
 }
 .dark .bg-secondary-50-900-token {
   background-color: rgb(var(--color-secondary-900));
@@ -3790,6 +3931,12 @@ a.card:hover {
   --tw-text-opacity: 1;
   color: rgb(var(--color-primary-600) / var(--tw-text-opacity));
 }
+.dark .dark\:ring-primary-500\/70 {
+  --tw-ring-color: rgb(var(--color-primary-500) / 0.7);
+}
+.dark .dark\:text-dark-token {
+  color: rgba(var(--theme-font-color-dark));
+}
 .dark .dark\:hover\:bg-error-900:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-error-900) / var(--tw-bg-opacity));
@@ -3930,100 +4077,4 @@ a.card:hover {
 html, body {
     height: 100%;
     overflow: hidden
-}:root {
-	/* =~= Theme Properties =~= */
-	--theme-font-family-base: system-ui;
-	--theme-font-family-heading: system-ui;
-	--theme-font-color-base: 0 0 0;
-	--theme-font-color-dark: 255 255 255;
-	--theme-rounded-base: 12px;
-	--theme-rounded-container: 12px;
-	--theme-border-base: 2px;
-	/* =~= Theme On-X Colors =~= */
-	--on-primary: 0 0 0;
-	--on-secondary: 0 0 0;
-	--on-tertiary: 0 0 0;
-	--on-success: 0 0 0;
-	--on-warning: 0 0 0;
-	--on-error: 0 0 0;
-	--on-surface: 255 255 255;
-	/* =~= Theme Colors  =~= */
-	/* primary | #f2b046 */
-	--color-primary-50: 253 243 227; /* ⬅ #fdf3e3 */
-	--color-primary-100: 252 239 218; /* ⬅ #fcefda */
-	--color-primary-200: 252 235 209; /* ⬅ #fcebd1 */
-	--color-primary-300: 250 223 181; /* ⬅ #fadfb5 */
-	--color-primary-400: 246 200 126; /* ⬅ #f6c87e */
-	--color-primary-500: 242 176 70; /* ⬅ #f2b046 */
-	--color-primary-600: 218 158 63; /* ⬅ #da9e3f */
-	--color-primary-700: 182 132 53; /* ⬅ #b68435 */
-	--color-primary-800: 145 106 42; /* ⬅ #916a2a */
-	--color-primary-900: 119 86 34; /* ⬅ #775622 */
-	/* secondary | #798498 */
-	--color-secondary-50: 235 237 240; /* ⬅ #ebedf0 */
-	--color-secondary-100: 228 230 234; /* ⬅ #e4e6ea */
-	--color-secondary-200: 222 224 229; /* ⬅ #dee0e5 */
-	--color-secondary-300: 201 206 214; /* ⬅ #c9ced6 */
-	--color-secondary-400: 161 169 183; /* ⬅ #a1a9b7 */
-	--color-secondary-500: 121 132 152; /* ⬅ #798498 */
-	--color-secondary-600: 109 119 137; /* ⬅ #6d7789 */
-	--color-secondary-700: 91 99 114; /* ⬅ #5b6372 */
-	--color-secondary-800: 73 79 91; /* ⬅ #494f5b */
-	--color-secondary-900: 59 65 74; /* ⬅ #3b414a */
-	/* tertiary | #60BFCF */
-	--color-tertiary-50: 231 245 248; /* ⬅ #e7f5f8 */
-	--color-tertiary-100: 223 242 245; /* ⬅ #dff2f5 */
-	--color-tertiary-200: 215 239 243; /* ⬅ #d7eff3 */
-	--color-tertiary-300: 191 229 236; /* ⬅ #bfe5ec */
-	--color-tertiary-400: 144 210 221; /* ⬅ #90d2dd */
-	--color-tertiary-500: 96 191 207; /* ⬅ #60BFCF */
-	--color-tertiary-600: 86 172 186; /* ⬅ #56acba */
-	--color-tertiary-700: 72 143 155; /* ⬅ #488f9b */
-	--color-tertiary-800: 58 115 124; /* ⬅ #3a737c */
-	--color-tertiary-900: 47 94 101; /* ⬅ #2f5e65 */
-	/* success | #91cf60 */
-	--color-success-50: 239 248 231; /* ⬅ #eff8e7 */
-	--color-success-100: 233 245 223; /* ⬅ #e9f5df */
-	--color-success-200: 228 243 215; /* ⬅ #e4f3d7 */
-	--color-success-300: 211 236 191; /* ⬅ #d3ecbf */
-	--color-success-400: 178 221 144; /* ⬅ #b2dd90 */
-	--color-success-500: 145 207 96; /* ⬅ #91cf60 */
-	--color-success-600: 131 186 86; /* ⬅ #83ba56 */
-	--color-success-700: 109 155 72; /* ⬅ #6d9b48 */
-	--color-success-800: 87 124 58; /* ⬅ #577c3a */
-	--color-success-900: 71 101 47; /* ⬅ #47652f */
-	/* warning | #b960cf */
-	--color-warning-50: 245 231 248; /* ⬅ #f5e7f8 */
-	--color-warning-100: 241 223 245; /* ⬅ #f1dff5 */
-	--color-warning-200: 238 215 243; /* ⬅ #eed7f3 */
-	--color-warning-300: 227 191 236; /* ⬅ #e3bfec */
-	--color-warning-400: 206 144 221; /* ⬅ #ce90dd */
-	--color-warning-500: 185 96 207; /* ⬅ #b960cf */
-	--color-warning-600: 167 86 186; /* ⬅ #a756ba */
-	--color-warning-700: 139 72 155; /* ⬅ #8b489b */
-	--color-warning-800: 111 58 124; /* ⬅ #6f3a7c */
-	--color-warning-900: 91 47 101; /* ⬅ #5b2f65 */
-	/* error | #cf6060 */
-	--color-error-50: 248 231 231; /* ⬅ #f8e7e7 */
-	--color-error-100: 245 223 223; /* ⬅ #f5dfdf */
-	--color-error-200: 243 215 215; /* ⬅ #f3d7d7 */
-	--color-error-300: 236 191 191; /* ⬅ #ecbfbf */
-	--color-error-400: 221 144 144; /* ⬅ #dd9090 */
-	--color-error-500: 207 96 96; /* ⬅ #cf6060 */
-	--color-error-600: 186 86 86; /* ⬅ #ba5656 */
-	--color-error-700: 155 72 72; /* ⬅ #9b4848 */
-	--color-error-800: 124 58 58; /* ⬅ #7c3a3a */
-	--color-error-900: 101 47 47; /* ⬅ #652f2f */
-	/* surface | #4e4e4e */
-	--color-surface-50: 228 228 228; /* ⬅ #e4e4e4 */
-	--color-surface-100: 220 220 220; /* ⬅ #dcdcdc */
-	--color-surface-200: 211 211 211; /* ⬅ #d3d3d3 */
-	--color-surface-300: 184 184 184; /* ⬅ #b8b8b8 */
-	--color-surface-400: 131 131 131; /* ⬅ #838383 */
-	--color-surface-500: 78 78 78; /* ⬅ #4e4e4e */
-	--color-surface-600: 70 70 70; /* ⬅ #464646 */
-	--color-surface-700: 59 59 59; /* ⬅ #3b3b3b */
-	--color-surface-800: 47 47 47; /* ⬅ #2f2f2f */
-	--color-surface-900: 38 38 38; /* ⬅ #262626 */
-	
 }pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#2e3440}.hljs,.hljs-subst{color:#d8dee9}.hljs-selector-tag{color:#81a1c1}.hljs-selector-id{color:#8fbcbb;font-weight:700}.hljs-selector-attr,.hljs-selector-class{color:#8fbcbb}.hljs-property,.hljs-selector-pseudo{color:#88c0d0}.hljs-addition{background-color:rgba(163,190,140,.5)}.hljs-deletion{background-color:rgba(191,97,106,.5)}.hljs-built_in,.hljs-class,.hljs-type{color:#8fbcbb}.hljs-function,.hljs-function>.hljs-title,.hljs-title.hljs-function{color:#88c0d0}.hljs-keyword,.hljs-literal,.hljs-symbol{color:#81a1c1}.hljs-number{color:#b48ead}.hljs-regexp{color:#ebcb8b}.hljs-string{color:#a3be8c}.hljs-title{color:#8fbcbb}.hljs-params{color:#d8dee9}.hljs-bullet{color:#81a1c1}.hljs-code{color:#8fbcbb}.hljs-emphasis{font-style:italic}.hljs-formula{color:#8fbcbb}.hljs-strong{font-weight:700}.hljs-link:hover{text-decoration:underline}.hljs-comment,.hljs-quote{color:#4c566a}.hljs-doctag{color:#8fbcbb}.hljs-meta,.hljs-meta .hljs-keyword{color:#5e81ac}.hljs-meta .hljs-string{color:#a3be8c}.hljs-attr{color:#8fbcbb}.hljs-attribute{color:#d8dee9}.hljs-name{color:#81a1c1}.hljs-section{color:#88c0d0}.hljs-tag{color:#81a1c1}.hljs-template-variable,.hljs-variable{color:#d8dee9}.hljs-template-tag{color:#5e81ac}.language-abnf .hljs-attribute{color:#88c0d0}.language-abnf .hljs-symbol{color:#ebcb8b}.language-apache .hljs-attribute{color:#88c0d0}.language-apache .hljs-section{color:#81a1c1}.language-arduino .hljs-built_in{color:#88c0d0}.language-aspectj .hljs-meta{color:#d08770}.language-aspectj>.hljs-title{color:#88c0d0}.language-bnf .hljs-attribute{color:#8fbcbb}.language-clojure .hljs-name{color:#88c0d0}.language-clojure .hljs-symbol{color:#ebcb8b}.language-coq .hljs-built_in{color:#88c0d0}.language-cpp .hljs-meta .hljs-string{color:#8fbcbb}.language-css .hljs-built_in{color:#88c0d0}.language-css .hljs-keyword{color:#d08770}.language-diff .hljs-meta,.language-ebnf .hljs-attribute{color:#8fbcbb}.language-glsl .hljs-built_in{color:#88c0d0}.language-groovy .hljs-meta:not(:first-child),.language-haxe .hljs-meta,.language-java .hljs-meta{color:#d08770}.language-ldif .hljs-attribute{color:#8fbcbb}.language-lisp .hljs-name,.language-lua .hljs-built_in,.language-moonscript .hljs-built_in,.language-nginx .hljs-attribute{color:#88c0d0}.language-nginx .hljs-section{color:#5e81ac}.language-pf .hljs-built_in,.language-processing .hljs-built_in{color:#88c0d0}.language-scss .hljs-keyword,.language-stylus .hljs-keyword{color:#81a1c1}.language-swift .hljs-meta{color:#d08770}.language-vim .hljs-built_in{color:#88c0d0;font-style:italic}.language-yaml .hljs-meta{color:#d08770}

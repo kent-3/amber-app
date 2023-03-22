@@ -65,7 +65,9 @@
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
 		image: amber_pope,
-		buttonTextCancel: 'OK'
+		buttonTextCancel: 'OK',
+		modalClasses: 'w-modal-slim',
+		backdropClasses: '',
 	};
 
 	// TODO combine these two triggers
@@ -88,7 +90,8 @@
 			type: 'confirm',
 			title: 'Please Confirm',
 			body: 'Are you sure you wish to proceed?',
-			modalClasses: 'variant-ghost-primary',
+			modalClasses: 'text-black dark:text-dark-token ring-secondary-600 dark:ring-primary-500/70 ring-2',
+			backdropClasses: '',
 			// TRUE if confirm pressed, FALSE if cancel pressed
 			response: (r: boolean) => {if (r) {disconnectMetamask()}},
 			// Optionally override the button text
@@ -208,7 +211,7 @@
 </script>
 
 <div
-	class="card p-4 w-64 shadow-2xl rounded-2xl"
+	class="card p-4 w-64 shadow-2xl"
 	data-popup="walletMenu"
 >
 	<div class="text-center space-y-4">
@@ -231,7 +234,7 @@
 </div>
 
 <div
-	class="card p-4 w-64 shadow-2xl rounded-2xl"
+	class="card p-4 w-64 shadow-2xl"
 	data-popup="walletMenu-MM"
 >
 	<div class="text-center space-y-4">

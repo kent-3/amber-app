@@ -4,9 +4,10 @@
 	import Wallet from '$lib/Wallet.svelte';
 	import { writable, type Writable } from 'svelte/store';
 
+	// import '@skeletonlabs/skeleton/themes/theme-rocket.css'
+	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import '../theme.postcss'
 	import { AppShell, AppBar, AppRail, AppRailTile, Modal } from '@skeletonlabs/skeleton';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 
@@ -54,7 +55,7 @@
 		id: 'side-menu',
 		width: 'w-[90%]',
 		padding: 'pt-4 pb-6',
-		rounded: 'rounded-r-xl',
+		// regionDrawer: 'variant-glass',
 	};
 
 	const alert: ModalSettings = {
@@ -63,7 +64,8 @@
 		body: 'You need at least 1 AMBER to use this app.',
 		image: amber_pope,
 		buttonTextCancel: 'OK',
-		modalClasses: 'w-modal-slim'
+		modalClasses: 'w-modal-slim',
+		backdropClasses: '',
 	};
 
 	const alert_toast: ToastSettings = {
@@ -79,7 +81,7 @@
 
 	function debug() {
 		// testBatchQuery()
-		// testToasts()
+		testToasts()
 
 // 		const modalComponent: ModalComponent = {
 // 			// Pass a reference to your custom component
@@ -104,13 +106,13 @@
 
 </script>
 
-<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon variant-glass-surface" buttonAction="btn btm-sm variant-filled" max=6 />
-<Modal width="" regionBody="max-h-[400px]"/>
+<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
+<Modal width="" regionBody="max-h-[400px]" regionBackdrop="bg-surface-backdrop-token" />
 <div class="absolute bottom-4 left-4">
 	<LightSwitch height="h-6" />
 </div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Drawer>
+<Drawer regionBackdrop="backdrop-blur-sm" bgBackdrop="bg-surface-backdrop-token">
 	{#if $drawerStore.id === 'side-menu'}
 		<!-- TODO reduce code duplication of these images -->
 		<!-- Close menu button -->
@@ -120,7 +122,7 @@
 			</svg>
 		</div>
 		<!-- Menu -->
-		<div on:click={()=>drawerStore.close()} class:pointer-events-none={poor} class="card h-full mx-auto flex flex-col justify-center items-center">
+		<div on:click={()=>drawerStore.close()} class:pointer-events-none={poor} class="h-full mx-auto flex flex-col justify-center items-center">
 			{#if poor}
 			<strong class="-translate-y-10 text-center text-lg text-tertiary-600">Connect wallet with 1 AMBER</strong>
 			{/if}
@@ -180,13 +182,17 @@
 	{/if}
 </Drawer>
 
+<!-- Full page background -->
+<!-- <div class="absolute inset-0 z-[-1] bg-secret-swirl-light dark:bg-secret-swirl bg-cover bg-top"/> -->
+
 <!-- App Shell -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<AppShell regionPage="bg-surface-50-900-token bg-secret-swirl-light dark:bg-secret-swirl bg-cover bg-center">
+<AppShell regionPage="">
 <!-- <AppShell regionPage=""> -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar slotTrail="!space-x-0 md:!space-x-4">
+		<!-- <AppBar slotTrail="!space-x-0 md:!space-x-4"> -->
+		<AppBar slotTrail="!space-x-0 md:!space-x-4" background="bg-surface-500/20 backdrop-blur-lg ring-1 ring-inset ring-zinc-50/5">
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 					<div class="sm:hidden btn btn-sm" on:click={()=>drawerStore.open(drawerSettings)}>
@@ -208,7 +214,7 @@
 
 			</svelte:fragment>
 			{#if $isAccountAvailable == true}
-				<div class="card variant-ghost-primary p-2 text-center max-w-xs hidden md:inline-flex">
+				<div class="card variant-ghost-primary py-2 px-4 text-center max-w-xs hidden md:inline-flex">
 					<p class="font-bold"> You have {$amberBalance} AMBER </p>
 				</div>
 			{/if}
@@ -216,7 +222,7 @@
 				<Wallet/>
 				<div class="hidden sm:inline-flex space-x-4">
 					<a
-						class="btn btn-sm variant-ghost-surface"
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
 						href="https://discord.gg/VeCAWCAktq"
 						target="_blank"
 						rel="noreferrer"
@@ -224,7 +230,7 @@
 						Discord
 					</a>
 					<a
-						class="btn btn-sm variant-ghost-surface"
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
 						href="https://twitter.com/AmberDAO_"
 						target="_blank"
 						rel="noreferrer"
@@ -232,7 +238,7 @@
 						Twitter
 					</a>
 					<a
-						class="btn btn-sm variant-ghost-surface"
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
 						href="https://github.com/kent-3/amber"
 						target="_blank"
 						rel="noreferrer"
@@ -248,11 +254,11 @@
 		<!-- Hidden below Tailwind's large breakpoint -->
 		<div id="sidebar-left" class="hidden sm:block" >
 			{#if poor}
-				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-20 h-[100%] bg-surface-50-900-token opacity-75 hover:bg-error-400 dark:hover:bg-error-900 !hover:bg-opacity-75"></div>
+				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-20 h-[482px] z-[888] translate-y-20 bg-surface-50-900-token opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
 			{/if}
-			<AppRail selected={storeValue} active="bg-secondary-active-token" hover="hover:bg-secondary-hover-token">
+			<AppRail selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" background="bg-surface-500/20 backdrop-blur-lg text-surface-600-300-token" border="ring-1 ring-inset ring-zinc-50/5">
 				<svelte:fragment slot="lead">
-					<AppRailTile tag="a" href="{base}/" label="Home" title="Home" value={1}>
+					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1} >
 						<!-- 🏠 -->
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 							<path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
@@ -260,13 +266,13 @@
 						</svg>
 					</AppRailTile>
 				</svelte:fragment>
-				<AppRailTile tag="a" href="{base}/wallet" label="Wallet" title="Wallet" value={2}>
+				<AppRailTile tag="a" href={poor ? "" : base+"/wallet"} label="Wallet" title="Wallet" value={2}>
 					<!-- 📁 -->
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 						<path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
 					</svg>
 				</AppRailTile>
-				<AppRailTile tag="a" href="{base}/keys" label="Keys" title="Viewing Keys" value={3}>
+				<AppRailTile tag="a" href={poor ? "" : base+"/keys"} label="Keys" title="Viewing Keys" value={3}>
 					<!-- 🔑 -->
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 						<path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 00-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 00-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 00.75-.75v-1.5h1.5A.75.75 0 009 19.5V18h1.5a.75.75 0 00.53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1015.75 1.5zm0 3a.75.75 0 000 1.5A2.25 2.25 0 0118 8.25a.75.75 0 001.5 0 3.75 3.75 0 00-3.75-3.75z" clip-rule="evenodd" />
@@ -278,8 +284,13 @@
 						<path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
 					</svg>
 				</AppRailTile>
+				<AppRailTile label="NFTs" title="coming soon">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+						<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+					</svg>
+				</AppRailTile>
 				<svelte:fragment slot="trail">
-					<AppRailTile tag="a" href="{base}/secret" label="Query" value={5}>
+					<AppRailTile tag="a" href={poor ? "" : base+"/secret"} label="Query" value={5}>
 						<!-- 🤫 -->
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 							<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
