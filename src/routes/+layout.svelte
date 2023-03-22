@@ -3,6 +3,7 @@
 	import { base } from '$app/paths'
 	import Wallet from '$lib/Wallet.svelte';
 	import { writable, type Writable } from 'svelte/store';
+	import { draw } from 'svelte/transition';
 
 	// import '@skeletonlabs/skeleton/themes/theme-rocket.css'
 	import '../theme.postcss';
@@ -108,7 +109,7 @@
 
 <Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
 <Modal width="" regionBody="max-h-[400px]" regionBackdrop="bg-surface-backdrop-token" />
-<div class="absolute bottom-4 left-4">
+<div class="absolute sm:hidden bottom-4 left-4">
 	<LightSwitch height="h-6" />
 </div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -127,7 +128,7 @@
 			<strong class="-translate-y-10 text-center text-lg text-tertiary-600">Connect wallet with 1 AMBER</strong>
 			{/if}
 			<!-- Menu Items -->
-			<div class:opacity-25={poor} class="flex op flex-col space-y-4 justify-center items-center">
+			<div class:opacity-25={poor} class="flex flex-col space-y-4 justify-center items-center">
 				<a href="{base}/" class="btn">
 					<div class="flex items-center space-x-4">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
@@ -187,12 +188,11 @@
 
 <!-- App Shell -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<AppShell regionPage="">
+<AppShell regionPage="bg-spotlights-light dark:bg-spotlights-dark" slotSidebarLeft="shadow-right-lg bg-surface-100-800-token">
 <!-- <AppShell regionPage=""> -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<!-- <AppBar slotTrail="!space-x-0 md:!space-x-4"> -->
-		<AppBar slotTrail="!space-x-0 md:!space-x-4" background="bg-surface-500/20 backdrop-blur-lg ring-1 ring-inset ring-zinc-50/5">
+		<AppBar slotTrail="!space-x-0 md:!space-x-4" shadow="shadow-xl">
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 					<div class="sm:hidden btn btn-sm" on:click={()=>drawerStore.open(drawerSettings)}>
@@ -209,15 +209,17 @@
 					<img class="h-10 hidden sm:block" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
-					<strong class="text-xl uppercase">AmberDAO</strong>
+					<strong class="text-xl uppercase text-surface-900-50-token">AmberDAO</strong>
 				</button>
 
 			</svelte:fragment>
-			{#if $isAccountAvailable == true}
-				<div class="card variant-ghost-primary py-2 px-4 text-center max-w-xs hidden md:inline-flex">
-					<p class="font-bold"> You have {$amberBalance} AMBER </p>
-				</div>
-			{/if}
+			<svelte:fragment>
+				{#if $isAccountAvailable == true}
+					<div class="card variant-ghost-primary py-2 px-4 text-center max-w-xs hidden md:inline-flex">
+						<p class="font-bold"> You have {$amberBalance} AMBER </p>
+					</div>
+				{/if}
+			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<Wallet/>
 				<div class="hidden sm:inline-flex space-x-4">
@@ -254,11 +256,11 @@
 		<!-- Hidden below Tailwind's large breakpoint -->
 		<div id="sidebar-left" class="hidden sm:block" >
 			{#if poor}
-				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-20 h-[482px] z-[888] translate-y-20 bg-surface-50-900-token opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
+				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-[5.5rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
 			{/if}
-			<AppRail selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" background="bg-surface-500/20 backdrop-blur-lg text-surface-600-300-token" border="ring-1 ring-inset ring-zinc-50/5">
+			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" width="w-[5.5rem]">
 				<svelte:fragment slot="lead">
-					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1} >
+					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1}>
 						<!-- 🏠 -->
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 							<path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
@@ -289,41 +291,47 @@
 						<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
 					</svg>
 				</AppRailTile>
+				<AppRailTile tag="a" href={poor ? "" : base+"/secret"} label="Query" value={5}>
+					<!-- 🤫 -->
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+						<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
+					</svg> -->
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 59 59"
+						fill="none"
+						stroke="currentColor"
+						stroke-miterlimit="10"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							in:draw={{ duration: 1000 }}
+							d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
+							stroke-width="3"
+						/>
+						<path
+							d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
+						/>
+						<path
+							in:draw={{ duration: 1000 }}
+							d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
+							stroke-width="3"
+						/>
+						<path
+							in:draw={{ duration: 1000 }}
+							d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
+							stroke-width="3"
+						/>
+					</svg>
+				</AppRailTile>
 				<svelte:fragment slot="trail">
-					<AppRailTile tag="a" href={poor ? "" : base+"/secret"} label="Query" value={5}>
-						<!-- 🤫 -->
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-							<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
-						</svg>
-						<!-- <svg
-							width="24"
-							height="24"
-							viewBox="0 0 59 59"
-							fill="none"
-							stroke="currentColor"
-							stroke-miterlimit="10"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								in:draw={{ duration: 1000 }}
-								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
-								stroke-width="3"
-							/>
-							<path
-								d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
-							/>
-							<path
-								in:draw={{ duration: 1000 }}
-								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
-								stroke-width="3"
-							/>
-							<path
-								in:draw={{ duration: 1000 }}
-								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
-								stroke-width="3"
-							/>
-						</svg> -->
+					<AppRailTile >
+						<LightSwitch height="h-6" />
 					</AppRailTile>
+					<!-- <div class="h-[5.5rem] flex justify-center items-center">
+						<LightSwitch height="h-6" />
+					</div> -->
 				</svelte:fragment>
 			</AppRail>
 		</div>

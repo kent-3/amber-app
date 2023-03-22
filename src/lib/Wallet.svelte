@@ -26,21 +26,21 @@
 
 	// TODO implement a modal that displays details of the message before requesting signature
 
-	const viewer = createLogo({
-		pxNotRatio: true,
-		width: 50,
-		height: 50,
-		followMouse: false,
-		slowDrift: false,
-	});
+	// const viewer = createLogo({
+	// 	pxNotRatio: true,
+	// 	width: 50,
+	// 	height: 50,
+	// 	followMouse: false,
+	// 	slowDrift: false,
+	// });
 
-	// TODO control implement wallet choice modal on click connect button
-	// TODO display metamask logo based on screen size not this weird userAgent thing
-	const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/.test(navigator.userAgent)
+	// // TODO control implement wallet choice modal on click connect button
+	// // TODO display metamask logo based on screen size not this weird userAgent thing
+	// const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/.test(navigator.userAgent)
 
-	if (mobile) {
-		viewer.setFollowMouse(false);
-	}
+	// if (mobile) {
+	// 	viewer.setFollowMouse(false);
+	// }
 
 	let popupSettings: PopupSettings = {
 		// Set the event as: click | hover | hover-click
@@ -118,10 +118,10 @@
 			await connect()
 		})
 		// add viewer to DOM
-		if (!mobile) {
-			const container = document.getElementById('logo-container')!;
-			container.appendChild(viewer.container);
-		}
+		// if (!mobile) {
+		// 	const container = document.getElementById('logo-container')!;
+		// 	container.appendChild(viewer.container);
+		// }
 
 		// TODO check if account is already available to update the button state
 	})

@@ -27,14 +27,14 @@
 		votingPower = scrt.toLocaleString()
 		const scrtPrice = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=secret&vs_currencies=usd')
 		stakeValue = formatter.format(scrt * scrtPrice.data.secret.usd)
-		// const validatorDelegationsResponse = await secretjs.query.staking.validatorDelegations({validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6', pagination: {limit:'1', count_total: true}})
-		// delegators = parseInt(validatorDelegationsResponse.pagination?.total ?? "1925").toLocaleString()
-		delegators = "1918"
+		const validatorDelegationsResponse = await secretjs.query.staking.validatorDelegations({validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6', pagination: {limit:'1', count_total: true}})
+		delegators = parseInt(validatorDelegationsResponse.pagination?.total ?? "1925").toLocaleString()
+		// delegators = "1920"
 	})
     // export let data: PageData;
 </script>
 
-<div class="container h-full flex p-4 sm:justify-start justify-center items-start">
+<div class="container h-full flex p-4 sm:p-6 items-start justify-center sm:justify-start">
 	<!-- {#if $isAccountAvailable == true}
 		<div class="card variant-ghost-primary p-4 space-y-2 text-center">
 			<h2 class="font-bold"> You have {$amberBalance} AMBER </h2>
@@ -45,7 +45,7 @@
 		</div>
 	{/if} -->
 	<div id="node-digest" class="flex flex-col w-full sm:w-auto md:flex-row justify-start space-x-8 space-y-4 md:space-y-0">
-		<div id="node-digest-container" class="card variant-glass shadow-xl p-4">
+		<div id="node-digest-container" class="card shadow-xl p-4">
 		  <h2><strong>AmberDAO Node Digest</strong></h2>
 		  <div class="node-digest-item">
 			<div class="dark:text-neutral-500 w-40 h-5">Current Stake Value</div>
