@@ -64,7 +64,7 @@
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		image: amber_pope,
+		// image: amber_pope,
 		buttonTextCancel: 'OK',
 		modalClasses: 'w-modal-slim',
 		backdropClasses: '',

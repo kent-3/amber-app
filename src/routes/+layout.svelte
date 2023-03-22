@@ -55,7 +55,8 @@
 	const drawerSettings: DrawerSettings = {
 		id: 'side-menu',
 		width: 'w-[90%]',
-		padding: 'pt-4 pb-6',
+		// duration: 200,
+		// padding: 'pt-4 pb-6',
 		// regionDrawer: 'variant-glass',
 	};
 
@@ -63,7 +64,7 @@
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		image: amber_pope,
+		// image: amber_pope,
 		buttonTextCancel: 'OK',
 		modalClasses: 'w-modal-slim',
 		backdropClasses: '',
@@ -107,13 +108,13 @@
 
 </script>
 
-<Toast position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
+<Toast  width="w-80 sm:w-[22rem] sm:min-w-96" position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
 <Modal width="" regionBody="max-h-[400px]" regionBackdrop="bg-surface-backdrop-token" />
 <div class="absolute sm:hidden bottom-4 left-4">
 	<LightSwitch height="h-6" />
 </div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Drawer regionBackdrop="backdrop-blur-sm" bgBackdrop="bg-surface-backdrop-token">
+<Drawer bgBackdrop="bg-surface-backdrop-token">
 	{#if $drawerStore.id === 'side-menu'}
 		<!-- TODO reduce code duplication of these images -->
 		<!-- Close menu button -->
@@ -256,9 +257,9 @@
 		<!-- Hidden below Tailwind's large breakpoint -->
 		<div id="sidebar-left" class="hidden sm:block" >
 			{#if poor}
-				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-[5.5rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
+				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-[5.375rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
 			{/if}
-			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" width="w-[5.5rem]">
+			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" width="w-[5.375rem]">
 				<svelte:fragment slot="lead">
 					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1}>
 						<!-- 🏠 -->
@@ -270,9 +271,15 @@
 				</svelte:fragment>
 				<AppRailTile tag="a" href={poor ? "" : base+"/wallet"} label="Wallet" title="Wallet" value={2}>
 					<!-- 📁 -->
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 						<path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
-					</svg>
+					</svg> -->
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
+					</svg> -->
+					<span class="material-symbols-rounded">
+						account_balance_wallet
+					</span>
 				</AppRailTile>
 				<AppRailTile tag="a" href={poor ? "" : base+"/keys"} label="Keys" title="Viewing Keys" value={3}>
 					<!-- 🔑 -->

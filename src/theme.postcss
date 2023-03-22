@@ -7,7 +7,7 @@
 	/* =~= Theme Properties =~= */
 	--theme-font-family-base: 'Fira-Sans', system-ui;
 	--theme-font-family-heading: 'Fira-Sans', system-ui;
-	--theme-font-color-base: var(--color-secondary-900);
+	--theme-font-color-base: var(--color-surface-600);
 	--theme-font-color-dark: var(--color-surface-200);
 	--theme-rounded-base: 9999px;
 	--theme-rounded-container: 24px;
@@ -103,6 +103,10 @@
 
 .faux-glass {
 	@apply bg-surface-500/20 backdrop-blur-lg text-surface-600-300-token
+}
+
+.material-color-transition {
+	@apply transition-colors duration-300 ease-material-color
 }
 
 .material-symbols-rounded {

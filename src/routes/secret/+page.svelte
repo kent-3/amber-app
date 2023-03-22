@@ -116,22 +116,22 @@
 	})
 </script>
 
-<div class="container h-full flex flex-col sm:flex-row gap-4 p-4 sm:items-start">
-    <div class="card variant-glass-surface flex flex-col p-4 space-y-2 text-left">
+<div class="container h-full flex flex-col sm:flex-row gap-4 p-4 sm:p-6 sm:items-start">
+    <div class="card dark:bg-surface-900 flex flex-col p-4 space-y-2 text-left">
         <button 
-            class="btn variant-filled-secondary"
+            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] transition-colors duration-300 ease-material-color"
             on:click={()=>getLatestBlock()}
         >
             Latest Block Info
         </button>
         <button 
-            class="btn variant-filled-secondary"
+            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] transition-colors duration-300 ease-material-color"
             on:click={()=>checkCommunityPool()}
         >
             Community Pool Funds
         </button>
         <button 
-            class="btn variant-filled-secondary"
+            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] transition-colors duration-300 ease-material-color"
             on:click={()=>getContractInfo()}
         >
             Amber Contract Info

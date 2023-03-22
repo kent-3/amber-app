@@ -7,7 +7,7 @@
 	/* =~= Theme Properties =~= */
 	--theme-font-family-base: 'Fira-Sans', system-ui;
 	--theme-font-family-heading: 'Fira-Sans', system-ui;
-	--theme-font-color-base: var(--color-secondary-900);
+	--theme-font-color-base: var(--color-surface-600);
 	--theme-font-color-dark: var(--color-surface-200);
 	--theme-rounded-base: 9999px;
 	--theme-rounded-container: 24px;
@@ -110,6 +110,13 @@
 }
 .dark .faux-glass{
 	color: rgb(var(--color-surface-300))
+	
+}
+.material-color-transition{
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+	transition-timing-function: cubic-bezier(0.2, 0, 0, 1)
 	
 }
 .material-symbols-rounded {
@@ -2277,11 +2284,14 @@ a.card:hover {
 .w-8 {
   width: 2rem;
 }
+.w-80 {
+  width: 20rem;
+}
 .w-\[240px\] {
   width: 240px;
 }
-.w-\[5\.5rem\] {
-  width: 5.5rem;
+.w-\[5\.375rem\] {
+  width: 5.375rem;
 }
 .w-\[50\%\] {
   width: 50%;
@@ -2594,7 +2604,7 @@ a.card:hover {
   background-image: url('/secret-swirl-light.png');
 }
 .bg-spotlights-light {
-  background-image: radial-gradient(circle at 20% 120%, hsla(37,86%,61%,0.36) 0px, transparent 50%),radial-gradient(circle at 76% -20%, hsla(218,13%,53%,0.36) 0px, transparent 50%);;
+  background-image: radial-gradient(circle at 20% 120%, hsla(37,86%,61%,0.2) 0px, transparent 50%),radial-gradient(circle at 76% -20%, hsla(218,13%,53%,0.36) 0px, transparent 50%);;
 }
 .bg-cover {
   background-size: cover;
@@ -2919,11 +2929,6 @@ a.card:hover {
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
-.backdrop-blur-sm {
-  --tw-backdrop-blur: blur(4px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -2965,6 +2970,9 @@ a.card:hover {
 }
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+.ease-material-color {
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 .dark .bg-primary-backdrop-token {
   background-color: rgb(var(--color-primary-900) / 0.7);
@@ -3930,8 +3938,22 @@ a.card:hover {
 .hover\:bg-secondary-hover-token:hover:hover {
   background-color: rgb(var(--color-secondary-500) / 0.1);
 }
+.hover\:bg-secondary-100-800-token:hover {
+  background-color: rgb(var(--color-secondary-100));
+}
+.dark .hover\:bg-secondary-100-800-token:hover {
+  background-color: rgb(var(--color-secondary-800));
+}
 .disabled\:\!opacity-0:disabled {
   opacity: 0 !important;
+}
+.dark .dark\:\!bg-\[\#28292a\] {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(40 41 42 / var(--tw-bg-opacity)) !important;
+}
+.dark .dark\:bg-\[\#28292a\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(40 41 42 / var(--tw-bg-opacity));
 }
 .dark .dark\:bg-primary-500\/30 {
   background-color: rgb(var(--color-primary-500) / 0.3);
@@ -3944,6 +3966,10 @@ a.card:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-surface-700) / var(--tw-bg-opacity));
 }
+.dark .dark\:bg-surface-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--color-surface-900) / var(--tw-bg-opacity));
+}
 .dark .dark\:bg-secret-swirl {
   background-image: url('/secret-swirl.png');
 }
@@ -3953,9 +3979,9 @@ a.card:hover {
 .dark .dark\:stroke-surface-50 {
   stroke: rgb(var(--color-surface-50) / 1);
 }
-.dark .dark\:text-neutral-500 {
+.dark .dark\:text-neutral-400 {
   --tw-text-opacity: 1;
-  color: rgb(115 115 115 / var(--tw-text-opacity));
+  color: rgb(163 163 163 / var(--tw-text-opacity));
 }
 .dark .dark\:text-primary-400 {
   --tw-text-opacity: 1;
@@ -4002,6 +4028,15 @@ a.card:hover {
   }
   .sm\:w-72 {
     width: 18rem;
+  }
+  .sm\:w-80 {
+    width: 20rem;
+  }
+  .sm\:w-96 {
+    width: 24rem;
+  }
+  .sm\:w-\[22rem\] {
+    width: 22rem;
   }
   .sm\:w-auto {
     width: auto;
