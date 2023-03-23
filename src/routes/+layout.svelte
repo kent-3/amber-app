@@ -78,8 +78,8 @@
 	
 	const storeValue: Writable<number> = writable(1);
 	// uncomment for testing
-	$: poor = false
-	// $: poor = !(Number($amberBalance as any) > 1)
+	// $: poor = false
+	$: poor = !(Number($amberBalance as any) > 1)
 
 	function debug() {
 		// testBatchQuery()
