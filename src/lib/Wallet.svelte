@@ -266,14 +266,14 @@
 	</button> -->
 	{#if $isAccountAvailable}
 		<button 
-			class="btn variant-ghost-secondary"
+			class="btn font-medium variant-ghost-secondary"
 			use:popup={popupSettings}
 		>
 			{compactAddress($secretAddress)}
 		</button>
 	{:else}
 		<button 
-			class="btn variant-ghost-primary"
+			class="btn font-medium variant-ghost-primary"
 			on:click={() => connect()}
 			on:click={() => modalStore.trigger(alert)}
 		>

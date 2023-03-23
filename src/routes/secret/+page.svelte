@@ -117,25 +117,25 @@
 </script>
 
 <div class="container h-full flex flex-col sm:flex-row gap-4 p-4 sm:p-6 sm:items-start">
-    <div class="card dark:bg-surface-900 flex flex-col p-4 space-y-2 text-left">
+    <div class="card bg-surface-50 dark:!bg-[#28292a] flex flex-col p-4 space-y-2 text-left">
         <button 
-            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] material-color-transition"
+            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
             on:click={()=>getLatestBlock()}
         >
             Latest Block Info
         </button>
         <button 
-            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] transition-colors duration-300 ease-material-color"
+            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
             on:click={()=>checkCommunityPool()}
         >
             Community Pool Funds
         </button>
         <button 
-            class="btn hover:bg-secondary-100-800-token dark:bg-[#28292a] transition-colors duration-300 ease-material-color"
+            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
             on:click={()=>getContractInfo()}
         >
             Amber Contract Info
     </button>
     </div>
-    <CodeBlock language="json" code={response}></CodeBlock>
+    <CodeBlock background="bg-surface-900" language="json" code={response} ></CodeBlock>
 </div>

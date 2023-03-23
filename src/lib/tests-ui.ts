@@ -53,7 +53,7 @@ export function testModal() {
 				<dt class="dark:text-surface-400">Contract:</dt>
 				<dd class="overflow-x-auto">${contract_address}</dd>
 				<dt class="dark:text-surface-400">Message:</dt>
-				<pre class="col-span-full mb-2 !text-xs !text-primary-500 !whitespace-pre !rounded-xl">${JSON.stringify(msg,null,2)}</pre>
+				<pre class="col-span-full mb-2 !text-xs !text-primary-500 !bg-surface-900 !whitespace-pre !rounded-xl">${JSON.stringify(msg,null,2)}</pre>
 				<dt class="dark:text-surface-400">Gas Limit:</dt>
 				<dd>${gasLimit.toLocaleString()}</dd>
 				<dt class="dark:text-surface-400">Gas Fee:</dt>

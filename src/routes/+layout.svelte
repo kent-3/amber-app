@@ -78,8 +78,8 @@
 	
 	const storeValue: Writable<number> = writable(1);
 	// uncomment for testing
-	// $: poor = false
-	$: poor = !(Number($amberBalance as any) > 1)
+	$: poor = false
+	// $: poor = !(Number($amberBalance as any) > 1)
 
 	function debug() {
 		// testBatchQuery()
@@ -108,7 +108,7 @@
 
 </script>
 
-<Toast  width="w-80 sm:w-[22rem] sm:min-w-96" position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
+<Toast width="w-80 sm:w-[22rem] sm:min-w-96" position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
 <Modal width="" regionBody="max-h-[400px]" regionBackdrop="bg-surface-backdrop-token" />
 <div class="absolute sm:hidden bottom-4 left-4">
 	<LightSwitch height="h-6" />
@@ -223,7 +223,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<Wallet/>
-				<div class="hidden sm:inline-flex space-x-4">
+				<div class="hidden font-medium sm:inline-flex space-x-4">
 					<a
 						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
 						href="https://discord.gg/VeCAWCAktq"

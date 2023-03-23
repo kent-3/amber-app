@@ -28,7 +28,7 @@
 </script>
 
 <div class="container h-full flex gap-4 p-4 sm:p-6 items-start">
-	<div class="card dark:!bg-surface-900 p-4 space-y-2 text-left w-full sm:w-96">
+	<div class="card bg-surface-50 dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-96">
 		<h2 class="font-bold">Viewing Keys</h2>
 		<div class="card variant-filled-primary text-sm px-1" data-popup="examplePopup">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -38,11 +38,11 @@
 			<!-- Append the arrow element -->
 			<!-- <div class="arrow variant-filled-primary" /> -->
 		</div>
-		<div class="grid gap-2  grid-cols-[5rem_minmax(0,_2fr)]">
+		<div class="grid gap-2 items-center grid-cols-[5rem_minmax(0,_2fr)]">
 			{#key viewingKeys}
 				{#each tokens as token}
 					{#if $viewingKeys.has(token.address)}
-						<p>
+						<p class="font-medium">
 							{token.symbol}:
 						</p>
 						<button
@@ -66,11 +66,11 @@
 							</button>
 						</p> -->
 						<!-- {:else} -->
-						<p>
+						<p class="font-medium">
 							{token.symbol}: 
 						</p>
 						<button
-							class="btn w-max p-1 px-4 rounded-full hover:bg-secondary-100-800-token dark:bg-[#28292a] material-color-transition"
+							class="btn w-max p-1 px-4 rounded-full hover:bg-secondary-100-800-token bg-surface-200-700-token material-color-transition"
 							on:click={() => setKeplrViewingKey(token.address)}
 						>
 							Create Viewing Key
