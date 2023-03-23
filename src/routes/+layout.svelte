@@ -36,7 +36,7 @@
 	import { Toast, toastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
     import { CodeBlock } from '@skeletonlabs/skeleton';
-	import { testToasts } from '$lib/tests-ui';
+	import { testModal, testToasts } from '$lib/tests-ui';
 
 	// testing
 	// import { testBatchQuery } from '$lib/tests-secret';
@@ -83,8 +83,8 @@
 
 	function debug() {
 		// testBatchQuery()
-		testToasts()
-
+		// testToasts()
+		testModal()
 // 		const modalComponent: ModalComponent = {
 // 			// Pass a reference to your custom component
 // 			ref: CodeBlock,
@@ -259,7 +259,7 @@
 			{#if poor}
 				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-[5.375rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
 			{/if}
-			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token" width="w-[5.375rem]">
+			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token ease-material-color transition-colors duration-300" width="w-[5.375rem]">
 				<svelte:fragment slot="lead">
 					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1}>
 						<!-- 🏠 -->

@@ -28,7 +28,7 @@
 </script>
 
 <div class="container h-full flex gap-4 p-4 sm:p-6 items-start">
-	<div class="card dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-80">
+	<div class="card dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-96">
 		<h2 class="font-bold">Viewing Keys</h2>
 		<div class="card variant-filled-primary text-sm px-1" data-popup="examplePopup">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -44,7 +44,7 @@
 					<p>
                         {token.symbol}: 
                         <button
-							class="btn p-0 opacity-60"
+							class="btn p-0 text-surface-400 font-medium"
 							
 							use:clipboard={{ element: 'exampleElement' }}
 						>
