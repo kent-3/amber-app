@@ -58,6 +58,7 @@
 		// Provide a matching 'data-popup' value.
 		target: 'walletMenu-MM',
 		closeQuery: '.btn',
+		
 	};
 
 	const alert: ModalSettings = {
@@ -211,7 +212,7 @@
 </script>
 
 <div
-	class="card p-4 w-64 shadow-2xl"
+	class="card p-4 w-64 shadow-2xl transition-opacity"
 	data-popup="walletMenu"
 >
 	<div class="text-center space-y-4">
@@ -224,7 +225,7 @@
 		<button
 			on:click={()=>triggerConfirm()}
 			on:keypress={()=>triggerConfirm()}
-			class="btn btn-sm px-8 variant-ghost-secondary"
+			class="btn btn-sm px-8 font-medium variant-ghost-secondary"
 		>
 			Disconnect
 		</button>
@@ -247,7 +248,7 @@
 		<button
 			on:click={()=>triggerConfirmMetamask()}
 			on:keypress={()=>triggerConfirmMetamask()}
-			class="btn btn-sm px-8 variant-ghost-secondary"
+			class="btn btn-sm px-8 font-medium variant-ghost-secondary"
 		>
 			Disconnect
 		</button>
@@ -281,7 +282,7 @@
 		</button>
 	{/if}
 	{#if $keplrKey.name != ""}
-		<div in:fade class="hidden lg:block text-secondary-500-400-token font-bold ease-in duration-300">
+		<div in:fade class="hidden lg:block dark:text-secondary-400 font-bold transition-all ease-standard duration-300">
 			[ {$keplrKey.name} ]
 		</div>
 	{/if}

@@ -116,26 +116,38 @@
 	})
 </script>
 
-<div class="container h-full flex flex-col sm:flex-row gap-4 p-4 sm:p-6 sm:items-start">
+<div class="container h-full flex flex-col sm:flex-row gap-4 px-2 py-4 sm:p-6 sm:items-start">
     <div class="card bg-surface-50 dark:!bg-[#28292a] flex flex-col p-4 space-y-2 text-left">
         <button 
-            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
+            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
             on:click={()=>getLatestBlock()}
         >
             Latest Block Info
         </button>
         <button 
-            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
+            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
             on:click={()=>checkCommunityPool()}
         >
             Community Pool Funds
         </button>
         <button 
-            class="btn bg-secondary-300 dark:bg-secondary-700 material-color-transition"
+            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
             on:click={()=>getContractInfo()}
         >
             Amber Contract Info
-    </button>
+        </button>
+        <button 
+            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
+            on:click={()=> response = JSON.stringify(JSON.parse('{"status": "Not yet implemented"}'), null, 2)}
+        >
+            Active Proposals
+        </button>
+        <button 
+            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
+            on:click={()=> response = JSON.stringify(JSON.parse('{"status": "Not yet implemented"}'), null, 2)}
+        >
+            Bonding Info
+        </button>
     </div>
     <CodeBlock background="bg-surface-900" language="json" code={response} ></CodeBlock>
 </div>

@@ -108,7 +108,7 @@
 
 </script>
 
-<Toast width="w-80 sm:w-[22rem] sm:min-w-96" position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
+<Toast duration=400 width="w-80 sm:w-[22rem] sm:min-w-96" position="br" background="variant-glass-secondary" buttonDismiss="btn-icon btn-icon-sm variant-glass" buttonAction="btn btm-sm variant-filled" max=6 />
 <Modal width="" regionBody="max-h-[400px]" regionBackdrop="bg-surface-backdrop-token" />
 <div class="absolute sm:hidden bottom-4 left-4">
 	<LightSwitch height="h-6" />
@@ -129,47 +129,49 @@
 			<strong class="-translate-y-10 text-center text-lg text-tertiary-600">Connect wallet with 1 AMBER</strong>
 			{/if}
 			<!-- Menu Items -->
-			<div class:opacity-25={poor} class="flex flex-col space-y-4 justify-center items-center">
+			<div class:opacity-25={poor} class="font-bold flex flex-col space-y-4 justify-between items-center">
 				<a href="{base}/" class="btn">
-					<div class="flex items-center space-x-4">
+					<div class="flex gap-3 justify-start w-32">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
 							<path fill-rule="evenodd" d="M3.019 11.115L18 5.667V9.09l4.006 1.456a.75.75 0 11-.512 1.41l-.494-.18v8.475h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3v-9.129l.019-.006zM18 20.25v-9.565l1.5.545v9.02H18zm-9-6a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75h3a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75H9z" clip-rule="evenodd" />
 						</svg>
-						<h2 class="font-bold">Home</h2>
+						<h2>Home</h2>
 					</div>
 				</a>
 				<a href="{base}/wallet" class="btn">
-					<div class="flex items-center space-x-4">
+					<div class="flex gap-3 justify-start w-32">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
 						</svg>
-						<h2 class="font-bold">Wallet</h2>
+						<h2>Wallet</h2>
 					</div>
 				</a>
 				<a href="{base}/keys" class="btn">
-					<div class="flex items-center space-x-4">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+					<div class="flex gap-3 justify-start w-32">
+						<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 00-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 00-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 00.75-.75v-1.5h1.5A.75.75 0 009 19.5V18h1.5a.75.75 0 00.53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1015.75 1.5zm0 3a.75.75 0 000 1.5A2.25 2.25 0 0118 8.25a.75.75 0 001.5 0 3.75 3.75 0 00-3.75-3.75z" clip-rule="evenodd" />
-						</svg>
-						<h2 class="font-bold">Keys</h2>
+						</svg> -->
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8" viewBox="0 96 960 960"><path d="M120 936v-60h120v60H120Zm0-170v-60h320v60H120Zm0-160v-60h720v60H120Zm0-160v-60h320v60H120Zm0-170v-60h120v60H120Zm200 660v-60h120v60H320Zm0-660v-60h120v60H320Zm205 660v-60h115v60H525Zm0-170v-60h315v60H525Zm-5-320v-60h320v60H520Zm0-170v-60h120v60H520Zm200 660v-60h120v60H720Zm0-660v-60h120v60H720Z"/></svg>
+
+						<h2>Keys</h2>
 					</div>
 				</a>
 				<a href="{base}/" class="btn">
-					<div class="flex items-center space-x-4">
+					<div class="flex gap-3 justify-start w-32">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
 							<path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
 						</svg>
-						<h2 class="font-bold">Stake</h2>
+						<h2>Stake</h2>
 				</div>
 				</a>
 				<a href="{base}/secret" class="btn">
-					<div class="flex items-center space-x-4">
+					<div class="flex gap-3 justify-start w-32">
 						<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
 							<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
 						</svg>
-						<h2 class="font-bold">Query</h2>
+						<h2>Query</h2>
 					</div>
 				</a>
 			</div>
@@ -190,7 +192,7 @@
 <!-- App Shell -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <AppShell regionPage="bg-spotlights-light dark:bg-spotlights-dark" slotSidebarLeft="shadow-right-lg bg-surface-100-800-token">
-<!-- <AppShell regionPage=""> -->
+	<!--add this for amber background slotHeader="bg-amber-logo bg-[size:120%] bg-no-repeat bg-center" -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar slotTrail="!space-x-0 md:!space-x-4" shadow="shadow-lg">
@@ -259,7 +261,7 @@
 			{#if poor}
 				<div on:click={()=> modalStore.trigger(alert)} class="absolute inset-0 w-[5.375rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"></div>
 			{/if}
-			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token ease-material-color transition-colors duration-300" width="w-[5.375rem]">
+			<AppRail regionTrail="justify-end" selected={storeValue} active="variant-glass-secondary text-black dark:text-dark-token" hover="hover:bg-secondary-hover-token ease-standard transition-colors duration-300" width="w-[5.375rem]">
 				<svelte:fragment slot="lead">
 					<AppRailTile tag="a" href={poor ? "" : base+"/"} label="Home" title="Home" value={1}>
 						<!-- 🏠 -->

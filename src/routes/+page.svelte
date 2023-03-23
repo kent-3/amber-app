@@ -34,7 +34,7 @@
     // export let data: PageData;
 </script>
 
-<div class="container h-full flex p-4 sm:p-6 items-start justify-center sm:justify-start">
+<div class="container h-full flex p-2 pt-4 sm:p-6 items-start justify-center sm:justify-start">
 	<!-- {#if $isAccountAvailable == true}
 		<div class="card variant-ghost-primary p-4 space-y-2 text-center">
 			<h2 class="font-bold"> You have {$amberBalance} AMBER </h2>

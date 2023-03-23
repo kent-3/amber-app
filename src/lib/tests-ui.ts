@@ -43,7 +43,7 @@ export function testModal() {
 	// TODO add code highlighting
 	const confirm: ModalSettings = {
 		type: 'confirm',
-		title: 'Review Message Details',
+		title: 'Review Message Details (test)',
 		body: `
 			<dl class="font-mono grid grid-cols-[6rem_minmax(0,_2fr)]">
                 <dt class="dark:text-surface-400">Action:</dt>

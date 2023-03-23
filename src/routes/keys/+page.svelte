@@ -27,7 +27,7 @@
 	})
 </script>
 
-<div class="container h-full flex gap-4 p-4 sm:p-6 items-start">
+<div class="container h-full flex gap-4 px-2 py-4 sm:p-6 items-start">
 	<div class="card bg-surface-50 dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-96">
 		<h2 class="font-bold">Viewing Keys</h2>
 		<div class="card variant-filled-primary text-sm px-1" data-popup="examplePopup">

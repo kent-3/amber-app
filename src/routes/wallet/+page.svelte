@@ -30,7 +30,7 @@
 
 </script>
 
-<div class="container h-full mx-auto sm:mx-0 flex flex-col gap-4 p-4 sm:p-6 items-start">
+<div class="container h-full mx-auto sm:mx-0 flex flex-col gap-2 sm:gap-4 px-2 pt-4 sm:p-6 items-start">
     <div class="card bg-surface-50 dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-72">
 		<h2 class="font-bold">Balances</h2>
 		<p class="font-bold font-mono text-secondary-800 dark:text-primary-600">{$scrtBalance} SCRT</p>
