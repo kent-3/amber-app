@@ -2317,6 +2317,10 @@ a.card:hover {
 .w-full {
   width: 100%;
 }
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
 .min-w-\[150px\] {
   min-width: 150px;
 }
@@ -3967,9 +3971,17 @@ a.card:hover {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(40 41 42 / var(--tw-bg-opacity)) !important;
 }
+.dark .dark\:\!bg-surface-900 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(var(--color-surface-900) / var(--tw-bg-opacity)) !important;
+}
 .dark .dark\:bg-\[\#28292a\] {
   --tw-bg-opacity: 1;
   background-color: rgb(40 41 42 / var(--tw-bg-opacity));
+}
+.dark .dark\:bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 .dark .dark\:bg-primary-500\/30 {
   background-color: rgb(var(--color-primary-500) / 0.3);
@@ -4072,6 +4084,10 @@ a.card:hover {
   }
   .sm\:p-6 {
     padding: 1.5rem;
+  }
+  .dark .sm\:dark\:bg-\[\#0f0f0f\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(15 15 15 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 768px) {

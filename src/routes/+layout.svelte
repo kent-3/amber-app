@@ -83,7 +83,7 @@
 
 	function debug() {
 		// testBatchQuery()
-		// testToasts()
+		testToasts()
 		testModal()
 // 		const modalComponent: ModalComponent = {
 // 			// Pass a reference to your custom component
@@ -193,7 +193,7 @@
 <!-- <AppShell regionPage=""> -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar slotTrail="!space-x-0 md:!space-x-4" shadow="shadow-xl">
+		<AppBar slotTrail="!space-x-0 md:!space-x-4" shadow="shadow-lg">
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 					<div class="sm:hidden btn btn-sm" on:click={()=>drawerStore.open(drawerSettings)}>

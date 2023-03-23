@@ -28,7 +28,7 @@
 </script>
 
 <div class="container h-full flex gap-4 p-4 sm:p-6 items-start">
-	<div class="card dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-96">
+	<div class="card dark:!bg-surface-900 p-4 space-y-2 text-left w-full sm:w-96">
 		<h2 class="font-bold">Viewing Keys</h2>
 		<div class="card variant-filled-primary text-sm px-1" data-popup="examplePopup">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -38,14 +38,15 @@
 			<!-- Append the arrow element -->
 			<!-- <div class="arrow variant-filled-primary" /> -->
 		</div>
-		{#key viewingKeys}
-			{#each tokens as token}
-				{#if $viewingKeys.has(token.address)}
-					<p>
-                        {token.symbol}: 
-                        <button
+		<div class="grid gap-2  grid-cols-[5rem_minmax(0,_2fr)]">
+			{#key viewingKeys}
+				{#each tokens as token}
+					{#if $viewingKeys.has(token.address)}
+						<p>
+							{token.symbol}:
+						</p>
+						<button
 							class="btn p-0 text-surface-400 font-medium"
-							
 							use:clipboard={{ element: 'exampleElement' }}
 						>
 							<span>
@@ -54,28 +55,30 @@
 							<span class="hidden" data-clipboard="exampleElement">
 								{$viewingKeys.get(token.address)}
 							</span>
-							
-                        </button>
-                    </p>
-				{:else}
-					<!-- TODO work out better solution for this since metamask doesn't truly disconnect -->
-					<!-- {#if metamask}
-					<p>
-                        {token.symbol}: 
-                        <button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setMetamaskViewingKey(token.address)}>
+						</button>
+					{:else}
+						<!-- TODO work out better solution for this since metamask doesn't truly disconnect -->
+						<!-- {#if metamask}
+						<p>
+							{token.symbol}: 
+							<button class="btn p-0 px-2 variant-filled-secondary rounded-md" on:click={() => setMetamaskViewingKey(token.address)}>
+								Create Viewing Key
+							</button>
+						</p> -->
+						<!-- {:else} -->
+						<p>
+							{token.symbol}: 
+						</p>
+						<button
+							class="btn w-max p-1 px-4 rounded-full hover:bg-secondary-100-800-token dark:bg-[#28292a] material-color-transition"
+							on:click={() => setKeplrViewingKey(token.address)}
+						>
 							Create Viewing Key
 						</button>
-					</p> -->
-					<!-- {:else} -->
-                    <p>
-                        {token.symbol}: 
-                        <button class="btn p-0 px-2 variant-filled-secondary rounded-full" on:click={() => setKeplrViewingKey(token.address)}>
-							Create Viewing Key
-						</button>
-					</p>
-					<!-- {/if} -->
-				{/if}
-			{/each}
-		{/key}
+						<!-- {/if} -->
+					{/if}
+				{/each}
+			{/key}
+		</div>
 	</div>
 </div>
