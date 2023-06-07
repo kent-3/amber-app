@@ -32,19 +32,19 @@ export function resetStores() {
 
 export const isAccountAvailable: Writable<boolean> = writable(false)
 export const keplrKey: Writable<Key> = writable({
-    name: "",
-    algo: "",
-    pubKey: new Uint8Array,
-    address: new Uint8Array,
-    bech32Address: "",
-    isNanoLedger: false,
-    isKeystone: false
+	name: "",
+	algo: "",
+	pubKey: new Uint8Array,
+	address: new Uint8Array,
+	bech32Address: "",
+	isNanoLedger: false,
+	isKeystone: false
 })
 export const secretClient: Writable<SecretNetworkClient> = writable(
-    new SecretNetworkClient({
-        url: SECRET_LCD,
-        chainId: SECRET_CHAIN_ID
-}))
+	new SecretNetworkClient({
+		url: SECRET_LCD,
+		chainId: SECRET_CHAIN_ID
+	}))
 
 export const secretAddress: Writable<string> = writable("secret1...")
 export const scrtBalance: Writable<string> = writable('🤫')

@@ -1,153 +1,253 @@
 <script lang="ts">
-    import { CodeBlock } from '@skeletonlabs/skeleton';
-    import { AMBER } from '$lib/contracts'
-    import { apiUrl, secretClient } from '$lib/stores'
+	import { CodeBlock } from '@skeletonlabs/skeleton';
+	import { AMBER } from '$lib/contracts';
+	import { apiUrl, secretClient } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { SecretNetworkClient } from 'secretjs';
-	import type { ConfigResponse } from 'secretjs/dist/grpc_gateway/cosmos/base/node/v1beta1/query.pb';
+	import { ProposalStatus, SecretNetworkClient } from 'secretjs';
+	import { draw, fade, fly, slide } from 'svelte/transition';
+	import { linear, quadIn, quadOut, sineIn, sineOut } from 'svelte/easing';
+	import { OrderBy } from 'secretjs/dist/grpc_gateway/cosmos/tx/v1beta1/service.pb';
+	import SecretSpinner from '$lib/components/SecretSpinner.svelte';
 
-    let response: string
+	interface Query {
+		fn: Function;
+		name: string;
+	}
 
-    async function checkCommunityPool() {
-        const r = await $secretClient.query.distribution.communityPool({})
-        response = JSON.stringify(r.pool, null, 2)
-        // response = Number( (pool![1].amount as any) / 1e6 ).toString()
-    }
+	let queries: Query[] = [
+		{ fn: getLatestBlock, name: 'Latest Block' },
+		{ fn: checkCommunityPool, name: 'Community Pool Funds' },
+		{ fn: getContractInfo, name: 'Amber Contract Info' },
+		{ fn: getProposals, name: 'Active Proposals' },
+		// { fn: getCodes, name: 'Codes' },
+		{ fn: getDecoys, name: 'Decoys' },
+		{ fn: getAllAccounts, name: 'All Accounts' },
+	];
 
-    async function getLatestBlock() {
-        try {
-            const r = await $secretClient.query.tendermint.getLatestBlock({})
-            console.log(r.block?.header?.time)
-            response = JSON.stringify(r.block?.header, null, 2)
+	let loading = false;
+	let response: string;
 
-        } catch (error) {
-            console.error(error)
-        }
-    }
+	async function getLatestBlock() {
+		loading = true;
+		try {
+			const r = await $secretClient.query.tendermint.getLatestBlock({});
+			console.log(r.block?.header?.time);
+			response = JSON.stringify(r.block?.header, null, 2);
+		} catch (error) {
+			console.error(error);
+		}
 
-    interface TokenConfigResponse {
-        public_total_supply: boolean,
-        deposit_enabled: boolean,
-        redeem_enabled: boolean,
-        mint_enabled: boolean,
-        burn_enabled: boolean,
-        supported_denoms: string[],
-    }
+		loading = false;
+	}
 
-    async function getContractInfo() {
-        const r1 = await $secretClient.query.compute.contractInfo({contract_address: AMBER.address})
-        const r2 = await $secretClient.query.snip20.getSnip20Params({
-            contract: {
-                address: AMBER.address,
-                code_hash: AMBER.code_hash,
-            }})
-        const r3 = await $secretClient.query.snip20.queryContract({
-                contract_address: AMBER.address,
-                code_hash: AMBER.code_hash,
-                query: { token_config: {}}
-            }) as TokenConfigResponse
-        response = JSON.stringify(r1, null, 2) + ",\n" + JSON.stringify(r2, null, 2) + ",\n" + JSON.stringify(r3, null, 2)
-    }
+	async function checkCommunityPool() {
+		loading = true;
 
-    const balanceFormat = new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 6,
-    }).format;
+		const r = await $secretClient.query.distribution.communityPool({});
+		response = JSON.stringify(r.pool, null, 2);
+		// response = Number( (pool![1].amount as any) / 1e6 ).toString()
 
-    const refreshNodeStatus = async (
-            querySecretjs: SecretNetworkClient,
-            showLoading: boolean
-        ) => {
-            try {
-                const { block } = await querySecretjs.query.tendermint.getLatestBlock({});
-                let minimum_gas_price: string | undefined;
-                try {
-                    ({ minimum_gas_price } = await querySecretjs.query.node.config({}));
-                } catch (error) {
-                    // Bug on most chains - this endpoint isn't connected
-                }
+		loading = false;
+	}
 
-                // const { params } = await querySecretjs.query.staking.params({});
-                // setDenom(params!.bond_denom!);
+	interface TokenConfigResponse {
+		public_total_supply: boolean;
+		deposit_enabled: boolean;
+		redeem_enabled: boolean;
+		mint_enabled: boolean;
+		burn_enabled: boolean;
+		supported_denoms: string[];
+	}
 
-                const chainId = block?.header?.chain_id!;
-                // setChainId(chainId);
+	async function getContractInfo() {
+		loading = true;
 
-                const blockHeight = balanceFormat(Number(block?.header?.height));
-                console.log(blockHeight)
+		const r1 = await $secretClient.query.compute.contractInfo({ contract_address: AMBER.address });
+		const r2 = await $secretClient.query.snip20.getSnip20Params({
+			contract: {
+				address: AMBER.address,
+				code_hash: AMBER.code_hash
+			}
+		});
+		const r3 = (await $secretClient.query.snip20.queryContract({
+			contract_address: AMBER.address,
+			code_hash: AMBER.code_hash,
+			query: { token_config: {} }
+		})) as TokenConfigResponse;
+		response =
+			JSON.stringify(r1, null, 2) +
+			',\n' +
+			JSON.stringify(r2, null, 2) +
+			',\n' +
+			JSON.stringify(r3, null, 2);
 
-                let gasPrice: string | undefined;
-                if (minimum_gas_price) {
-                    gasPrice = minimum_gas_price.replace(/0*([a-z]+)$/, "$1");
-                }
+		loading = false;
+	}
 
-                const blockTimeAgo = Math.floor(
-                    (Date.now() - Date.parse(block?.header?.time as string)) / 1000
-                );
-                let blockTimeAgoString = `${blockTimeAgo}s ago`;
-                if (blockTimeAgo <= 0) {
-                    blockTimeAgoString = "now";
-                }
+	async function getProposals() {
+		loading = true;
 
-            } catch (error) {
-                let errorMessage: string;
-                if (error instanceof Error) {
-                    errorMessage = error.message;
-                } else {
-                    errorMessage = JSON.stringify(error);
-                }
-            }
-        };
+		try {
+			const { proposals } = await $secretClient.query.gov.proposals({
+				proposal_status: ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD
+			});
+			response = JSON.stringify(proposals, null, 2);
+		} catch (error) {
+			console.error(error);
+		}
 
-	onMount(()=> {
+		loading = false;
+	}
+
+	async function getAllAccounts() {
+		loading = true;
+
+		const result = await $secretClient.query.auth.accounts({
+			pagination: { count_total: true, limit: '30' }
+		});
+		response = JSON.stringify(result, null, 2);
+
+		loading = false;
+	}
+
+	// async function getCodes() {
+	// 	loading = true;
+
+	// 	try {
+	// 		const { code_infos } = await $secretClient.query.compute.codes({});
+	// 		response = JSON.stringify(code_infos, null, 2);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+
+	// 	loading = false;
+	// }
+
+	async function getDecoys() {
+		loading = true;
+
+		try {
+			const resp = await $secretClient.query.txsQuery(
+				"wasm.contract_address = 'secret153wu605vvp934xhd4k9dtd640zsep5jkesstdm'"
+			);
+			let decoys = resp
+				.map((response) => response.arrayLog?.find((response) => response.key === 'sender')?.value)
+				.filter((address) => address?.startsWith('secret1'));
+
+			// Remove duplicates
+			decoys = [...new Set(decoys)];
+
+			// Fisher-Yates (Knuth) shuffle
+			for (let i = decoys.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[decoys[i], decoys[j]] = [decoys[j], decoys[i]];
+			}
+
+			// Get the first 10 elements
+			const selectedObjects = decoys.slice(0, 10);
+
+			response = JSON.stringify(selectedObjects, null, 2);
+		} catch (error) {
+			console.error(error);
+		}
+
+		loading = false;
+	}
+
+	async function getContractsByCodeId() {
+		try {
+			const { contract_infos } = await $secretClient.query.compute.contractsByCodeId({
+				code_id: '877'
+			});
+			response = JSON.stringify(contract_infos, null, 2);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	const balanceFormat = new Intl.NumberFormat('en-US', {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 6
+	}).format;
+
+	const refreshNodeStatus = async (querySecretjs: SecretNetworkClient, showLoading: boolean) => {
+		try {
+			const { block } = await querySecretjs.query.tendermint.getLatestBlock({});
+			let minimum_gas_price: string | undefined;
+			try {
+				({ minimum_gas_price } = await querySecretjs.query.node.config({}));
+			} catch (error) {
+				// Bug on most chains - this endpoint isn't connected
+			}
+
+			// const { params } = await querySecretjs.query.staking.params({});
+			// setDenom(params!.bond_denom!);
+
+			const chainId = block?.header?.chain_id!;
+			// setChainId(chainId);
+
+			const blockHeight = balanceFormat(Number(block?.header?.height));
+			console.log(blockHeight);
+
+			let gasPrice: string | undefined;
+			if (minimum_gas_price) {
+				gasPrice = minimum_gas_price.replace(/0*([a-z]+)$/, '$1');
+			}
+
+			const blockTimeAgo = Math.floor(
+				(Date.now() - Date.parse(block?.header?.time as string)) / 1000
+			);
+			let blockTimeAgoString = `${blockTimeAgo}s ago`;
+			if (blockTimeAgo <= 0) {
+				blockTimeAgoString = 'now';
+			}
+		} catch (error) {
+			let errorMessage: string;
+			if (error instanceof Error) {
+				errorMessage = error.message;
+			} else {
+				errorMessage = JSON.stringify(error);
+			}
+		}
+	};
+
+	onMount(() => {
 		const interval = setInterval(() => {
+			const secretjs = new SecretNetworkClient({
+				url: $apiUrl,
+				chainId: ''
+			});
 
-        const secretjs = new SecretNetworkClient({
-            url: $apiUrl,
-            chainId: ""
-        })
-        
-        refreshNodeStatus(secretjs, false);
-
+			refreshNodeStatus(secretjs, false);
 		}, 10000);
 
 		// Clean up the interval when the component unmounts
 		return () => clearInterval(interval);
-	})
+	});
 </script>
 
-<div class="container h-full flex flex-col sm:flex-row gap-4 px-2 py-4 sm:p-6 sm:items-start">
-    <div class="card bg-surface-50 dark:!bg-[#28292a] flex flex-col p-4 space-y-2 text-left">
-        <button 
-            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
-            on:click={()=>getLatestBlock()}
-        >
-            Latest Block Info
-        </button>
-        <button 
-            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
-            on:click={()=>checkCommunityPool()}
-        >
-            Community Pool Funds
-        </button>
-        <button 
-            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
-            on:click={()=>getContractInfo()}
-        >
-            Amber Contract Info
-        </button>
-        <button 
-            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
-            on:click={()=> response = JSON.stringify(JSON.parse('{"status": "Not yet implemented"}'), null, 2)}
-        >
-            Active Proposals
-        </button>
-        <button 
-            class="btn bg-secondary-300 dark:bg-secondary-800 material-color-transition"
-            on:click={()=> response = JSON.stringify(JSON.parse('{"status": "Not yet implemented"}'), null, 2)}
-        >
-            Bonding Info
-        </button>
-    </div>
-    <CodeBlock background="bg-surface-900" language="json" code={response} ></CodeBlock>
+<div
+	in:fly={{ y: -500, duration: 700 }}
+	class="container h-full w-full flex flex-col md:flex-row gap-4 px-2 py-4 sm:p-6 sm:items-start"
+>
+	<div class="card bg-surface-50 dark:!bg-[#28292a] flex flex-col p-4 space-y-2 text-left">
+		{#each queries as query}
+			<button
+				class="btn variant-ghost-secondary text-sm font-bold material-color-transition"
+				on:click={() => query.fn()}
+			>
+				{query.name}
+			</button>
+		{/each}
+	</div>
+	<div class="w-full sm:w-auto justify-center">
+		{#key response}
+			<span in:fly={{ y: 200, duration: 700, delay: 200 }}>
+				<CodeBlock background="bg-surface-900" language="json" code={response} />
+			</span>
+		{/key}
+	</div>
+	{#if loading}
+	<SecretSpinner />
+	{/if}
 </div>

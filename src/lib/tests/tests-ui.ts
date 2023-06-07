@@ -1,14 +1,4 @@
-import { chains } from './config'
-import { toHex, SecretNetworkClient } from 'secretjs';
-// import { keccak256 } from '@cosmjs/crypto';
 import { toastStore, type ToastSettings, modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
-
-const SECRET_CHAIN_ID = chains['Secret Network'].chain_id
-const SECRET_LCD = chains['Secret Network'].lcd
-const secretjs = new SecretNetworkClient({
-    url: "https://lcd.secret.express",
-    chainId: "secret-4"
-});
 
 function toHexString(byteArray: Uint8Array): string {
 	return Array.from(byteArray, (byte) => ("0" + (byte & 0xff).toString(16)).slice(-2)).join("");
@@ -37,9 +27,7 @@ export function testModal() {
 		}
 	}
 	const gasLimit = 50_000
-	const gasPriceInFeeDenom = 0.0125
-	const feeDenom = "uscrt"
-	
+
 	// TODO add code highlighting
 	const confirm: ModalSettings = {
 		type: 'confirm',

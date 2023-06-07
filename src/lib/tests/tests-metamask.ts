@@ -1,4 +1,4 @@
-import { chains } from './config'
+import { chains } from '../config'
 import { toHex, SecretNetworkClient } from 'secretjs';
 // import { keccak256 } from '@cosmjs/crypto';
 import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';

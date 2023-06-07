@@ -1,6 +1,6 @@
 import { SecretNetworkClient, MetaMaskWallet } from 'secretjs'
-import { chains } from './config'
-import { resetStores, isAccountAvailable, secretClient, secretAddress, viewingKeys } from './stores'
+import { chains } from '../config'
+import { resetStores, isAccountAvailable, secretClient, secretAddress, viewingKeys } from '../stores'
 import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 import { AMBER } from '$lib/contracts'

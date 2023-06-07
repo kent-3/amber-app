@@ -1,3 +1,4 @@
+import preprocess from 'svelte-preprocess';
 // import adapter from '@sveltejs/adapter-node';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/kit/vite';
@@ -25,16 +26,18 @@ const config = {
 	preprocess: [
 		vitePreprocess({
 			postcss: true
+		}),
+		preprocess({
+			postcss: true
 		})
 	],
 	vitePlugin: {
 		experimental: {
 			inspector: {
-				holdMode: true,
+				holdMode: true
 			}
 		}
-	}		
-
+	}
 };
 
 export default config;
