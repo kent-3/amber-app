@@ -80,7 +80,7 @@
 			type: 'confirm',
 			title: 'Please Confirm',
 			body: 'Are you sure you wish to proceed?',
-			modalClasses: 'ring-secondary-500 ring-1',
+			modalClasses: 'ring-secondary-500 ring-[1.5px]',
 			// TRUE if confirm pressed, FALSE if cancel pressed
 			response: (r: boolean) => {
 				if (r) {
@@ -157,7 +157,6 @@
 			await connect();
 		});
 		if ($isAccountAvailable == true) {
-			console.log('hello')
 			await connect();
 		}
 		// add viewer to DOM
