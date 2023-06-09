@@ -151,7 +151,7 @@
 		</div>
 		{#if $storageLocal && $storageLocal.length > 0}
 			<div
-				class="card bg-surface-50 dark:bg-[#28292a] shadow-xl w-full md:justify-normal justify-center p-4 gap-4"
+				class="card bg-surface-50 dark:bg-[#28292a] shadow-xl md:justify-normal justify-center p-4 gap-4"
 			>
 				{#each $storageLocal as item}
 					<p class="font-mono text-sm">{item.key} = {item.value}</p>

@@ -65,7 +65,7 @@
 	function debug() {
 		// testBatchQuery()
 		testToasts();
-		testModal();
+		// testModal();
 	}
 
 	function randomSticker(): string | undefined {
