@@ -18,8 +18,8 @@
 	<div
 		in:fly={{ x: 100, duration: 700 }}
 		class="flex flex-col justify-start items-center
-		 p-4 h-[98%] mx-auto space-y-4
-		 sm:p-6 sm:space-y-6 sm:first:pt-8 last:pb-10"
+		 p-4 h-full mx-auto space-y-4
+		 sm:p-6 sm:space-y-6 sm:first:pt-8"
 	>
 		<h2 class="font-semibold !text-3xl text-center">AMBER Token Upgrade</h2>
 		<!-- <div class="p-4 space-y-2 text-center">

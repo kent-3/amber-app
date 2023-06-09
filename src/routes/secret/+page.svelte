@@ -230,10 +230,10 @@
 	in:fly={{ y: 200, duration: 700 }}
 	class="flex flex-col md:flex-row md:flex-wrap gap-4 px-2 py-4 sm:p-6 pb-12"
 >
-	<div class="card bg-surface-50 dark:bg-[#28292a] flex flex-col h-full p-4 space-y-2">
+	<div class="card bg-surface-50 dark:bg-[#28292a] flex lg:flex-col flex-wrap h-full p-4 gap-2">
 		{#each queries as query}
 			<button
-				class="btn variant-ghost-secondary text-sm font-bold material-color-transition"
+				class="btn variant-ghost-secondary text-sm font-bold material-color-transition flex-auto min-w-fit"
 				on:click={() => query.fn()}
 			>
 				{query.name}
