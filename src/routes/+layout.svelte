@@ -1,15 +1,15 @@
 <script lang="ts">
+	import '../theme.postcss';
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	import '../app.postcss';
+
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import Wallet from '$lib/components/Wallet.svelte';
-	import { draw } from 'svelte/transition';
 	import { chains } from '$lib/config';
 	import { isAccountAvailable, amberBalance } from '$lib/stores';
 	import { testModal, testToasts } from '$lib/tests/tests-ui';
 
-	import '../theme.postcss';
-	import '@skeletonlabs/skeleton/styles/all.css';
-	import '../app.postcss';
 	import { AppShell, AppBar, AppRail, AppRailAnchor, Modal } from '@skeletonlabs/skeleton';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { popup, storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
@@ -23,13 +23,12 @@
 	import { storeHighlightJs } from '@skeletonlabs/skeleton';
 	import hljs from 'highlight.js';
 	import 'highlight.js/styles/nord.css';
-	// import 'highlight.js/styles/github-dark.css';
-	// import 'highlight.js/styles/atom-one-dark.css';
 
 	// image assets
 	import logo from '$lib/images/amber-logo.png';
 	// import scrt from '$lib/images/scrt.svg'
 	import amber_pope from '$lib/images/stickers/amber-pope.webp';
+	import amber_dealer from '$lib/images/stickers/amberdealer.webp';
 
 	storeHighlightJs.set(hljs);
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
@@ -43,52 +42,60 @@
 
 	const drawerSettings: DrawerSettings = {
 		id: 'side-menu',
-		width: 'w-[90%]'
-		// duration: 200,
-		// padding: 'pt-4 pb-6',
-		// regionDrawer: 'variant-glass',
+		width: 'w-[90%] max-w-sm',
+		rounded: 'rounded-r-xl',
+		bgDrawer: 'bg-surface-50 dark:bg-[#28292a]',
+		duration: 300,
 	};
 
 	const alert: ModalSettings = {
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		// image: amber_pope,
+		image: randomSticker(),
 		buttonTextCancel: 'OK',
-		modalClasses: 'w-modal-slim',
+		modalClasses: '!w-modal-slim',
 		backdropClasses: ''
 	};
 
 	// uncomment for testing
 	$: poor = false;
-	// $: poor = !(Number($amberBalance as any) > 1)
+	// $: poor = !(Number($amberBalance as any) > 1);
 
 	function debug() {
 		// testBatchQuery()
 		testToasts();
 		testModal();
 	}
+
+	function randomSticker(): string | undefined {
+		const imageUrls = [amber_pope, amber_dealer];
+		const i = Math.floor(Math.random() * imageUrls.length);
+
+		return imageUrls[i];
+	}
 </script>
 
 <Toast
-	duration="400"
+	duration={400}
 	width="w-80 sm:w-[22rem] sm:min-w-96"
 	position="br"
 	background="variant-glass-secondary"
-	buttondismiss="btn-icon btn-icon-sm variant-glass"
-	buttonaction="btn btm-sm variant-filled"
-	max="6"
+	buttonDismiss="btn-icon btn-icon-sm variant-glass"
+	buttonAction="btn btm-sm variant-filled"
+	max={6}
 />
 <Modal
-	regionbody="max-h-[440px]"
-	regionbackdrop="bg-surface-backdrop-token backdrop-blur-[1px]"
-	regionheader="font-heading-token"
+	duration={150}
+	regionBody="max-h-[440px]"
+	regionBackdrop="bg-surface-backdrop-token backdrop-blur-[2px]"
+	width="w-modal"
 />
-<div class="absolute sm:hidden bottom-4 left-4">
+<div class="absolute sm:hidden bottom-4 left-4 z-[39]">
 	<LightSwitch height="h-6" />
 </div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Drawer bgbackdrop="bg-surface-backdrop-token">
+<Drawer bgBackdrop="bg-surface-backdrop-token">
 	{#if $drawerStore.id === 'side-menu'}
 		<!-- TODO reduce code duplication of these images -->
 		<!-- Close menu button -->
@@ -113,22 +120,24 @@
 			class="h-full mx-auto flex flex-col justify-center items-center"
 		>
 			{#if poor}
-				<strong class="-translate-y-10 text-center text-lg text-tertiary-600"
-					>Connect wallet with 1 AMBER</strong
+				<p
+					class="-translate-y-12 text-center text-lg text-tertiary-700 dark:text-tertiary-600 font-bold"
 				>
+					Connect a wallet <br /> with 1 AMBER
+				</p>
 			{/if}
 			<!-- Menu Items -->
 			<div
 				class:opacity-25={poor}
-				class="font-bold flex flex-col space-y-4 justify-between items-center"
+				class="font-bold flex flex-col space-y-4 justify-between items-center fill-token"
 			>
 				<a href="{base}/" class="btn">
-					<div class="flex gap-3 justify-start w-32">
+					<div class="flex items-center justify-start gap-4 w-32">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-8 h-8"
+							class="w-10 h-10"
 						>
 							<path
 								d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z"
@@ -139,49 +148,45 @@
 								clip-rule="evenodd"
 							/>
 						</svg>
-						<h2>Home</h2>
+						<h2 class="text-xl">Home</h2>
 					</div>
 				</a>
 				<a href="{base}/wallet" class="btn">
-					<div class="flex gap-3 justify-start w-32">
+					<div class="flex gap-4 items-center justify-start w-32">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-8 h-8"
+							class="w-10 h-10"
 						>
 							<path
 								d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z"
 							/>
 						</svg>
-						<h2>Wallet</h2>
+						<h2 class="text-xl">Wallet</h2>
 					</div>
 				</a>
-				<a href="{base}/keys" class="btn">
-					<div class="flex gap-3 justify-start w-32">
-						<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
-							<path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 00-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 00-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 00.75-.75v-1.5h1.5A.75.75 0 009 19.5V18h1.5a.75.75 0 00.53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1015.75 1.5zm0 3a.75.75 0 000 1.5A2.25 2.25 0 0118 8.25a.75.75 0 001.5 0 3.75 3.75 0 00-3.75-3.75z" clip-rule="evenodd" />
-						</svg> -->
+				<!-- <a href="{base}/keys" class="btn">
+					<div class="flex gap-4 items-center justify-start w-32">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="currentColor"
-							class="w-8 h-8"
+							class="w-10 h-10"
 							viewBox="0 96 960 960"
 							><path
 								d="M120 936v-60h120v60H120Zm0-170v-60h320v60H120Zm0-160v-60h720v60H120Zm0-160v-60h320v60H120Zm0-170v-60h120v60H120Zm200 660v-60h120v60H320Zm0-660v-60h120v60H320Zm205 660v-60h115v60H525Zm0-170v-60h315v60H525Zm-5-320v-60h320v60H520Zm0-170v-60h120v60H520Zm200 660v-60h120v60H720Zm0-660v-60h120v60H720Z"
 							/></svg
 						>
-
-						<h2>Keys</h2>
+						<h2 class="text-xl">Keys</h2>
 					</div>
-				</a>
-				<a href="{base}/" class="btn">
-					<div class="flex gap-3 justify-start w-32">
+				</a> -->
+				<!-- <a href="{base}/" class="btn">
+					<div class="flex gap-4 items-center justify-start w-32">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-8 h-8"
+							class="w-10 h-10"
 						>
 							<path
 								d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z"
@@ -192,17 +197,45 @@
 								clip-rule="evenodd"
 							/>
 						</svg>
-						<h2>Stake</h2>
+						<h2 class="text-xl">Stake</h2>
+					</div>
+				</a> -->
+				<a href="{base}/secret" class="btn">
+					<div class="flex gap-4 items-center justify-start w-32">
+						<svg
+							viewBox="0 0 59 59"
+							fill="none"
+							stroke="currentColor"
+							stroke-miterlimit="10"
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-10 h-10"
+						>
+							<path
+								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
+								stroke-width="4"
+							/>
+							<path
+								d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
+							/>
+							<path
+								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
+								stroke-width="4"
+							/>
+							<path
+								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
+								stroke-width="4"
+							/>
+						</svg>
+						<h2 class="text-xl">Query</h2>
 					</div>
 				</a>
-				<a href="{base}/secret" class="btn">
-					<div class="flex gap-3 justify-start w-32">
+				<a href="{base}/debug" class="btn">
+					<div class="flex gap-4 items-center justify-start w-32">
 						<svg
-							id="icon"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-8 h-8"
+							class="w-10 h-10"
 						>
 							<path
 								fill-rule="evenodd"
@@ -210,14 +243,14 @@
 								clip-rule="evenodd"
 							/>
 						</svg>
-						<h2>Query</h2>
+						<h2 class="text-xl">Debug</h2>
 					</div>
 				</a>
 			</div>
 		</div>
 	{:else if $drawerStore.id === 'alert'}
 		<!-- (show 'example-2' contents) -->
-		<div class="flex mx-auto justify-center items-center ">
+		<div class="flex mx-auto justify-center items-center">
 			<h2>Not enough AMBER</h2>
 		</div>
 	{:else}
@@ -233,6 +266,7 @@
 <AppShell
 	regionPage="bg-spotlights-light dark:bg-spotlights-dark"
 	slotSidebarLeft="shadow-right-lg bg-surface-100-800-token"
+	slotPageFooter="z-[39]"
 >
 	<!--add this for amber background slotHeader="bg-amber-logo bg-[size:120%] bg-no-repeat bg-center" -->
 	<svelte:fragment slot="header">
@@ -241,14 +275,14 @@
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 				<div
-					class="sm:hidden btn btn-sm pl-1 pr-2"
+					class="md:hidden btn btn-sm pl-1 pr-2"
 					on:click={() => drawerStore.open(drawerSettings)}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
 						fill="currentColor"
-						class="w-8 h-8 sm:hidden text-primary-600 dark:text-primary-500"
+						class="w-8 h-8 text-primary-600 dark:text-primary-500"
 					>
 						<path
 							fill-rule="evenodd"
@@ -263,11 +297,11 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img class="h-8 hidden sm:block pr-2" src={logo} alt="AmberDAO" />
+					<img class="h-8 hidden md:block pr-2" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
 					<strong class="text-xl font-['Fira_Sans'] uppercase text-surface-900-50-token"
-						>Amber DAO</strong
+						>Amber</strong
 					>
 				</button>
 			</svelte:fragment>
@@ -291,7 +325,7 @@
 			{#if poor}
 				<div
 					on:click={() => modalStore.trigger(alert)}
-					class="absolute inset-0 w-[5.375rem] h-full z-[888] translate-y-[4.625rem] opacity-75 hover:bg-error-400 dark:hover:bg-error-900"
+					class="absolute inset-0 w-[5rem] h-full z-[888] translate-y-[70px] opacity-50 hover:bg-error-400 dark:hover:bg-error-800"
 				/>
 			{/if}
 			<AppRail
@@ -439,7 +473,6 @@
 							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
-								in:draw={{ duration: 1000 }}
 								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
 								stroke-width="4"
 							/>
@@ -447,12 +480,10 @@
 								d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
 							/>
 							<path
-								in:draw={{ duration: 1000 }}
 								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
 								stroke-width="4"
 							/>
 							<path
-								in:draw={{ duration: 1000 }}
 								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
 								stroke-width="4"
 							/>
@@ -493,7 +524,7 @@
 	<!-- Page Route Content -->
 	<slot />
 	<svelte:fragment slot="pageFooter">
-		<div class="container ml-auto p-1 flex justify-end items-center">
+		<div class="container absolute bottom-0 right-1 ml-auto p-1 flex justify-end items-center">
 			<!-- <div class="hidden font-medium sm:inline-flex space-x-4">
 				<a
 					class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
@@ -521,14 +552,14 @@
 				</a>
 			</div> -->
 			<code
-				class="unstyled py-0.5 px-1 rounded text-xs font-mono whitespace-nowrap bg-secondary-500/30 text-secondary-800 dark:bg-primary-500/30 dark:text-primary-400"
+				class="unstyled py-0.5 px-1 rounded text-xs font-mono whitespace-nowrap bg-secondary-50/80 text-token dark:bg-primary-500/30 dark:text-primary-400"
 			>
 				connected to
 				<a
 					href="https://secret.express"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="unstyled text-secondary-700 dark:text-primary-500 underline"
+					class="unstyled text-secondary-800 saturate-200 dark:text-primary-500 underline"
 				>
 					{chains['Secret Network'].lcd}
 				</a>

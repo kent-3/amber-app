@@ -30,9 +30,19 @@
 				</p>
 			{/each}
 		{:else}
-			<p in:fade={{duration: 600 }} class="font-bold font-mono text-secondary-800 dark:text-primary-600">
+			<p
+				in:fade={{ duration: 600 }}
+				class="font-bold font-mono text-secondary-800 dark:text-primary-600"
+			>
 				None
 			</p>
 		{/if}
+	{:catch}
+		<p
+			in:fade={{ duration: 600 }}
+			class="font-bold font-mono text-secondary-800 dark:text-primary-600"
+		>
+			Not Connected
+		</p>
 	{/await}
 </div>

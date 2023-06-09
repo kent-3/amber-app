@@ -3,6 +3,7 @@ import { SecretNetworkClient } from 'secretjs'
 import { chains } from './config'
 import { type Writable, writable } from 'svelte/store'
 import type { SecretAddress, Token } from './tokens'
+import { localStorageStore } from '@skeletonlabs/skeleton';
 
 const SECRET_CHAIN_ID = chains['Secret Network'].chain_id
 const SECRET_LCD = chains['Secret Network'].lcd
@@ -30,7 +31,7 @@ export function resetStores() {
 	console.log("stores reset")
 }
 
-export const isAccountAvailable: Writable<boolean> = writable(false)
+export const isAccountAvailable: Writable<boolean> = localStorageStore('accountAvailable',false)
 export const keplrKey: Writable<Key> = writable({
 	name: "",
 	algo: "",

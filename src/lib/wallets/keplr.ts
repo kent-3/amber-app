@@ -11,7 +11,7 @@ const alert: ModalSettings = {
 		<p>Please install a Secret Network wallet<p>
 	`,
 	buttonTextCancel: 'OK',
-	modalClasses: 'variant-ghost-error'
+	modalClasses: '!w-modal-slim !ring-2 !ring-error-500'
 };
 
 const SECRET_CHAIN_ID = chains['Secret Network'].chain_id

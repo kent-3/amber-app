@@ -20,8 +20,8 @@
 		{ fn: getContractInfo, name: 'Amber Contract Info' },
 		{ fn: getProposals, name: 'Active Proposals' },
 		// { fn: getCodes, name: 'Codes' },
-		{ fn: getDecoys, name: 'Decoys' },
-		{ fn: getAllAccounts, name: 'All Accounts' },
+		{ fn: getAllAccounts, name: 'Total Accounts' },
+		{ fn: getDecoys, name: 'SHD Decoys' }
 	];
 
 	let loading = false;
@@ -105,7 +105,7 @@
 		const result = await $secretClient.query.auth.accounts({
 			pagination: { count_total: true, limit: '30' }
 		});
-		response = JSON.stringify(result, null, 2);
+		response = JSON.stringify({ total: result.pagination?.total }, null, 2);
 
 		loading = false;
 	}
@@ -211,26 +211,26 @@
 		}
 	};
 
-	onMount(() => {
-		const interval = setInterval(() => {
-			const secretjs = new SecretNetworkClient({
-				url: $apiUrl,
-				chainId: ''
-			});
+	// onMount(() => {
+	// 	const interval = setInterval(() => {
+	// 		const secretjs = new SecretNetworkClient({
+	// 			url: $apiUrl,
+	// 			chainId: ''
+	// 		});
 
-			refreshNodeStatus(secretjs, false);
-		}, 10000);
+	// 		refreshNodeStatus(secretjs, false);
+	// 	}, 10000);
 
-		// Clean up the interval when the component unmounts
-		return () => clearInterval(interval);
-	});
+	// 	// Clean up the interval when the component unmounts
+	// 	return () => clearInterval(interval);
+	// });
 </script>
 
 <div
-	in:fly={{ y: -500, duration: 700 }}
-	class="container h-full w-full flex flex-col md:flex-row gap-4 px-2 py-4 sm:p-6 sm:items-start"
+	in:fly={{ y: 200, duration: 700 }}
+	class="flex flex-col md:flex-row md:flex-wrap gap-4 px-2 py-4 sm:p-6 pb-12"
 >
-	<div class="card bg-surface-50 dark:!bg-[#28292a] flex flex-col p-4 space-y-2 text-left">
+	<div class="card bg-surface-50 dark:bg-[#28292a] flex flex-col h-full p-4 space-y-2">
 		{#each queries as query}
 			<button
 				class="btn variant-ghost-secondary text-sm font-bold material-color-transition"
@@ -240,14 +240,14 @@
 			</button>
 		{/each}
 	</div>
-	<div class="w-full sm:w-auto justify-center">
+	<div class="flex justify-center">
 		{#key response}
 			<span in:fly={{ y: 200, duration: 700, delay: 200 }}>
-				<CodeBlock background="bg-surface-900" language="json" code={response} />
+				<CodeBlock language="json" code={response} />
 			</span>
 		{/key}
 	</div>
 	{#if loading}
-	<SecretSpinner />
+		<SecretSpinner />
 	{/if}
 </div>
