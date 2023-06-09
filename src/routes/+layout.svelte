@@ -272,8 +272,8 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <AppShell
 	regionPage="bg-spotlights-light dark:bg-spotlights-dark"
-	slotSidebarLeft="z-[39] shadow-right-lg bg-surface-100-800-token"
-	slotPageFooter="z-[39] mt-10 md:mt-6"
+	slotSidebarLeft="z-[9] shadow-right-lg bg-surface-100-800-token"
+	slotPageFooter="z-[10] mt-10 md:mt-6"
 >
 	<!--add this for amber background slotHeader="bg-amber-logo bg-[size:120%] bg-no-repeat bg-center" -->
 	<svelte:fragment slot="header">
