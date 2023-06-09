@@ -6,7 +6,7 @@
 	import { connectLedger, getLedgerAddress } from '$lib/wallets/ledger';
 	import { chains } from '$lib/config';
 	import { AMBER } from '$lib/contracts';
-	import { type Token, tokenList, type SecretAddress } from '$lib/tokens';
+	import { type Token, tokenList } from '$lib/tokens';
 	import { compactAddress } from '$lib/utils';
 	import {
 		resetStores,
@@ -16,12 +16,10 @@
 		keplrKey,
 		secretAddress,
 		secretClient,
-		viewingKeys
+		viewingKeys,
 	} from '$lib/stores';
 	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
-	import { localStorageStore } from '@skeletonlabs/skeleton';
-	import amber_pope from '$lib/images/stickers/amber-pope.webp';
 	import keplr_icon from '$lib/icons/Keplr_icon.svg';
 	import starshell_icon from '$lib/icons/Starshell_icon.png';
 	import fina_icon from '$lib/icons/Fina_icon.webp';
@@ -49,11 +47,11 @@
 		event: 'click',
 		placement: 'bottom-end',
 		middleware: {
-			offset: 24
+			offset: 24,
 		},
 		// Provide a matching 'data-popup' value.
 		target: 'walletMenu',
-		closeQuery: '.btn'
+		closeQuery: '.btn',
 	};
 
 	// let metamaskSettings: PopupSettings = {
@@ -89,7 +87,7 @@
 			},
 			// Optionally override the button text
 			buttonTextCancel: 'Cancel',
-			buttonTextConfirm: 'Disconnect'
+			buttonTextConfirm: 'Disconnect',
 		};
 		modalStore.trigger(confirm);
 	}
@@ -109,7 +107,7 @@
 			},
 			// Optionally override the button text
 			buttonTextCancel: 'Cancel',
-			buttonTextConfirm: 'Disconnect'
+			buttonTextConfirm: 'Disconnect',
 		};
 		modalStore.trigger(confirm);
 	}
@@ -131,7 +129,7 @@
 			modalClasses:
 				'w-[768px] !space-y-0 -translate-y-4 !rounded-2xl !bg-surface-50 dark:!bg-[#28292a]',
 			// Optionally override the button text
-			buttonTextCancel: 'Cancel'
+			buttonTextCancel: 'Cancel',
 		};
 		modalStore.trigger(wallets);
 		// Get all the div elements with the specified class
@@ -209,7 +207,7 @@
 		try {
 			const response = await $secretClient.query.bank.balance({
 				address: $secretAddress,
-				denom: 'uscrt'
+				denom: 'uscrt',
 			});
 			$scrtBalance = Number((response.balance?.amount as any) / 1e6)
 				.toFixed(6)
@@ -222,12 +220,12 @@
 			const snip20Response = await $secretClient.query.snip20.getBalance({
 				contract: {
 					address: AMBER.address,
-					code_hash: AMBER.code_hash
+					code_hash: AMBER.code_hash,
 				},
 				address: $secretAddress,
 				auth: {
-					key: $viewingKeys.get(AMBER.address)
-				}
+					key: $viewingKeys.get(AMBER.address),
+				},
 			});
 			$amberBalance = Number((snip20Response.balance.amount as any) / 1e6).toString();
 		} catch (error) {
@@ -255,14 +253,14 @@
 </script>
 
 <div id="wallet-modal" class="hidden">
-	<div class="grid items-start grid-cols-[2fr_3.56fr] -mb-10">
+	<div class="-mb-10 grid grid-cols-[2fr_3.56fr] items-start">
 		<div
 			id="sidebar"
-			class="h-[380px] pr-4 flex flex-col gap-4 border-r-[1px] border-surface-300-600-token"
+			class="flex h-[380px] flex-col gap-4 border-r-[1px] pr-4 border-surface-300-600-token"
 		>
-			<div id="inner container" class="flex flex-col flex-1 p-6 justify-between">
-				<div class="text-sm font-medium container flex flex-col flex-1 gap-4 items-start">
-					<div class="container flex h-14 min-w-14">
+			<div id="inner container" class="flex flex-1 flex-col justify-between p-6">
+				<div class="container flex flex-1 flex-col items-start gap-4 text-sm font-medium">
+					<div class="min-w-14 container flex h-14">
 						<img
 							src="/amber-logo.png"
 							alt="logo"
@@ -280,16 +278,16 @@
 					<div class=" list-item">&sup2 Experimental</div>
 				</div>
 			</div>
-			<span class="text-xs text-center"
+			<span class="text-center text-xs"
 				>powered by <strong class="gradient-heading">AmberDAO</strong></span
 			>
 		</div>
-		<div id="available-wallets" class="font-medium p-4 pt-8 pr-0 flex flex-wrap gap-3">
+		<div id="available-wallets" class="flex flex-wrap gap-3 p-4 pr-0 pt-8 font-medium">
 			<div
-				class="container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
 				<div
-					class="rounded-xl block w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]"
+					class="block h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token"
 				>
 					<img src={starshell_icon} alt=" " />
 				</div>
@@ -297,41 +295,41 @@
 			</div>
 			<div
 				id="keplr-btn"
-				class="keplr-btn container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="keplr-btn container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
-				<div class="rounded-xl w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]">
+				<div class="h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token">
 					<img src={keplr_icon} alt="keplr" />
 				</div>
 				<div class="!ml-0">Keplr</div>
 			</div>
 			<div
-				class="container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
-				<div class="rounded-xl w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]">
+				<div class="h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token">
 					<img src={fina_icon} alt=" " />
 				</div>
 				<div class="!ml-0">Fina</div>
 			</div>
 			<div
-				class="container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
-				<div class="rounded-xl w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]">
+				<div class="h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token">
 					<img src={leap_icon} alt=" " />
 				</div>
 				<div class="!ml-0">Leap&sup1</div>
 			</div>
 			<div
-				class="container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
-				<div class="rounded-xl w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]">
+				<div class="h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token">
 					<img src={metamask_icon} alt=" " />
 				</div>
 				<div class="!ml-0">MetaMask&sup2</div>
 			</div>
 			<div
-				class="container basis-44 flex-grow btn hover:cursor-pointer !justify-start !text-left rounded-3xl ring-1 ring-surface-300-600-token p-4 flex gap-4 items-center"
+				class="container btn flex flex-grow basis-44 items-center !justify-start gap-4 rounded-3xl p-4 !text-left ring-1 ring-surface-300-600-token hover:cursor-pointer"
 			>
-				<div class="rounded-xl w-12 h-12 ring-1 ring-surface-300-600-token p-[8.333333333333334px]">
+				<div class="h-12 w-12 rounded-xl p-[8.333333333333334px] ring-1 ring-surface-300-600-token">
 					<svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect width="160" height="160" rx="16" fill="#00000D" />
 						<path
@@ -347,22 +345,22 @@
 </div>
 
 <div
-	class="card !ring-secondary-500 p-4 w-64 shadow-2xl md:-translate-x-[11px] translate-x-[4px]"
+	class="card w-64 translate-x-[4px] p-4 shadow-2xl !ring-secondary-500 md:-translate-x-[11px]"
 	data-popup="walletMenu"
 >
-	<div class="text-center space-y-4">
+	<div class="space-y-4 text-center">
 		<p class="text-center font-extrabold drop-shadow-md">
 			[ {$keplrKey.name} ]
 		</p>
 		<hr class="!border-t-2" />
-		<p class="font-bold font-mono text-secondary-600 dark:text-primary-500">
+		<p class="font-mono font-bold text-secondary-600 dark:text-primary-500">
 			{$scrtBalance} SCRT<br />{$amberBalance} AMBER
 		</p>
 		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
 		<button
 			on:click={() => triggerConfirm()}
 			on:keypress={() => triggerConfirm()}
-			class="btn btn-sm px-8 font-medium variant-ghost-secondary"
+			class="variant-ghost-secondary btn btn-sm px-8 font-medium"
 		>
 			Disconnect
 		</button>
@@ -371,18 +369,18 @@
 	<!-- <div class="arrow bg-surface-800" /> -->
 </div>
 
-<div class="card p-4 w-64 shadow-2xl" data-popup="walletMenu-MM">
-	<div class="text-center space-y-4">
+<div class="card w-64 p-4 shadow-2xl" data-popup="walletMenu-MM">
+	<div class="space-y-4 text-center">
 		<p class="text-center font-extrabold drop-shadow-md">[ metamask ]</p>
 		<hr class="!border-t-2" />
-		<p class="font-bold font-mono text-secondary-600 dark:text-primary-500">
+		<p class="font-mono font-bold text-secondary-600 dark:text-primary-500">
 			{$scrtBalance} SCRT<br />{$amberBalance} AMBER
 		</p>
 		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
 		<button
 			on:click={() => triggerConfirmMetamask()}
 			on:keypress={() => triggerConfirmMetamask()}
-			class="btn btn-sm px-8 font-medium variant-ghost-secondary"
+			class="variant-ghost-secondary btn btn-sm px-8 font-medium"
 		>
 			Disconnect
 		</button>
@@ -391,7 +389,7 @@
 	<!-- <div class="arrow bg-surface-800" /> -->
 </div>
 
-<div class="flex flex-row-reverse flex-nowrap md:gap-4 items-center">
+<div class="flex flex-row-reverse flex-nowrap items-center md:gap-4">
 	<!-- Alternate method for different button states -->
 	<!-- <button 
 		class="{$isAccountAvailable == true ? 'btn variant-ghost-secondary' : 'btn variant-ghost-primary'}"
@@ -400,13 +398,13 @@
 		{$isAccountAvailable == false ? 'Connect Wallet' : compactAddress($keplrKey.bech32Address)}
 	</button> -->
 	{#if $isAccountAvailable}
-		<button class="btn font-bold variant-ghost-primary text-sm" use:popup={popupSettings}>
+		<button class="variant-ghost-primary btn text-sm font-bold" use:popup={popupSettings}>
 			<svg
 				viewBox="0 0 21 18"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 				focusable="false"
-				class=" fill-token mr-3 w-[21px] h-[18px]"
+				class=" mr-3 h-[18px] w-[21px] fill-token"
 				aria-hidden="true"
 				><path
 					fill-rule="evenodd"
@@ -418,13 +416,13 @@
 			{compactAddress($secretAddress)}
 		</button>
 	{:else}
-		<button class="btn font-bold variant-ghost-primary text-sm" on:click={() => connect()}>
+		<button class="variant-ghost-primary btn text-sm font-bold" on:click={() => connect()}>
 			<svg
 				viewBox="0 0 21 18"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 				focusable="false"
-				class=" fill-token mr-3 w-[21px] h-[18px]"
+				class=" mr-3 h-[18px] w-[21px] fill-token"
 				aria-hidden="true"
 				><path
 					fill-rule="evenodd"
@@ -439,7 +437,7 @@
 	{#if $keplrKey.name != ''}
 		<div
 			in:fade
-			class="hidden lg:block dark:text-secondary-400 font-bold transition-all ease-standard duration-300"
+			class="hidden font-bold transition-all duration-300 ease-standard dark:text-secondary-400 lg:block"
 		>
 			[ {$keplrKey.name} ]
 		</div>

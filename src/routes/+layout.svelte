@@ -7,15 +7,15 @@
 	import { page } from '$app/stores';
 	import Wallet from '$lib/components/Wallet.svelte';
 	import { chains } from '$lib/config';
-	import { isAccountAvailable, amberBalance } from '$lib/stores';
-	import { testModal, testToasts } from '$lib/tests/tests-ui';
+	import { amberBalance } from '$lib/stores';
+	import { testToasts } from '$lib/tests/tests-ui';
 
 	import { AppShell, AppBar, AppRail, AppRailAnchor, Modal } from '@skeletonlabs/skeleton';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { popup, storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
+	import { storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
-	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
-	import { Toast, toastStore } from '@skeletonlabs/skeleton';
+	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { Toast } from '@skeletonlabs/skeleton';
 	// TODO idea - have a way to see dismissed toasts (keep a log of ~12 toasts)
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 
@@ -27,17 +27,24 @@
 	// image assets
 	import logo from '$lib/images/amber-logo.png';
 	// import scrt from '$lib/images/scrt.svg'
-	import amber_pope from '$lib/images/stickers/amber-pope.webp';
-	import amber_dealer from '$lib/images/stickers/amberdealer.webp';
+	// import amber_pope from '$lib/images/stickers/amber-pope.webp';
+	// import amber_dealer from '$lib/images/stickers/amberdealer.webp';
 
 	storeHighlightJs.set(hljs);
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	storePopup.set({
+		computePosition,
+		autoUpdate,
+		flip,
+		shift,
+		offset,
+		arrow,
+	});
 
 	let popupSettings: PopupSettings = {
 		event: 'hover',
 		placement: 'right-start',
 		// Provide a matching 'data-popup' value.
-		target: 'examplePopup'
+		target: 'examplePopup',
 	};
 
 	const drawerSettings: DrawerSettings = {
@@ -52,10 +59,10 @@
 		type: 'alert',
 		title: 'Attention',
 		body: 'You need at least 1 AMBER to use this app.',
-		image: randomSticker(),
+		// image: randomSticker(),
 		buttonTextCancel: 'OK',
 		modalClasses: '!w-modal-slim',
-		backdropClasses: ''
+		backdropClasses: '',
 	};
 
 	// uncomment for testing
@@ -63,18 +70,17 @@
 	// $: poor = !(Number($amberBalance as any) > 1);
 
 	function debug() {
-		// testBatchQuery()
+		// testBatchQuery();
 		testToasts();
 		// testModal();
-		localStorage.setItem('test','import{w as u}from"./index.632f5441.js";var _;const v=((_=globalThis.__sveltekit_dm4yc)==null?void 0:_.base)??"";var g;const k=((g=globalThis.__sveltekit_dm4yc)==null?void 0:g.assets)??v,m="1686325190455",A="sveltekit:snapshot",R="sveltekit:scroll",T="sveltekit:index",f={tap:1,hover:2,viewport:3,eager:4,off:-1};function I(e){let t=e.baseURI;if(!t){const n=e.getElementsByTagName("base");t=n.length?n[0].href:e.URL}return t}function S(){return{x:pageXOffset,y:pageYOffset}}function c(e,t){return e.getAttribute(`data-sveltekit-${t}`)}const d={...f,"":f.hover};function h(e){let t=e.assignedSlot??e.parentNode;return(t==null?void 0:t.nodeType)===11&&(t=t.host),t}function x(e,t){for(;e&&e!==t;){if(e.nodeName.toUpperCase()==="A"&&e.hasAttribute("href"))return e;e=h(e)}}function O(e,t){let n;try{n=new URL(e instanceof SVGAElement?e.href.baseVal:e.href,document.baseURI)}catch{}const o=e instanceof SVGAElement?e.target.baseVal:e.target,r=!n||!!o||y(n,t)||(e.getAttribute("rel")||"").split(/\s+/).includes("external"),l=(n==null?void 0:n.origin)===location.origin&&e.hasAttribute("download");return{url:n,external:r,target:o,download:l}}function U(e){let t=null,n=null,o=null,r=null,l=null,a=null,s=e;for(;s&&s!==document.documentElement;)o===null&&(o=c(s,"preload-code")),r===null&&(r=c(s,"preload-data")),t===null&&(t=c(s,"keepfocus")),n===null&&(n=c(s,"noscroll")),l===null&&(l=c(s,"reload")),a===null&&(a=c(s,"replacestate")),s=h(s);function i(b){switch(b){case"":case"true":return!0;case"off":case"false":return!1;default:return null}}return{preload_code:d[o??"off"],preload_data:d[r??"off"],keep_focus:i(t),noscroll:i(n),reload:i(l),replace_state:i(a)}}function p(e){const t=u(e);let n=!0;function o(){n=!0,t.update(a=>a)}function r(a){n=!1,t.set(a)}function l(a){let s;return t.subscribe(i=>{(s===void 0||n&&i!==s)&&a(s=i)})}return{notify:o,set:r,subscribe:l}}function w(){const{set:e,subscribe:t}=u(!1);let n;async function o(){clearTimeout(n);try{const r=await fetch(`${k}/_app/version.json`,{headers:{pragma:"no-cache","cache-control":"no-cache"}});if(!r.ok)return!1;const a=(await r.json()).version!==m;return a&&(e(!0),clearTimeout(n)),a}catch{return!1}}return{subscribe:t,check:o}}function y(e,t){return e.origin!==location.origin||!e.pathname.startsWith(t)}function L(e){e.client}const N={url:p({}),page:p({}),navigating:u(null),updated:w()};export{T as I,f as P,R as S,A as a,O as b,U as c,S as d,v as e,x as f,I as g,L as h,y as i,N as s};')
 	}
 
-	function randomSticker(): string | undefined {
-		const imageUrls = [amber_pope, amber_dealer];
-		const i = Math.floor(Math.random() * imageUrls.length);
+	// function randomSticker(): string | undefined {
+	// 	const imageUrls = [amber_pope, amber_dealer];
+	// 	const i = Math.floor(Math.random() * imageUrls.length);
 
-		return imageUrls[i];
-	}
+	// 	return imageUrls[i];
+	// }
 </script>
 
 <Toast
@@ -92,7 +98,7 @@
 	regionBackdrop="bg-surface-backdrop-token backdrop-blur-[2px]"
 	width="w-modal"
 />
-<div class="absolute sm:hidden bottom-4 left-4 z-[39]">
+<div class="absolute bottom-4 left-4 z-[39] sm:hidden">
 	<LightSwitch height="h-6" />
 </div>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -100,12 +106,12 @@
 	{#if $drawerStore.id === 'side-menu'}
 		<!-- TODO reduce code duplication of these images -->
 		<!-- Close menu button -->
-		<div on:click={() => drawerStore.close()} class="absolute btn pt-4 z-[999]">
+		<div on:click={() => drawerStore.close()} class="btn absolute z-[999] pt-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
 				fill="currentColor"
-				class="w-10 h-10 text-primary-600 dark:text-primary-500"
+				class="h-10 w-10 text-primary-600 dark:text-primary-500"
 			>
 				<path
 					fill-rule="evenodd"
@@ -118,11 +124,11 @@
 		<div
 			on:click={() => drawerStore.close()}
 			class:pointer-events-none={poor}
-			class="h-full mx-auto flex flex-col justify-center items-center"
+			class="mx-auto flex h-full flex-col items-center justify-center"
 		>
 			{#if poor}
 				<p
-					class="-translate-y-12 text-center text-lg text-tertiary-700 dark:text-tertiary-600 font-bold"
+					class="-translate-y-12 text-center text-lg font-bold text-tertiary-700 dark:text-tertiary-600"
 				>
 					Connect a wallet <br /> with 1 AMBER
 				</p>
@@ -130,15 +136,15 @@
 			<!-- Menu Items -->
 			<div
 				class:opacity-25={poor}
-				class="font-bold flex flex-col space-y-4 justify-between items-center fill-token"
+				class="flex flex-col items-center justify-between space-y-4 font-bold fill-token"
 			>
 				<a href="{base}/" class="btn">
-					<div class="flex items-center justify-start gap-4 w-32">
+					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-10 h-10"
+							class="h-10 w-10"
 						>
 							<path
 								d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z"
@@ -153,12 +159,12 @@
 					</div>
 				</a>
 				<a href="{base}/wallet" class="btn">
-					<div class="flex gap-4 items-center justify-start w-32">
+					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-10 h-10"
+							class="h-10 w-10"
 						>
 							<path
 								d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z"
@@ -202,14 +208,14 @@
 					</div>
 				</a> -->
 				<a href="{base}/secret" class="btn">
-					<div class="flex gap-4 items-center justify-start w-32">
+					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							viewBox="0 0 59 59"
 							fill="none"
 							stroke="currentColor"
 							stroke-miterlimit="10"
 							xmlns="http://www.w3.org/2000/svg"
-							class="w-10 h-10"
+							class="h-10 w-10"
 						>
 							<path
 								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
@@ -231,12 +237,12 @@
 					</div>
 				</a>
 				<a href="{base}/debug" class="btn">
-					<div class="flex gap-4 items-center justify-start w-32">
+					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-10 h-10"
+							class="h-10 w-10"
 						>
 							<path
 								fill-rule="evenodd"
@@ -251,7 +257,7 @@
 		</div>
 	{:else if $drawerStore.id === 'alert'}
 		<!-- (show 'example-2' contents) -->
-		<div class="flex mx-auto justify-center items-center">
+		<div class="mx-auto flex items-center justify-center">
 			<h2>Not enough AMBER</h2>
 		</div>
 	{:else}
@@ -276,14 +282,14 @@
 			<svelte:fragment slot="lead">
 				<!-- Mobile menu button -->
 				<div
-					class="md:hidden btn btn-sm pl-1 pr-2"
+					class="btn btn-sm pl-1 pr-2 md:hidden"
 					on:click={() => drawerStore.open(drawerSettings)}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
 						fill="currentColor"
-						class="w-8 h-8 text-primary-600 dark:text-primary-500"
+						class="h-8 w-8 text-primary-600 dark:text-primary-500"
 					>
 						<path
 							fill-rule="evenodd"
@@ -293,25 +299,27 @@
 					</svg>
 				</div>
 				<a
-					class="btn pl-0 pr-2 py-0"
+					class="btn py-0 pl-0 pr-2"
 					href="https://www.amberdao.io"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img class="h-8 hidden md:block pr-2" src={logo} alt="AmberDAO" />
+					<img class="hidden h-8 pr-2 md:block" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
-					<strong class="text-xl font-['Fira_Sans'] uppercase text-surface-900-50-token"
+					<strong class="font-['Fira_Sans'] text-xl uppercase text-surface-900-50-token"
 						>Amber</strong
 					>
 				</button>
 			</svelte:fragment>
 			<svelte:fragment>
-				{#if $amberBalance !== "🤫" }
+				{#if $amberBalance !== '🤫'}
 					<div
-						class="rounded-xl variant-ghost-primary py-2 px-4 text-center max-w-xs hidden md:inline-flex"
+						class="variant-ghost-primary hidden max-w-xs rounded-xl px-4 py-2 text-center md:inline-flex"
 					>
-						<p class="font-bold text-sm">You have {$amberBalance} AMBER</p>
+						<p class="text-sm font-bold">
+							You have {$amberBalance} AMBER
+						</p>
 					</div>
 				{/if}
 			</svelte:fragment>
@@ -326,7 +334,7 @@
 			{#if poor}
 				<div
 					on:click={() => modalStore.trigger(alert)}
-					class="absolute inset-0 w-[5rem] h-full z-[888] translate-y-[70px] opacity-50 hover:bg-error-400 dark:hover:bg-error-800"
+					class="absolute inset-0 z-[888] h-full w-[5rem] translate-y-[70px] opacity-50 hover:bg-error-400 dark:hover:bg-error-800"
 				/>
 			{/if}
 			<AppRail
@@ -346,7 +354,7 @@
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
 								fill="currentColor"
-								class="w-6 h-6"
+								class="h-6 w-6"
 							>
 								<path
 									d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z"
@@ -372,7 +380,7 @@
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-6 h-6"
+							class="h-6 w-6"
 						>
 							<path
 								d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z"
@@ -503,7 +511,7 @@
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							fill="currentColor"
-							class="w-6 h-6"
+							class="h-6 w-6"
 						>
 							<path
 								fill-rule="evenodd"
@@ -515,7 +523,7 @@
 					Debug
 				</AppRailAnchor>
 				<svelte:fragment slot="trail">
-					<div class="h-12 flex justify-center items-center">
+					<div class="flex h-12 items-center justify-center">
 						<LightSwitch height="h-6" />
 					</div>
 				</svelte:fragment>
@@ -525,7 +533,7 @@
 	<!-- Page Route Content -->
 	<slot />
 	<svelte:fragment slot="pageFooter">
-		<div class="container absolute bottom-0 right-1 p-1 flex justify-end items-center">
+		<div class="container absolute bottom-0 right-1 flex items-center justify-end p-1">
 			<!-- <div class="hidden font-medium sm:inline-flex space-x-4">
 				<a
 					class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
@@ -553,14 +561,14 @@
 				</a>
 			</div> -->
 			<code
-				class="unstyled py-0.5 px-1 rounded text-xs font-mono whitespace-nowrap bg-secondary-50/80 text-token dark:bg-primary-500/30 dark:text-primary-400"
+				class="unstyled whitespace-nowrap rounded bg-secondary-50/80 px-1 py-0.5 font-mono text-xs text-token dark:bg-primary-500/30 dark:text-primary-400"
 			>
 				connected to
 				<a
 					href="https://secret.express"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="unstyled text-secondary-800 saturate-200 dark:text-primary-500 underline"
+					class="unstyled text-secondary-800 underline saturate-200 dark:text-primary-500"
 				>
 					{chains['Secret Network'].lcd}
 				</a>

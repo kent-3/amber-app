@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { CodeBlock } from '@skeletonlabs/skeleton';
 	import { AMBER } from '$lib/contracts';
-	import { apiUrl, secretClient } from '$lib/stores';
-	import { onMount } from 'svelte';
+	import { secretClient } from '$lib/stores';
 	import { ProposalStatus, SecretNetworkClient } from 'secretjs';
-	import { draw, fade, fly, slide } from 'svelte/transition';
-	import { linear, quadIn, quadOut, sineIn, sineOut } from 'svelte/easing';
-	import { OrderBy } from 'secretjs/dist/grpc_gateway/cosmos/tx/v1beta1/service.pb';
+	import { fly } from 'svelte/transition';
 	import SecretSpinner from '$lib/components/SecretSpinner.svelte';
 
 	interface Query {
@@ -21,7 +18,7 @@
 		{ fn: getProposals, name: 'Active Proposals' },
 		// { fn: getCodes, name: 'Codes' },
 		{ fn: getAllAccounts, name: 'Total Accounts' },
-		{ fn: getDecoys, name: 'SHD Decoys' }
+		{ fn: getDecoys, name: 'SHD Decoys' },
 	];
 
 	let loading = false;
@@ -62,17 +59,19 @@
 	async function getContractInfo() {
 		loading = true;
 
-		const r1 = await $secretClient.query.compute.contractInfo({ contract_address: AMBER.address });
+		const r1 = await $secretClient.query.compute.contractInfo({
+			contract_address: AMBER.address,
+		});
 		const r2 = await $secretClient.query.snip20.getSnip20Params({
 			contract: {
 				address: AMBER.address,
-				code_hash: AMBER.code_hash
-			}
+				code_hash: AMBER.code_hash,
+			},
 		});
 		const r3 = (await $secretClient.query.snip20.queryContract({
 			contract_address: AMBER.address,
 			code_hash: AMBER.code_hash,
-			query: { token_config: {} }
+			query: { token_config: {} },
 		})) as TokenConfigResponse;
 		response =
 			JSON.stringify(r1, null, 2) +
@@ -89,7 +88,7 @@
 
 		try {
 			const { proposals } = await $secretClient.query.gov.proposals({
-				proposal_status: ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD
+				proposal_status: ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD,
 			});
 			response = JSON.stringify(proposals, null, 2);
 		} catch (error) {
@@ -103,7 +102,7 @@
 		loading = true;
 
 		const result = await $secretClient.query.auth.accounts({
-			pagination: { count_total: true, limit: '30' }
+			pagination: { count_total: true, limit: '30' },
 		});
 		response = JSON.stringify({ total: result.pagination?.total }, null, 2);
 
@@ -157,7 +156,7 @@
 	async function getContractsByCodeId() {
 		try {
 			const { contract_infos } = await $secretClient.query.compute.contractsByCodeId({
-				code_id: '877'
+				code_id: '877',
 			});
 			response = JSON.stringify(contract_infos, null, 2);
 		} catch (error) {
@@ -167,7 +166,7 @@
 
 	const balanceFormat = new Intl.NumberFormat('en-US', {
 		minimumFractionDigits: 0,
-		maximumFractionDigits: 6
+		maximumFractionDigits: 6,
 	}).format;
 
 	const refreshNodeStatus = async (querySecretjs: SecretNetworkClient, showLoading: boolean) => {
@@ -228,12 +227,12 @@
 
 <div
 	in:fly={{ y: 200, duration: 700 }}
-	class="flex flex-col md:flex-row md:flex-wrap gap-4 px-2 py-4 sm:p-6 pb-12"
+	class="flex flex-col gap-4 px-2 py-4 pb-12 sm:p-6 md:flex-row md:flex-wrap"
 >
-	<div class="card bg-surface-50 dark:bg-[#28292a] flex lg:flex-col flex-wrap h-full p-4 gap-2">
+	<div class="card flex h-full flex-wrap gap-2 bg-surface-50 p-4 dark:bg-[#28292a] lg:flex-col">
 		{#each queries as query}
 			<button
-				class="btn variant-ghost-secondary text-sm font-bold material-color-transition flex-auto min-w-fit"
+				class="variant-ghost-secondary material-color-transition btn min-w-fit flex-auto text-sm font-bold"
 				on:click={() => query.fn()}
 			>
 				{query.name}

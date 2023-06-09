@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { clipboard, popup, type PopupSettings } from '@skeletonlabs/skeleton';
-	import type { PageData } from './$types';
-	import type { Token, SecretAddress } from '$lib/tokens';
+	import { clipboard, type PopupSettings } from '@skeletonlabs/skeleton';
+	import type { Token } from '$lib/tokens';
 	import { setKeplrViewingKey } from '$lib/wallets/keplr';
-	import { tokenStore, viewingKeys, secretClient, secretAddress } from '$lib/stores';
+	import { tokenStore, viewingKeys } from '$lib/stores';
 	import { fly } from 'svelte/transition';
 
 	// export let data: PageData;
@@ -13,7 +12,7 @@
 		event: 'hover',
 		placement: 'top-end',
 		// Provide a matching 'data-popup' value.
-		target: 'examplePopup'
+		target: 'examplePopup',
 	};
 
 	let metamask = true;
@@ -28,16 +27,16 @@
 
 <div
 	in:fly={{ x: 100, duration: 500 }}
-	class="container h-full flex gap-4 px-2 py-4 sm:p-6 items-start"
+	class="container flex h-full items-start gap-4 px-2 py-4 sm:p-6"
 >
-	<div class="card bg-surface-50 dark:!bg-[#28292a] p-4 space-y-2 text-left w-full sm:w-96">
+	<div class="card w-full space-y-2 bg-surface-50 p-4 text-left dark:!bg-[#28292a] sm:w-96">
 		<h2 class="font-bold">Viewing Keys</h2>
-		<div class="card variant-filled-primary text-sm px-1" data-popup="examplePopup">
+		<div class="card variant-filled-primary px-1 text-sm" data-popup="examplePopup">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 20 20"
 				fill="currentColor"
-				class="w-5 h-5"
+				class="h-5 w-5"
 			>
 				<path
 					fill-rule="evenodd"
@@ -53,7 +52,7 @@
 			<!-- Append the arrow element -->
 			<!-- <div class="arrow variant-filled-primary" /> -->
 		</div>
-		<div class="grid gap-2 items-center grid-cols-[5rem_minmax(0,_2fr)]">
+		<div class="grid grid-cols-[5rem_minmax(0,_2fr)] items-center gap-2">
 			{#key viewingKeys}
 				{#each tokens as token}
 					{#if $viewingKeys.has(token.address)}
@@ -61,7 +60,7 @@
 							{token.symbol}:
 						</p>
 						<button
-							class="btn p-0 text-surface-400 font-medium"
+							class="btn p-0 font-medium text-surface-400"
 							use:clipboard={{ element: 'exampleElement' }}
 						>
 							<span>
@@ -87,7 +86,7 @@
 							{token.symbol}:
 						</p>
 						<button
-							class="btn w-max p-1 px-4 rounded-full hover:bg-secondary-100-800-token bg-surface-200-700-token material-color-transition"
+							class="material-color-transition btn w-max rounded-full p-1 px-4 bg-surface-200-700-token hover:bg-secondary-100-800-token"
 							on:click={() => setKeplrViewingKey(token.address)}
 						>
 							Create Viewing Key

@@ -1,32 +1,37 @@
-import { toastStore, type ToastSettings, modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+import {
+	toastStore,
+	type ToastSettings,
+	modalStore,
+	type ModalSettings,
+} from '@skeletonlabs/skeleton';
 
 function toHexString(byteArray: Uint8Array): string {
-	return Array.from(byteArray, (byte) => ("0" + (byte & 0xff).toString(16)).slice(-2)).join("");
+	return Array.from(byteArray, (byte) => ('0' + (byte & 0xff).toString(16)).slice(-2)).join('');
 }
 
 export function testModal() {
-    const action = "Set Viewing Key"
+	const action = 'Set Viewing Key';
 	const buf = new Uint8Array(32);
-	const key = toHexString(window.crypto.getRandomValues(buf))
-	const padding = "one amber club"
+	const key = toHexString(window.crypto.getRandomValues(buf));
+	const padding = 'one amber club';
 
-	const sender = "secret1e4u8f8exq54n5tsfu4yh40t02n0wv0tyq7x5m8"
-	const contract_address = "secret1s09x2xvfd2lp2skgzm29w2xtena7s8fq98v852"
+	const sender = 'secret1e4u8f8exq54n5tsfu4yh40t02n0wv0tyq7x5m8';
+	const contract_address = 'secret1s09x2xvfd2lp2skgzm29w2xtena7s8fq98v852';
 	const msg = {
 		set_viewing_key: {
 			key,
 			padding,
 		},
-        create_viewing_key: {
+		create_viewing_key: {
 			key,
 			padding,
 		},
-        something_else: {
+		something_else: {
 			key,
 			padding,
-		}
-	}
-	const gasLimit = 50_000
+		},
+	};
+	const gasLimit = 50_000;
 
 	// TODO add code highlighting
 	const confirm: ModalSettings = {
@@ -41,7 +46,11 @@ export function testModal() {
 				<dt class="dark:text-surface-400">Contract:</dt>
 				<dd class="overflow-x-auto">${contract_address}</dd>
 				<dt class="dark:text-surface-400">Message:</dt>
-				<pre class="col-span-full mb-2 !text-xs !text-primary-500 !bg-surface-900 !whitespace-pre !rounded-xl">${JSON.stringify(msg,null,2)}</pre>
+				<pre class="col-span-full mb-2 !text-xs !text-primary-500 !bg-surface-900 !whitespace-pre !rounded-xl">${JSON.stringify(
+					msg,
+					null,
+					2
+				)}</pre>
 				<dt class="dark:text-surface-400">Gas Limit:</dt>
 				<dd>${gasLimit.toLocaleString()}</dd>
 				<dt class="dark:text-surface-400">Gas Fee:</dt>
@@ -55,7 +64,11 @@ export function testModal() {
 		modalClasses: 'w-auto',
 		// TRUE if confirm pressed, FALSE if cancel pressed
 		// TODO have this call the actual message signing function, passing a properties object
-		response: (r: boolean) => {if (!r) {return}},
+		response: (r: boolean) => {
+			if (!r) {
+				return;
+			}
+		},
 		// Optionally override the button text
 		buttonTextCancel: 'Cancel',
 		buttonTextConfirm: 'Confirm',
@@ -64,8 +77,8 @@ export function testModal() {
 }
 
 export function testToasts() {
-    const t: ToastSettings = {
-        message: `
+	const t: ToastSettings = {
+		message: `
         <h4>Transaction Success 🥳</h4>
         <details class="text-sm">
             <summary>Details</summary>
@@ -85,14 +98,14 @@ export function testToasts() {
             </dl>
             </details>
         `,
-        classes: '-translate-y-4 font-semibold variant-glass-success',
-        // background: 'variant-glass-surface !bg-success-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-success-800',
-        autohide: false,
-    };
-    toastStore.trigger(t)
+		classes: '-translate-y-4 font-semibold variant-glass-success',
+		// background: 'variant-glass-surface !bg-success-900 !bg-opacity-50 sm:!bg-opacity-30 ring-2 ring-inset ring-success-800',
+		autohide: false,
+	};
+	toastStore.trigger(t);
 
-    const t2: ToastSettings = {
-        message: `
+	const t2: ToastSettings = {
+		message: `
             <h4>Something went wrong 🤔</h4>
             <details class="text-sm">
                 <summary>Details</summary>
@@ -104,14 +117,14 @@ export function testToasts() {
                 </dl>
             </details>
         `,
-        background: 'variant-glass',
-        autohide: false,
-        classes: '-translate-y-4 font-semibold'
-    };
-    toastStore.trigger(t2)
+		background: 'variant-glass',
+		autohide: false,
+		classes: '-translate-y-4 font-semibold',
+	};
+	toastStore.trigger(t2);
 
-    const t3: ToastSettings = {
-        message: `
+	const t3: ToastSettings = {
+		message: `
             <h4>Transaction Failed 😩</h4>
             <details class="text-sm">
                 <summary>Details</summary>
@@ -121,9 +134,9 @@ export function testToasts() {
                 </dl>
             </details>
             `,
-        background: 'variant-glass-error',
-        autohide: false,
-        classes: '-translate-y-4 font-semibold'
-    };
-    toastStore.trigger(t3)
+		background: 'variant-glass-error',
+		autohide: false,
+		classes: '-translate-y-4 font-semibold',
+	};
+	toastStore.trigger(t3);
 }

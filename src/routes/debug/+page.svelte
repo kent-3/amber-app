@@ -1,12 +1,18 @@
 <script lang="ts">
-	import { amberBalance, apiUrl, isAccountAvailable, scrtBalance, secretAddress, secretClient, viewingKeys } from '$lib/stores';
+	import {
+		amberBalance,
+		apiUrl,
+		isAccountAvailable,
+		scrtBalance,
+		secretAddress,
+		secretClient,
+		viewingKeys,
+	} from '$lib/stores';
 	import { SecretNetworkClient } from 'secretjs';
 	import { onMount } from 'svelte';
-	import { fly, slide } from 'svelte/transition';
-	import { Table, tableMapperValues, type ModalSettings, modalStore } from '@skeletonlabs/skeleton';
-	import type { TableSource } from '@skeletonlabs/skeleton';
+	import { fly } from 'svelte/transition';
+	import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
 	import { writable, type Writable } from 'svelte/store';
-	import type { ConfigResponse } from 'secretjs/dist/grpc_gateway/cosmos/base/node/v1beta1/query.pb';
 	import type { GetNodeInfoResponse } from 'secretjs/dist/grpc_gateway/cosmos/base/tendermint/v1beta1/query.pb';
 	import { AMBER } from '$lib/contracts';
 	import { tokenList, type Token } from '$lib/tokens';
@@ -35,7 +41,7 @@
 
 	const balanceFormat = new Intl.NumberFormat('en-US', {
 		minimumFractionDigits: 0,
-		maximumFractionDigits: 6
+		maximumFractionDigits: 6,
 	}).format;
 
 	const blockHeight: Writable<string> = writable('0');
@@ -86,7 +92,7 @@
 		try {
 			const response = await $secretClient.query.bank.balance({
 				address: $secretAddress,
-				denom: 'uscrt'
+				denom: 'uscrt',
 			});
 			$scrtBalance = Number((response.balance?.amount as any) / 1e6)
 				.toFixed(6)
@@ -99,16 +105,16 @@
 			const snip20Response = await $secretClient.query.snip20.getBalance({
 				contract: {
 					address: AMBER.address,
-					code_hash: AMBER.code_hash
+					code_hash: AMBER.code_hash,
 				},
 				address: $secretAddress,
 				auth: {
-					key: $viewingKeys.get(AMBER.address)
-				}
+					key: $viewingKeys.get(AMBER.address),
+				},
 			});
 			$amberBalance = Number((snip20Response.balance.amount as any) / 1e6).toString();
 		} catch (error) {
-			console.log(`No viewing key for AMBER`)
+			console.log(`No viewing key for AMBER`);
 		}
 	}
 
@@ -124,7 +130,7 @@
 	onMount(() => {
 		const secretjs = new SecretNetworkClient({
 			url: $apiUrl,
-			chainId: ''
+			chainId: '',
 		});
 		refreshNodeStatus(secretjs, false);
 
@@ -143,7 +149,10 @@
 		{ key: 'Node Moniker', value: $nodeInfo.default_node_info?.moniker },
 		{ key: 'Min Gas Price', value: $gasPrice },
 		{ key: 'secretd', value: $nodeInfo.application_version?.version },
-		{ key: 'Cosmos SDK', value: $nodeInfo.application_version?.cosmos_sdk_version }
+		{
+			key: 'Cosmos SDK',
+			value: $nodeInfo.application_version?.cosmos_sdk_version,
+		},
 	];
 
 	$: tableSimple = {
@@ -152,18 +161,16 @@
 		// The data visibly shown in your table body UI.
 		body: tableMapperValues(tableArr, ['key', 'value']),
 		// Optional: The data returned when interactive is enabled and a row is clicked.
-		meta: tableMapperValues(tableArr, ['key', 'value'])
+		meta: tableMapperValues(tableArr, ['key', 'value']),
 	};
 </script>
 
 <div
 	in:fly={{ y: 200, duration: 700 }}
-	class="flex flex-col-reverse lg:flex-row flex-1 p-2 sm:p-6 justify-start items-start gap-4"
+	class="flex flex-1 flex-col-reverse items-start justify-start gap-4 p-2 sm:p-6 lg:flex-row"
 >
 	<div
-		class="sm:card !bg-surface-50 dark:!bg-[#28292a] shadow-xl rounded-3xl sm:p-4
-			flex flex-col flex-1 justify-start items-start
-			lg:min-w-[50%] lg:max-w-[50%] w-full"
+		class="sm:card flex w-full flex-1 flex-col items-start justify-start rounded-3xl !bg-surface-50 shadow-xl dark:!bg-[#28292a] sm:p-4 lg:min-w-[50%] lg:max-w-[50%]"
 	>
 		<Table
 			source={tableSimple}
@@ -171,29 +178,36 @@
 			regionCell="!py-3 font-mono font-semibold hover:variant-soft"
 		/>
 	</div>
-	<div class="flex-col space-y-4 lg:max-w-[50%] w-full">
+	<div class="w-full flex-col space-y-4 lg:max-w-[50%]">
 		<div
-			class="card bg-surface-50 dark:bg-[#28292a] shadow-xl flex flex-wrap w-full lg:justify-normal justify-center p-4 gap-4"
+			class="card flex w-full flex-wrap justify-center gap-4 bg-surface-50 p-4 shadow-xl dark:bg-[#28292a] lg:justify-normal"
 		>
-			<button disabled={!$isAccountAvailable} on:click={() => getBalances()} class="btn btn-sm variant-ghost-tertiary flex-auto min-w-[33%]"
-				>Refresh Balances</button
+			<button
+				disabled={!$isAccountAvailable}
+				on:click={() => getBalances()}
+				class="variant-ghost-tertiary btn btn-sm min-w-[33%] flex-auto">Refresh Balances</button
 			>
-			<button disabled={!$isAccountAvailable} on:click={() => getViewingKeys(tokenList)} class="btn btn-sm variant-ghost-tertiary flex-auto min-w-[33%]"
-				>Refresh Viewing Keys</button
+			<button
+				disabled={!$isAccountAvailable}
+				on:click={() => getViewingKeys(tokenList)}
+				class="variant-ghost-tertiary btn btn-sm min-w-[33%] flex-auto">Refresh Viewing Keys</button
 			>
 			<button
 				on:click={() => getAllLocalStorageItems()}
-				class="btn btn-sm variant-ghost-tertiary flex-auto min-w-[33%]"
+				class="variant-ghost-tertiary btn btn-sm min-w-[33%] flex-auto"
 				>Inspect Local Storage</button
 			>
 			<button
-				on:click={() => {storageLocal.set([]); localStorage.clear()}}
-				class="btn btn-sm variant-ghost-tertiary flex-auto min-w-[33%]">Clear Local Storage</button
+				on:click={() => {
+					storageLocal.set([]);
+					localStorage.clear();
+				}}
+				class="variant-ghost-tertiary btn btn-sm min-w-[33%] flex-auto">Clear Local Storage</button
 			>
 		</div>
 		{#if $storageLocal && $storageLocal.length > 0}
 			<div
-				class="card bg-surface-50 dark:bg-[#28292a] shadow-xl md:justify-normal justify-center p-4 gap-4 overflow-auto"
+				class="card justify-center gap-4 overflow-auto bg-surface-50 p-4 shadow-xl dark:bg-[#28292a] md:justify-normal"
 			>
 				{#each $storageLocal as item}
 					<p class="font-mono text-sm">{item.key} = {item.value}</p>

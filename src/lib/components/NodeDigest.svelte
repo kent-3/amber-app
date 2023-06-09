@@ -5,13 +5,13 @@
 
 	const secretjs = new SecretNetworkClient({
 		url: 'https://lcd.secret.express',
-		chainId: 'secret-4'
+		chainId: 'secret-4',
 	});
 
 	const formatter = new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD',
-		maximumFractionDigits: 0
+		maximumFractionDigits: 0,
 	});
 
 	let stakeValue: string;
@@ -21,7 +21,7 @@
 
 	onMount(async () => {
 		const validatorResponse = await secretjs.query.staking.validator({
-			validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6'
+			validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6',
 		});
 		commission =
 			(
@@ -35,7 +35,7 @@
 		stakeValue = formatter.format(scrt * scrtPrice.data.secret.usd);
 		const validatorDelegationsResponse = await secretjs.query.staking.validatorDelegations({
 			validator_addr: 'secretvaloper18w7rm926ue3nmy8ay58e3lc2nqnttrlhhgpch6',
-			pagination: { limit: '1', count_total: true }
+			pagination: { limit: '1', count_total: true },
 		});
 		delegators = parseInt(
 			validatorDelegationsResponse.pagination?.total ?? '1840'
@@ -46,33 +46,33 @@
 
 <div
 	id="node-digest"
-	class="flex flex-col w-full sm:w-auto md:flex-row justify-start space-x-8 space-y-4 md:space-y-0"
+	class="flex w-full flex-col justify-start space-x-8 space-y-4 sm:w-auto md:flex-row md:space-y-0"
 >
 	<div
 		id="node-digest-container"
-		class="card sm:w-96 bg-surface-50 dark:!bg-[#28292a] shadow-xl p-4"
+		class="card bg-surface-50 p-4 shadow-xl dark:!bg-[#28292a] sm:w-96"
 	>
 		<h2><strong>AmberDAO Node Digest</strong></h2>
 		<div class="node-digest-item items-center">
-			<div class="dark:text-neutral-400 font-medium w-40 h-5">Current Stake Value</div>
+			<div class="h-5 w-40 font-medium dark:text-neutral-400">Current Stake Value</div>
 			<div class="node-digest-value text-base">
 				{stakeValue ?? 'loading...'}
 				<span class="font-bold text-secondary-700 dark:text-primary-500">USD</span>
 			</div>
 		</div>
 		<div class="node-digest-item">
-			<div class="dark:text-neutral-400 font-medium w-40 h-5">Voting Power</div>
+			<div class="h-5 w-40 font-medium dark:text-neutral-400">Voting Power</div>
 			<div class="node-digest-value">
 				{votingPower ?? 'loading...'}
 				<span class="font-bold text-secondary-700 dark:text-primary-500">SCRT</span>
 			</div>
 		</div>
 		<div class="node-digest-item">
-			<div class="dark:text-neutral-400 font-medium w-40 h-5">Delegators</div>
+			<div class="h-5 w-40 font-medium dark:text-neutral-400">Delegators</div>
 			<div class="node-digest-value">{delegators ?? 'loading...'}</div>
 		</div>
 		<div class="node-digest-item">
-			<div class="dark:text-neutral-400 font-medium w-40 h-5">Commission</div>
+			<div class="h-5 w-40 font-medium dark:text-neutral-400">Commission</div>
 			<div class="node-digest-value">{commission ?? 'loading...'}</div>
 		</div>
 	</div>
@@ -88,10 +88,10 @@
 		height: 294px;
 	}
 	.node-digest-item {
-		@apply space-x-8 flex flex-row items-center justify-center;
+		@apply flex flex-row items-center justify-center space-x-8;
 	}
 
 	.node-digest-value {
-		@apply text-center font-semibold text-lg;
+		@apply text-center text-lg font-semibold;
 	}
 </style>

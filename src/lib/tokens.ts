@@ -1,12 +1,12 @@
-export type SecretAddress = `secret1${string}`
+export type SecretAddress = `secret1${string}`;
 
 export interface Token {
-	address: SecretAddress
-	codeHash: string
-	name: string
-	symbol: string
-	logo: string
-	decimals: number
+	address: SecretAddress;
+	codeHash: string;
+	name: string;
+	symbol: string;
+	logo: string;
+	decimals: number;
 }
 
 export const tokenList: Array<Token> = [
@@ -34,11 +34,11 @@ export const tokenList: Array<Token> = [
 	//   logo: "/sefi.svg",
 	// },
 	{
-		address: "secret1vq0gc5wdjqnalvtgra3dr4m07kaxkhq2st3hzx",
-		codeHash: "84508d76f34061e5e394b596fc293f1bf66d33d03def5b77a27643f2bc0bea8d",
-		name: "Sienna",
-		symbol: "SIENNA",
-		logo: "/sienna.svg",
+		address: 'secret1vq0gc5wdjqnalvtgra3dr4m07kaxkhq2st3hzx',
+		codeHash: '84508d76f34061e5e394b596fc293f1bf66d33d03def5b77a27643f2bc0bea8d',
+		name: 'Sienna',
+		symbol: 'SIENNA',
+		logo: '/sienna.svg',
 		decimals: 18,
 	},
 	{
@@ -88,20 +88,20 @@ export const tokenList: Array<Token> = [
 	//   logo: "/sXMR.png",
 	// },
 	{
-		address: "secret1yxcexylwyxlq58umhgsjgstgcg2a0ytfy4d9lt",
-		codeHash: "f8b27343ff08290827560a1ba358eece600c9ea7f403b02684ad87ae7af0f288",
-		name: "Buttcoin",
-		symbol: "BUTT",
-		logo: "/butt.png",
+		address: 'secret1yxcexylwyxlq58umhgsjgstgcg2a0ytfy4d9lt',
+		codeHash: 'f8b27343ff08290827560a1ba358eece600c9ea7f403b02684ad87ae7af0f288',
+		name: 'Buttcoin',
+		symbol: 'BUTT',
+		logo: '/butt.png',
 		// TODO verify this
 		decimals: 6,
 	},
 	{
-		address: "secret1xzlgeyuuyqje79ma6vllregprkmgwgavk8y798",
-		codeHash: "15361339b59f2753fc365283d4a144dd3a4838e237022ac0249992d8d9f3b88e",
-		name: "Fat Secret",
-		symbol: "FATS",
-		logo: "/fat_secret.png",
+		address: 'secret1xzlgeyuuyqje79ma6vllregprkmgwgavk8y798',
+		codeHash: '15361339b59f2753fc365283d4a144dd3a4838e237022ac0249992d8d9f3b88e',
+		name: 'Fat Secret',
+		symbol: 'FATS',
+		logo: '/fat_secret.png',
 		decimals: 3,
 	},
 	// ETH
@@ -133,4 +133,4 @@ export const tokenList: Array<Token> = [
 	//   symbol: "WBTC",
 	//   logo: "/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599.png",
 	// }
-]
+];
