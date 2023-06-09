@@ -361,7 +361,7 @@
 					</AppRailAnchor>
 				</svelte:fragment>
 				<AppRailAnchor
-					href={poor ? '' : base + ' wallet'}
+					href={poor ? '' : base + '/wallet'}
 					title="Wallet"
 					selected={$page.url.pathname === '/wallet'}
 					regionlead="flex justify-center"
@@ -454,7 +454,7 @@
 					NFTs
 				</AppRailAnchor> -->
 				<AppRailAnchor
-					href={poor ? '' : base + ' secret'}
+					href={poor ? '' : base + '/secret'}
 					title="Queries"
 					selected={$page.url.pathname === '/secret'}
 					regionLead="flex justify-center"
@@ -492,7 +492,7 @@
 					Queries
 				</AppRailAnchor>
 				<AppRailAnchor
-					href={poor ? '' : base + ' debug'}
+					href={poor ? '' : base + '/debug'}
 					title="Debug"
 					selected={$page.url.pathname === '/debug'}
 					regionLead="flex justify-center"
