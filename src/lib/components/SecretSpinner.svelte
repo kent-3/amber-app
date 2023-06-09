@@ -1,5 +1,5 @@
 <div
-	class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 overflow-clip backdrop-blur-sm"
+	class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 overflow-clip bg-surface-400/20 backdrop-blur-sm dark:bg-surface-900/20"
 	style="perspective: 600px;"
 >
 	<svg
@@ -11,7 +11,7 @@
 		<path
 			d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
 			fill="none"
-			class="stroke-secondary-600 dark:stroke-primary-500"
+			class="stroke-secondary-500 dark:stroke-primary-500"
 			stroke-width="2.0122"
 			stroke-miterlimit="10"
 		/>
@@ -21,13 +21,13 @@
 		/>
 		<path
 			d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
-			class="stroke-secondary-600 dark:stroke-primary-500"
+			class="stroke-secondary-500 dark:stroke-primary-500"
 			stroke-width="2.0122"
 			stroke-miterlimit="10"
 		/>
 		<path
 			d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
-			class="stroke-secondary-600 dark:stroke-primary-500"
+			class="stroke-secondary-500 dark:stroke-primary-500"
 			stroke-width="2.0122"
 			stroke-miterlimit="10"
 		/>
