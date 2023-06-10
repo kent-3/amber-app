@@ -28,7 +28,6 @@
 		loading = true;
 		try {
 			const r = await $secretClient.query.tendermint.getLatestBlock({});
-			console.log(r.block?.header?.time);
 			response = JSON.stringify(r.block?.header, null, 2);
 		} catch (error) {
 			console.error(error);
