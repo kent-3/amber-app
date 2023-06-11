@@ -26,7 +26,7 @@
 	</div> -->
 	<div class="order-last flex flex-1 flex-col gap-4 lg:order-first">
 		<div class="card w-full space-y-2 bg-surface-50 p-4 text-left dark:bg-[#28292a]">
-			<h2 class="!text-3xl font-bold tracking-wide">Balances</h2>
+			<h2 class="!text-3xl font-bold">Balances</h2>
 			<p class="font-mono font-bold text-secondary-800 dark:text-primary-600">
 				{$scrtBalance} SCRT
 			</p>

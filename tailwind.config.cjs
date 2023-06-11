@@ -10,9 +10,6 @@ module.exports = {
 	theme: {
 		extend: {
 			backgroundImage: {
-				'secret-swirl': "url('/secret-swirl.png')",
-				'secret-swirl-light': "url('/secret-swirl-light.png')",
-				'secret-swirl-amber': "url('/secret-swirl-amber.png')",
 				'spotlights-dark':
 					'radial-gradient(circle at 76% -20%, hsla(37,86%,61%,0.2) 0px, transparent 50%),radial-gradient(circle at 20% 120%, hsla(218,13%,53%,0.3) 0px, transparent 50%);',
 				'spotlights-light':
@@ -31,8 +28,8 @@ module.exports = {
 				'emphasized-accelerate': 'cubic-bezier(0.3, 0.0, 0.8, 0.15)'
 			},
 			fontFamily: {
-				'sans': ['Open Sans', ...defaultTheme.fontFamily.sans]
-				// 'mono': ['Fira Code', ...defaultTheme.fontFamily.sans],
+				'sans': ['Open Sans', ...defaultTheme.fontFamily.sans],
+				'mono': ['Fira Code', ...defaultTheme.fontFamily.sans],
 			}
 		}
 	},
