@@ -1,12 +1,12 @@
 import type { SecretNetworkClient } from 'secretjs';
 import type { SecretAddress, Token } from '../tokens';
-import { type ModalSettings, modalStore } from '@skeletonlabs/skeleton/index';
+import { type ModalSettings, modalStore } from '@skeletonlabs/skeleton';
 import { setLoading, doneLoading } from '../modals';
-import { secretClient, viewingKeys } from '../stores';
+import { signingClient, viewingKeys } from '../stores';
 import { responseToast, errorToast } from '../toasts';
 
 let secretjs: SecretNetworkClient;
-secretClient.subscribe((client) => (secretjs = client));
+signingClient.subscribe((client) => (secretjs = client));
 
 function toHexString(byteArray: Uint8Array): string {
 	return Array.from(byteArray, (byte) => ('0' + (byte & 0xff).toString(16)).slice(-2)).join('');

@@ -1,6 +1,6 @@
 import { SecretNetworkClient } from 'secretjs';
 import { chains } from '../config';
-import { resetStores, isAccountAvailable, keplrKey, secretClient, secretAddress } from '../stores';
+import { resetStores, isAccountAvailable, keplrKey, signingClient, secretAddress } from '../stores';
 import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 import type { SecretAddress } from '../tokens';
 
@@ -61,7 +61,7 @@ export async function setupKeplr() {
 		isAccountAvailable.set(true);
 		keplrKey.set(key);
 		secretAddress.set(address);
-		secretClient.set(secretjs);
+		signingClient.set(secretjs);
 	}
 }
 

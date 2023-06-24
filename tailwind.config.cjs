@@ -9,6 +9,9 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			animation: {
+        'ping-once': 'ping 1s cubic-bezier(0, 0, 0.2, 1) 1',
+      },
 			backgroundImage: {
 				'spotlights-dark':
 					'radial-gradient(circle at 76% -20%, hsla(37,86%,61%,0.2) 0px, transparent 50%),radial-gradient(circle at 20% 120%, hsla(218,13%,53%,0.3) 0px, transparent 50%);',

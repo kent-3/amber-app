@@ -3,7 +3,7 @@ import { chains } from '../config';
 import {
 	resetStores,
 	isAccountAvailable,
-	secretClient,
+	signingClient,
 	secretAddress,
 	viewingKeys,
 } from '../stores';
@@ -28,7 +28,7 @@ const SECRET_LCD = chains['Secret Network'].lcd;
 const ethereum = window.ethereum;
 
 let secretjs: SecretNetworkClient;
-secretClient.subscribe((signing_client) => (secretjs = signing_client));
+signingClient.subscribe((signing_client) => (secretjs = signing_client));
 
 export async function disconnectMetamask() {
 	await ethereum.request({
@@ -76,7 +76,7 @@ export async function setupMetamask() {
 
 		isAccountAvailable.set(true);
 		secretAddress.set(wallet.address);
-		secretClient.set(secretjs);
+		signingClient.set(secretjs);
 	}
 }
 

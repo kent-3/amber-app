@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { secretClient } from '$lib/stores';
+	import { readOnlyClient } from '$lib/stores';
 	import type { Validator } from 'secretjs/dist/grpc_gateway/cosmos/staking/v1beta1/staking.pb';
 	import { fade } from 'svelte/transition';
 
 	async function getValidators(): Promise<Validator[]> {
-		const { validators } = await $secretClient.query.staking.validators({
+		const { validators } = await $readOnlyClient.query.staking.validators({
 			status: 'BOND_STATUS_BONDED',
 		});
 		return validators!;

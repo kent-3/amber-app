@@ -5,7 +5,7 @@
 		isAccountAvailable,
 		scrtBalance,
 		secretAddress,
-		secretClient,
+		readOnlyClient,
 		viewingKeys,
 	} from '$lib/stores';
 	import { SecretNetworkClient } from 'secretjs';
@@ -90,7 +90,7 @@
 
 	async function getBalances() {
 		try {
-			const response = await $secretClient.query.bank.balance({
+			const response = await $readOnlyClient.query.bank.balance({
 				address: $secretAddress,
 				denom: 'uscrt',
 			});
@@ -102,7 +102,7 @@
 		}
 
 		try {
-			const snip20Response = await $secretClient.query.snip20.getBalance({
+			const snip20Response = await $readOnlyClient.query.snip20.getBalance({
 				contract: {
 					address: AMBER.address,
 					code_hash: AMBER.code_hash,

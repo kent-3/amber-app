@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { CodeBlock } from '@skeletonlabs/skeleton';
-	import { AMBER } from '$lib/contracts';
-	import { secretClient } from '$lib/stores';
-	import { ProposalStatus, SecretNetworkClient } from 'secretjs';
+	import { AMBER, sSCRT } from '$lib/contracts';
+	import { readOnlyClient } from '$lib/stores';
+	import { ProposalStatus, SecretNetworkClient, type Permit } from 'secretjs';
 	import { fly } from 'svelte/transition';
 	import SecretSpinner from '$lib/components/SecretSpinner.svelte';
+	import type { SecretAddress, Token } from '$lib/tokens';
+	import type { GetTransferHistoryRequest } from 'secretjs/dist/extensions/snip20/types';
 
 	interface Query {
 		fn: Function;
@@ -16,9 +18,9 @@
 		{ fn: checkCommunityPool, name: 'Community Pool Funds' },
 		{ fn: getContractInfo, name: 'Amber Contract Info' },
 		{ fn: getProposals, name: 'Active Proposals' },
-		// { fn: getCodes, name: 'Codes' },
 		{ fn: getAllAccounts, name: 'Total Accounts' },
 		{ fn: getDecoys, name: 'SHD Decoys' },
+		{ fn: getSnip20History, name: 'Snip20 History' },
 	];
 
 	let loading = false;
@@ -27,7 +29,7 @@
 	async function getLatestBlock() {
 		loading = true;
 		try {
-			const r = await $secretClient.query.tendermint.getLatestBlock({});
+			const r = await $readOnlyClient.query.tendermint.getLatestBlock({});
 			response = JSON.stringify(r.block?.header, null, 2);
 		} catch (error) {
 			console.error(error);
@@ -39,7 +41,7 @@
 	async function checkCommunityPool() {
 		loading = true;
 
-		const r = await $secretClient.query.distribution.communityPool({});
+		const r = await $readOnlyClient.query.distribution.communityPool({});
 		response = JSON.stringify(r.pool, null, 2);
 		// response = Number( (pool![1].amount as any) / 1e6 ).toString()
 
@@ -58,16 +60,16 @@
 	async function getContractInfo() {
 		loading = true;
 
-		const r1 = await $secretClient.query.compute.contractInfo({
+		const r1 = await $readOnlyClient.query.compute.contractInfo({
 			contract_address: AMBER.address,
 		});
-		const r2 = await $secretClient.query.snip20.getSnip20Params({
+		const r2 = await $readOnlyClient.query.snip20.getSnip20Params({
 			contract: {
 				address: AMBER.address,
 				code_hash: AMBER.code_hash,
 			},
 		});
-		const r3 = (await $secretClient.query.snip20.queryContract({
+		const r3 = (await $readOnlyClient.query.snip20.queryContract({
 			contract_address: AMBER.address,
 			code_hash: AMBER.code_hash,
 			query: { token_config: {} },
@@ -86,7 +88,8 @@
 		loading = true;
 
 		try {
-			const { proposals } = await $secretClient.query.gov.proposals({
+			const { proposals } = await $readOnlyClient.query.gov.proposals({
+				//@ts-expect-error
 				proposal_status: ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD,
 			});
 			response = JSON.stringify(proposals, null, 2);
@@ -100,7 +103,7 @@
 	async function getAllAccounts() {
 		loading = true;
 
-		const result = await $secretClient.query.auth.accounts({
+		const result = await $readOnlyClient.query.auth.accounts({
 			pagination: { count_total: true, limit: '30' },
 		});
 		response = JSON.stringify({ total: result.pagination?.total }, null, 2);
@@ -108,24 +111,11 @@
 		loading = false;
 	}
 
-	// async function getCodes() {
-	// 	loading = true;
-
-	// 	try {
-	// 		const { code_infos } = await $secretClient.query.compute.codes({});
-	// 		response = JSON.stringify(code_infos, null, 2);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-
-	// 	loading = false;
-	// }
-
 	async function getDecoys() {
 		loading = true;
 
 		try {
-			const resp = await $secretClient.query.txsQuery(
+			const resp = await $readOnlyClient.query.txsQuery(
 				"wasm.contract_address = 'secret153wu605vvp934xhd4k9dtd640zsep5jkesstdm'"
 			);
 			let decoys = resp
@@ -152,16 +142,56 @@
 		loading = false;
 	}
 
-	async function getContractsByCodeId() {
+	const thing: GetTransferHistoryRequest = {
+		transfer_history: {
+			address: '',
+			key: '',
+			page: undefined,
+			page_size: 0,
+			should_filter_decoys: undefined
+		}
+	};
+
+	async function getSnip20History(
+		signingClient: SecretNetworkClient,
+		token: Token,
+		walletAddress?: SecretAddress,
+		permit?: Permit,
+		viewingKey?: string
+	) {
+		loading = true;
+
 		try {
-			const { contract_infos } = await $secretClient.query.compute.contractsByCodeId({
-				code_id: '877',
+			const resp = await signingClient.query.snip20.getTransferHistory({
+				contract: {
+					address: token.address,
+					code_hash: token.codeHash,
+				},
+				address: walletAddress ?? signingClient.address,
+				auth: {
+					permit: permit,
+					key: viewingKey,
+				},
+				page_size: 10,
 			});
-			response = JSON.stringify(contract_infos, null, 2);
+			response = JSON.stringify(resp, null, 2);
 		} catch (error) {
 			console.error(error);
 		}
+
+		loading = false;
 	}
+
+	// async function getContractsByCodeId() {
+	// 	try {
+	// 		const { contract_infos } = await $readOnlyClient.query.compute.contractsByCodeId({
+	// 			code_id: '877',
+	// 		});
+	// 		response = JSON.stringify(contract_infos, null, 2);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// }
 
 	const balanceFormat = new Intl.NumberFormat('en-US', {
 		minimumFractionDigits: 0,

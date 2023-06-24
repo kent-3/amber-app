@@ -6,7 +6,7 @@
 	import { connectLedger, getLedgerAddress } from '$lib/wallets/ledger';
 	import { chains } from '$lib/config';
 	import { AMBER } from '$lib/contracts';
-	import { type Token, tokenList } from '$lib/tokens';
+	import { type Token, tokenList, type SecretAddress } from '$lib/tokens';
 	import { compactAddress } from '$lib/utils';
 	import {
 		resetStores,
@@ -15,7 +15,7 @@
 		isAccountAvailable,
 		keplrKey,
 		secretAddress,
-		secretClient,
+		signingClient,
 		viewingKeys,
 	} from '$lib/stores';
 	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
@@ -195,17 +195,26 @@
 	// }
 
 	async function getViewingKeys(tokens: Token[]) {
+		const keysAndAddresses: { promise: Promise<string | null>; address: SecretAddress }[] = [];
+
 		for (const token of tokens) {
-			const key = await getKeplrViewingKey(token.address);
+			const promise = getKeplrViewingKey(token.address);
+			keysAndAddresses.push({ promise, address: token.address });
+		}
+
+		await Promise.all(keysAndAddresses);
+
+		for (const { promise, address } of keysAndAddresses) {
+			const key = await promise;
 			if (key != null) {
-				viewingKeys.update((map) => map.set(token.address, key));
+				viewingKeys.update((map) => map.set(address, key));
 			}
 		}
 	}
 
 	async function getBalances() {
 		try {
-			const response = await $secretClient.query.bank.balance({
+			const response = await $signingClient.query.bank.balance({
 				address: $secretAddress,
 				denom: 'uscrt',
 			});
@@ -217,7 +226,7 @@
 		}
 
 		try {
-			const snip20Response = await $secretClient.query.snip20.getBalance({
+			const snip20Response = await $signingClient.query.snip20.getBalance({
 				contract: {
 					address: AMBER.address,
 					code_hash: AMBER.code_hash,
@@ -234,12 +243,12 @@
 		// save this problem for later...
 		// for (const token of tokenList) {
 		// 	try {
-		// 		const snip20Response = await $secretClient.query.snip20.getBalance({
+		// 		const snip20Response = await $signingClient.query.snip20.getBalance({
 		// 			contract: {
 		// 				address: token.address,
 		// 				code_hash: token.codeHash
 		// 			},
-		// 			address: $secretClient.address,
+		// 			address: $signingClient.address,
 		// 			auth: {
 		// 				key: $viewingKeys.get(token.address)
 		// 			}

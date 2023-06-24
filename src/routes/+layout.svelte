@@ -7,7 +7,7 @@
 	import { page } from '$app/stores';
 	import Wallet from '$lib/components/Wallet.svelte';
 	import { chains } from '$lib/config';
-	import { amberBalance } from '$lib/stores';
+	import { amberBalance, readOnlyClient } from '$lib/stores';
 	import { testToasts } from '$lib/tests/tests-ui';
 
 	import { AppShell, AppBar, AppRail, AppRailAnchor, Modal } from '@skeletonlabs/skeleton';
@@ -26,6 +26,7 @@
 
 	// image assets
 	import logo from '$lib/images/amber-logo.png';
+	import { getSupply } from '$lib/temp';
 	// import scrt from '$lib/images/scrt.svg'
 	// import amber_pope from '$lib/images/stickers/amber-pope.webp';
 	// import amber_dealer from '$lib/images/stickers/amberdealer.webp';
@@ -66,13 +67,15 @@
 	};
 
 	// uncomment for testing
-	$: poor = false;
-	// $: poor = !(Number($amberBalance as any) > 1);
+	// $: poor = false;
+	$: poor = !(Number($amberBalance as any) > 1);
 
-	function debug() {
+	async function debug() {
 		// testBatchQuery();
-		testToasts();
+		// testToasts();
 		// testModal();
+		const supply = await getSupply($readOnlyClient);
+		console.log(supply);
 	}
 
 	// function randomSticker(): string | undefined {
@@ -207,15 +210,14 @@
 						<h2 class="text-xl">Stake</h2>
 					</div>
 				</a> -->
-				<a href="{base}/secret" class="btn">
+				<a href="{base}/query" class="btn">
 					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
+							class="h-10 w-10 fill-none stroke-surface-800 dark:stroke-surface-200"
 							viewBox="0 0 59 59"
-							fill="none"
-							stroke="currentColor"
 							stroke-miterlimit="10"
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-10 w-10"
+								stroke-width="3"
+								xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
 								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
@@ -226,14 +228,38 @@
 							/>
 							<path
 								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
-								stroke-width="4"
 							/>
 							<path
 								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
-								stroke-width="4"
 							/>
 						</svg>
 						<h2 class="text-xl">Query</h2>
+					</div>
+				</a>
+				<a href={poor ? '/' : base + '/tx'} class="btn">
+					<div class="flex w-32 items-center justify-start gap-4">
+						<svg
+							class="h-10 w-10 fill-none stroke-surface-800 dark:stroke-surface-200"
+							viewBox="0 0 59 59"
+							stroke-miterlimit="10"
+								stroke-width="3"
+								xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
+								stroke-width="4"
+							/>
+							<path
+								d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
+							/>
+							<path
+								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
+							/>
+							<path
+								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
+							/>
+						</svg>
+						<h2 class="text-xl">Tx</h2>
 					</div>
 				</a>
 				<a href="{base}/debug" class="btn">
@@ -304,7 +330,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img class="hidden h-8 pr-2 md:block" src={logo} alt="AmberDAO" />
+					<img class="hidden h-8 pr-2 md:block hover:scale-110" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
 					<strong class="font-['Fira_Sans'] text-xl uppercase text-surface-900-50-token"
@@ -463,9 +489,9 @@
 					NFTs
 				</AppRailAnchor> -->
 				<AppRailAnchor
-					href={poor ? '' : base + '/secret'}
+					href={poor ? '' : base + '/query'}
 					title="Queries"
-					selected={$page.url.pathname === '/secret'}
+					selected={$page.url.pathname === '/query'}
 					regionLead="flex justify-center"
 				>
 					<svelte:fragment slot="lead">
@@ -473,12 +499,10 @@
 						<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
 					</svg> -->
 						<svg
-							width="24"
-							height="24"
+							class="h-6 w-6 fill-none stroke-surface-800 dark:stroke-surface-200"
 							viewBox="0 0 59 59"
-							fill="none"
-							stroke="currentColor"
 							stroke-miterlimit="10"
+							stroke-width="3"
 							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
@@ -490,15 +514,44 @@
 							/>
 							<path
 								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
-								stroke-width="4"
 							/>
 							<path
 								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
-								stroke-width="4"
 							/>
 						</svg>
 					</svelte:fragment>
 					Queries
+				</AppRailAnchor>
+				<AppRailAnchor
+					href={poor ? '' : base + '/tx'}
+					title="Transactions"
+					selected={$page.url.pathname === '/tx'}
+					regionLead="flex justify-center"
+				>
+					<svelte:fragment slot="lead">
+						<svg
+							class="h-6 w-6 fill-none stroke-surface-800 dark:stroke-surface-200"
+							viewBox="0 0 59 59"
+							stroke-miterlimit="10"
+							stroke-width="3"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
+								stroke-width="4"
+							/>
+							<path
+								d="M20.3672 18.8621L26.0882 15.8511L24.5827 22.1743L35.1214 28.3094L40.8425 33.6164L40.2403 40.2408L36.0248 42.3485L35.1214 36.3264L24.2816 30.3042L19.4639 24.5832L20.3672 18.8621Z"
+							/>
+							<path
+								d="M28.9569 44.8452C31.7683 44.9192 36.2073 43.4395 36.2813 40.1102C36.5772 30.6403 19.0431 33.3777 19.413 22.4281C19.561 17.4712 25.5536 14.2899 30.5105 14.5119"
+							/>
+							<path
+								d="M41.2382 19.8387C38.7227 16.8794 35.8374 14.8078 31.6203 14.5119C28.8089 14.29 24.8138 15.6217 24.5179 18.9509C23.704 28.2729 42.126 26.5712 41.1642 37.5208C40.7203 42.4777 34.1357 44.9932 28.9569 44.8452C24.7398 44.6972 21.1146 42.7737 18.1553 39.5184"
+							/>
+						</svg>
+					</svelte:fragment>
+					TXs
 				</AppRailAnchor>
 				<AppRailAnchor
 					href={poor ? '' : base + '/debug'}
@@ -530,8 +583,12 @@
 			</AppRail>
 		</div>
 	</svelte:fragment>
-	<!-- Page Route Content -->
-	<slot />
+	{#if poor && $page.url.pathname !== '/'}
+		<div class="flex h-full w-full items-center justify-center">You're not supposed to be here</div>
+	{:else}
+		<!-- Page Route Content -->
+		<slot />
+	{/if}
 	<svelte:fragment slot="pageFooter">
 		<div class="container absolute bottom-0 right-1 flex items-center justify-end p-1">
 			<!-- <div class="hidden font-medium sm:inline-flex space-x-4">

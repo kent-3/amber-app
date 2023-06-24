@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { secretClient, secretAddress, isAccountAvailable } from '$lib/stores';
+	import { readOnlyClient, secretAddress, isAccountAvailable } from '$lib/stores';
 	import type {
 		DelegationResponse,
 	} from 'secretjs/dist/grpc_gateway/cosmos/staking/v1beta1/staking.pb';
 	import { fade } from 'svelte/transition';
 
 	async function getDelegations(): Promise<DelegationResponse[]> {
-		const { delegation_responses } = await $secretClient.query.staking.delegatorDelegations({
+		const { delegation_responses } = await $readOnlyClient.query.staking.delegatorDelegations({
 			delegator_addr: $secretAddress,
 		});
 		console.log(delegation_responses);

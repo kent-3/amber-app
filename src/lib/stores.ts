@@ -1,7 +1,7 @@
 import type { Key } from '@keplr-wallet/types';
 import { SecretNetworkClient } from 'secretjs';
 import { chains } from './config';
-import { type Writable, writable } from 'svelte/store';
+import { type Writable, writable, type Readable, readable } from 'svelte/store';
 import type { SecretAddress, Token } from './tokens';
 import { localStorageStore } from '@skeletonlabs/skeleton';
 
@@ -19,7 +19,7 @@ export function resetStores() {
 		isNanoLedger: false,
 		isKeystone: false,
 	});
-	secretClient.set(
+	signingClient.set(
 		new SecretNetworkClient({
 			url: SECRET_LCD,
 			chainId: SECRET_CHAIN_ID,
@@ -43,7 +43,14 @@ export const keplrKey: Writable<Key> = writable({
 	isNanoLedger: false,
 	isKeystone: false,
 });
-export const secretClient: Writable<SecretNetworkClient> = writable(
+
+export const readOnlyClient: Writable<SecretNetworkClient> = writable(
+	new SecretNetworkClient({
+		url: SECRET_LCD,
+		chainId: SECRET_CHAIN_ID,
+	})
+)
+export const signingClient: Writable<SecretNetworkClient> = writable(
 	new SecretNetworkClient({
 		url: SECRET_LCD,
 		chainId: SECRET_CHAIN_ID,

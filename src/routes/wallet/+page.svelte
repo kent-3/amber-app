@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Delegations from '$lib/components/Delegations.svelte';
 	import Validators from '$lib/components/Validators.svelte';
-
 	import { fly } from 'svelte/transition';
 	import type { Token } from '$lib/tokens';
 	import { amberBalance, scrtBalance, tokenStore } from '$lib/stores';
