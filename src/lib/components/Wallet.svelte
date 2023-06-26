@@ -201,17 +201,24 @@
 			const promise = getKeplrViewingKey(token.address);
 			keysAndAddresses.push({ promise, address: token.address });
 		}
+		console.log(keysAndAddresses);
+
 		console.log('start');
-		await Promise.all(keysAndAddresses);
+
+		// Promise.all returns an array of the results from each promise in order
+		const keys = await Promise.all(keysAndAddresses.map((item) => item.promise));
+		console.log(keys);
+
 		console.log('stop');
 
-		for (const { promise, address } of keysAndAddresses) {
-			const key = await promise;
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			const address = keysAndAddresses[i].address;
 			if (key != null) {
 				viewingKeys.update((map) => map.set(address, key));
 			}
 		}
-		console.log($viewingKeys.entries())
+		console.log($viewingKeys);
 	}
 
 	async function getBalances() {
@@ -240,9 +247,9 @@
 			});
 			$amberBalance = Number((snip20Response.balance.amount as any) / 1e6).toString();
 		} catch (error) {
-			console.log(`No viewing key for AMBER`)
+			console.log(`No viewing key for AMBER`);
 		}
-		
+
 		// save this problem for later...
 		// for (const token of tokenList) {
 		// 	try {
