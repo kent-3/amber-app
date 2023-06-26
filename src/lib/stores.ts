@@ -8,7 +8,7 @@ import { localStorageStore } from '@skeletonlabs/skeleton';
 const SECRET_CHAIN_ID = chains['Secret Network'].chain_id;
 const SECRET_LCD = chains['Secret Network'].lcd;
 
-export function resetStores() {
+export async function resetStores() {
 	isAccountAvailable.set(false);
 	keplrKey.set({
 		name: '',

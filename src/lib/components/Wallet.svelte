@@ -151,7 +151,7 @@
 	onMount(async () => {
 		window.addEventListener('keplr_keystorechange', async () => {
 			console.log('Key store in Keplr is changed. You may need to refetch the account info.');
-			resetStores();
+			await resetStores();
 			await connect();
 		});
 		if ($isAccountAvailable == true) {
@@ -201,8 +201,9 @@
 			const promise = getKeplrViewingKey(token.address);
 			keysAndAddresses.push({ promise, address: token.address });
 		}
-
+		console.log('start');
 		await Promise.all(keysAndAddresses);
+		console.log('stop');
 
 		for (const { promise, address } of keysAndAddresses) {
 			const key = await promise;
