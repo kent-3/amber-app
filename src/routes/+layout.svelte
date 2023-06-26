@@ -74,8 +74,9 @@
 		// testBatchQuery();
 		// testToasts();
 		// testModal();
-		const supply = await getSupply($readOnlyClient);
-		console.log(supply);
+		// const supply = await getSupply($readOnlyClient);
+		// console.log(supply);
+		console.log($page.url.pathname);
 	}
 
 	// function randomSticker(): string | undefined {
@@ -583,12 +584,12 @@
 			</AppRail>
 		</div>
 	</svelte:fragment>
-	{#if poor && $page.url.pathname !== '/'}
+	<!-- {#if poor && $page.url.pathname !== '/'}
 		<div class="flex h-full w-full items-center justify-center">You're not supposed to be here</div>
-	{:else}
+	{:else} -->
 		<!-- Page Route Content -->
 		<slot />
-	{/if}
+	<!-- {/if} -->
 	<svelte:fragment slot="pageFooter">
 		<div class="container absolute bottom-0 right-1 flex items-center justify-end p-1">
 			<!-- <div class="hidden font-medium sm:inline-flex space-x-4">
