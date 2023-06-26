@@ -211,6 +211,7 @@
 				viewingKeys.update((map) => map.set(address, key));
 			}
 		}
+		console.log($viewingKeys.entries())
 	}
 
 	async function getBalances() {
@@ -239,8 +240,9 @@
 			});
 			$amberBalance = Number((snip20Response.balance.amount as any) / 1e6).toString();
 		} catch (error) {
-			// console.log(`No viewing key for AMBER`)
+			console.log(`No viewing key for AMBER`)
 		}
+		
 		// save this problem for later...
 		// for (const token of tokenList) {
 		// 	try {
