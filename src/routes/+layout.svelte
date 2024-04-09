@@ -217,8 +217,8 @@
 							class="h-10 w-10 fill-none stroke-surface-800 dark:stroke-surface-200"
 							viewBox="0 0 59 59"
 							stroke-miterlimit="10"
-								stroke-width="3"
-								xmlns="http://www.w3.org/2000/svg"
+							stroke-width="3"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
 								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
@@ -243,8 +243,8 @@
 							class="h-10 w-10 fill-none stroke-surface-800 dark:stroke-surface-200"
 							viewBox="0 0 59 59"
 							stroke-miterlimit="10"
-								stroke-width="3"
-								xmlns="http://www.w3.org/2000/svg"
+							stroke-width="3"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
 								d="M29.5 57C44.6878 57 57 44.6878 57 29.5C57 14.3122 44.6878 2 29.5 2C14.3122 2 2 14.3122 2 29.5C2 44.6878 14.3122 57 29.5 57Z"
@@ -331,7 +331,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img class="hidden h-8 pr-2 md:block hover:scale-110" src={logo} alt="AmberDAO" />
+					<img class="hidden h-8 pr-2 hover:scale-110 md:block" src={logo} alt="AmberDAO" />
 				</a>
 				<button on:click={debug}>
 					<strong class="font-['Fira_Sans'] text-xl uppercase text-surface-900-50-token"
@@ -587,8 +587,8 @@
 	<!-- {#if poor && $page.url.pathname !== '/'}
 		<div class="flex h-full w-full items-center justify-center">You're not supposed to be here</div>
 	{:else} -->
-		<!-- Page Route Content -->
-		<slot />
+	<!-- Page Route Content -->
+	<slot />
 	<!-- {/if} -->
 	<svelte:fragment slot="pageFooter">
 		<div class="container absolute bottom-0 right-1 flex items-center justify-end p-1">
@@ -623,7 +623,7 @@
 			>
 				connected to
 				<a
-					href="https://secret.express"
+					href="https://lcd.mainnet.secretsaturn.net"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="unstyled text-secondary-800 underline saturate-200 dark:text-primary-500"

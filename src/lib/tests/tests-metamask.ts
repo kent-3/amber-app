@@ -6,7 +6,7 @@ import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 const SECRET_CHAIN_ID = chains['Secret Network'].chain_id;
 const SECRET_LCD = chains['Secret Network'].lcd;
 const secretjs = new SecretNetworkClient({
-	url: 'https://lcd.secret.express',
+	url: 'https://lcd.mainnet.secretsaturn.net',
 	chainId: 'secret-4',
 });
 

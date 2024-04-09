@@ -4,7 +4,7 @@
 	import axios from 'axios';
 
 	const secretjs = new SecretNetworkClient({
-		url: 'https://lcd.secret.express',
+		url: 'https://lcd.mainnet.secretsaturn.net',
 		chainId: 'secret-4',
 	});
 
