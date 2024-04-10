@@ -31,7 +31,7 @@ module.exports = {
 				'emphasized-accelerate': 'cubic-bezier(0.3, 0.0, 0.8, 0.15)'
 			},
 			fontFamily: {
-				'sans': ['Open Sans', ...defaultTheme.fontFamily.sans],
+				'sans': ['Noto Sans', ...defaultTheme.fontFamily.sans],
 				'mono': ['Fira Code', ...defaultTheme.fontFamily.sans],
 			}
 		}

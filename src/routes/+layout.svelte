@@ -162,7 +162,7 @@
 						<h2 class="text-xl">Home</h2>
 					</div>
 				</a>
-				<a href="{base}/wallet" class="btn">
+				<!-- <a href="{base}/wallet" class="btn">
 					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@
 						</svg>
 						<h2 class="text-xl">Wallet</h2>
 					</div>
-				</a>
+				</a> -->
 				<!-- <a href="{base}/keys" class="btn">
 					<div class="flex gap-4 items-center justify-start w-32">
 						<svg
@@ -237,7 +237,7 @@
 						<h2 class="text-xl">Query</h2>
 					</div>
 				</a>
-				<a href={poor ? '/' : base + '/tx'} class="btn">
+				<!-- <a href={poor ? '/' : base + '/tx'} class="btn">
 					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
 							class="h-10 w-10 fill-none stroke-surface-800 dark:stroke-surface-200"
@@ -262,7 +262,7 @@
 						</svg>
 						<h2 class="text-xl">Tx</h2>
 					</div>
-				</a>
+				</a> -->
 				<a href="{base}/debug" class="btn">
 					<div class="flex w-32 items-center justify-start gap-4">
 						<svg
@@ -283,7 +283,7 @@
 			</div>
 		</div>
 	{:else if $drawerStore.id === 'alert'}
-		<!-- (show 'example-2' contents) -->
+		<!-- (show 'example-1' contents) -->
 		<div class="mx-auto flex items-center justify-center">
 			<h2>Not enough AMBER</h2>
 		</div>
@@ -327,7 +327,7 @@
 				</div>
 				<a
 					class="btn py-0 pl-0 pr-2"
-					href="https://www.amberdao.io"
+					href="https://amber.money"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -340,6 +340,32 @@
 				</button>
 			</svelte:fragment>
 			<svelte:fragment>
+				<!-- <div class="hidden font-medium sm:inline-flex space-x-4">
+					<a
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
+						href="https://discord.gg/VeCAWCAktq"
+						target="_blank"
+						rel="noreferrer"
+					>
+						Discord
+					</a>
+					<a
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
+						href="https://twitter.com/AmberDAO_"
+						target="_blank"
+						rel="noreferrer"
+					>
+						Twitter
+					</a>
+					<a
+						class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
+						href="https://github.com/kent-3/amber"
+						target="_blank"
+						rel="noreferrer"
+					>
+						GitHub
+					</a>
+				</div> -->
 				{#if $amberBalance !== '🤫'}
 					<div
 						class="variant-ghost-primary hidden max-w-xs rounded-xl px-4 py-2 text-center md:inline-flex"
@@ -355,8 +381,7 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">
-		<!-- Hidden below Tailwind's md breakpoint -->
+	<!-- <svelte:fragment slot="sidebarLeft">
 		<div id="sidebar-left" class="hidden md:block">
 			{#if poor}
 				<div
@@ -413,82 +438,9 @@
 								d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z"
 							/>
 						</svg>
-						<!-- <svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"
-							/>
-						</svg> -->
 					</svelte:fragment>
 					Wallet
 				</AppRailAnchor>
-				<!-- <AppRailAnchor
-					href={poor ? '' : base + '/keys'}
-					title="Viewing Keys"
-					selected={$page.url.pathname === '/keys'}
-					regionLead="flex justify-center"
-				>
-					<svelte:fragment slot="lead">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M15.75 1.5a6.75 6.75 0 00-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 00-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 00.75-.75v-1.5h1.5A.75.75 0 009 19.5V18h1.5a.75.75 0 00.53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1015.75 1.5zm0 3a.75.75 0 000 1.5A2.25 2.25 0 0118 8.25a.75.75 0 001.5 0 3.75 3.75 0 00-3.75-3.75z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</svelte:fragment>
-					Keys
-				</AppRailAnchor> -->
-				<!-- <AppRailAnchor title="coming soon" regionLead="flex justify-center" selected={false}>
-					<svelte:fragment slot="lead">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z"
-							/>
-							<path
-								fill-rule="evenodd"
-								d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</svelte:fragment>
-					Delegate
-				</AppRailAnchor> -->
-				<!-- <AppRailAnchor title="coming soon" regionLead="flex justify-center" selected={false}>
-					<svelte:fragment slot="lead">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</svelte:fragment>
-					NFTs
-				</AppRailAnchor> -->
 				<AppRailAnchor
 					href={poor ? '' : base + '/query'}
 					title="Queries"
@@ -496,9 +448,6 @@
 					regionLead="flex justify-center"
 				>
 					<svelte:fragment slot="lead">
-						<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-						<path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
-					</svg> -->
 						<svg
 							class="h-6 w-6 fill-none stroke-surface-800 dark:stroke-surface-200"
 							viewBox="0 0 59 59"
@@ -583,7 +532,7 @@
 				</svelte:fragment>
 			</AppRail>
 		</div>
-	</svelte:fragment>
+	</svelte:fragment> -->
 	<!-- {#if poor && $page.url.pathname !== '/'}
 		<div class="flex h-full w-full items-center justify-center">You're not supposed to be here</div>
 	{:else} -->
@@ -592,32 +541,6 @@
 	<!-- {/if} -->
 	<svelte:fragment slot="pageFooter">
 		<div class="container absolute bottom-0 right-1 flex items-center justify-end p-1">
-			<!-- <div class="hidden font-medium sm:inline-flex space-x-4">
-				<a
-					class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
-					href="https://discord.gg/VeCAWCAktq"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
-					href="https://twitter.com/AmberDAO_"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm ring-1 ring-secondary-500/5 variant-glass-secondary"
-					href="https://github.com/kent-3/amber"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-			</div> -->
 			<code
 				class="unstyled whitespace-nowrap rounded bg-secondary-50/80 px-1 py-0.5 font-mono text-xs text-token dark:bg-primary-500/30 dark:text-primary-400"
 			>
@@ -628,7 +551,8 @@
 					rel="noopener noreferrer"
 					class="unstyled text-secondary-800 underline saturate-200 dark:text-primary-500"
 				>
-					{chains['Secret Network'].lcd}
+					<!-- {chains['Secret Network'].lcd} -->
+					lcd.mainnet.secretsaturn.net
 				</a>
 			</code>
 		</div>

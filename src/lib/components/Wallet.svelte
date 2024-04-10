@@ -201,15 +201,15 @@
 			const promise = getKeplrViewingKey(token.address);
 			keysAndAddresses.push({ promise, address: token.address });
 		}
-		console.log(keysAndAddresses);
+		// console.log(keysAndAddresses);
 
-		console.log('start');
+		// console.log('start');
 
 		// Promise.all returns an array of the results from each promise in order
 		const keys = await Promise.all(keysAndAddresses.map((item) => item.promise));
-		console.log(keys);
+		// console.log(keys);
 
-		console.log('stop');
+		// console.log('stop');
 
 		for (let i = 0; i < keys.length; i++) {
 			const key = keys[i];
@@ -218,7 +218,7 @@
 				viewingKeys.update((map) => map.set(address, key));
 			}
 		}
-		console.log($viewingKeys);
+		// console.log($viewingKeys);
 	}
 
 	async function getBalances() {
@@ -372,7 +372,7 @@
 			[ {$keplrKey.name} ]
 		</p>
 		<hr class="!border-t-2" />
-		<p class="font-mono font-bold text-secondary-600 dark:text-primary-500">
+		<p class="font-mono font-semibold text-secondary-600 dark:text-primary-500">
 			{$scrtBalance} SCRT<br />{$amberBalance} AMBER
 		</p>
 		<!-- <p class="font-bold font-mono text-primary-500">{$amberBalance} AMBER</p> -->
